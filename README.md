@@ -597,7 +597,6 @@ Berikut hasil-hasil evaluasi tiap model:
 
 ![image](https://github.com/user-attachments/assets/a388f496-55e2-4f6c-bf8e-b9144a27bf6f)
 
-
 *Gambar 25: Hasil Evaluasi Ada Boost*
 
 Berikut adalah tabel yang menunjukkan hasil ringkasan metrik **Accuracy** untuk berbagai model yang digunakan:
@@ -614,7 +613,7 @@ Berikut adalah tabel yang menunjukkan hasil ringkasan metrik **Accuracy** untuk 
 | XGBoost                        | 0.992857     |
 | AdaBoost                       | 0.557143     |
 
-*Tabel 6: Ringkasan Hasil Akurasi tiap model *
+*Tabel 6: Ringkasan Hasil Akurasi tiap model*
 
 Tabel ini merangkum hasil **accuracy** dari beberapa model yang diuji, dengan sebagian besar model mencapai hasil sempurna (1.000000), kecuali untuk K-Nearest Neighbors, Logistic Regression, XGBoost, dan AdaBoost.
 
@@ -648,8 +647,58 @@ Berikut adalah **tabel ringkasan hasil cross-validation** yang menunjukkan **Mea
 | XGBoost                        | 0.994643          | 0.007143               |
 | AdaBoost                       | 0.721429          | 0.100604               |
 
+
 *Tabel 7: Ringkasan hasil cross-validation tiap model*
 
+![image](https://github.com/user-attachments/assets/4c66f3ca-9b77-4023-b471-37f73178b15f)
+
+*Gambar 26: Visualisasi Hasil cross-validation tiap model*
+
+Tabel dan histogram ini memperlihatkan **mean accuracy** dari setiap model yang diuji, serta **standard deviation** untuk mengevaluasi konsistensi hasil dari model tersebut selama cross-validation. Perhatikan bahwa model dengan **mean accuracy** yang sangat tinggi dan **standard deviation** yang rendah, seperti **Decision Tree**, **Random Forest**, **SVM**, **Naive Bayes**, dan **Gradient Boosting**, menunjukkan stabilitas yang baik dan tidak cenderung overfitting. Sebaliknya, model **AdaBoost** dengan **standard deviation** yang cukup tinggi menunjukkan adanya variabilitas yang lebih besar dalam kinerjanya.
+
+#### 5. **Feature Importance** 
+
+Pada proyek ini, saya menggunakan analisis **feature importance** untuk menilai kontribusi setiap fitur terhadap kinerja model klasifikasi. **Feature importance** memungkinkan kita untuk memahami fitur mana yang paling mempengaruhi hasil prediksi dan memberikan wawasan yang berguna dalam menginterpretasikan model.
+
+1. **Tujuan Feature Importance**:
+   - **Feature importance** digunakan untuk mengidentifikasi fitur yang memiliki pengaruh paling besar terhadap prediksi yang dihasilkan oleh model. Dengan demikian, kita dapat mengetahui fitur mana yang paling relevan dan layak dipertahankan, serta fitur yang mungkin tidak berkontribusi banyak dan bisa dihapus untuk meningkatkan efisiensi model.
+   - Selain itu, informasi ini juga membantu dalam meningkatkan **interpretabilitas** model, memungkinkan kita menjelaskan dengan lebih mudah bagaimana model membuat keputusan.
+
+2. **Implementasi pada Model**:
+   - Dalam implementasi ini, saya menggunakan beberapa model klasifikasi (seperti **Decision Tree**, **Random Forest**, **Gradient Boosting**, dan lainnya). Setiap model ini memiliki metode **`feature_importances_`** yang menghasilkan skor untuk setiap fitur berdasarkan seberapa banyak mereka mengurangi ketidakpastian (impurity) dalam model.
+   - Model-model yang mendukung metode ini, seperti pohon keputusan, memberikan nilai yang menunjukkan pentingnya setiap fitur dalam menentukan kelas target.
+
+3. **Langkah-langkah dalam Analisis Feature Importance**:
+   - **Latih Model**: Setiap model dilatih menggunakan dataset pelatihan (**x_train**, **y_train**).
+   - **Periksa Feature Importance**: Setelah model dilatih, kita memeriksa apakah model tersebut menyediakan atribut **`feature_importances_`**. Jika tersedia, saya mengurutkan fitur berdasarkan nilai importance tertinggi dan memilih **top_n** fitur yang paling penting.
+   - **Visualisasi**: Untuk mempermudah interpretasi, saya memvisualisasikan hasil **feature importance** menggunakan **bar plot** yang menunjukkan kontribusi relatif masing-masing fitur terhadap model.
+
+4. **Visualisasi Hasil**:
+   - Setiap model menghasilkan **bar plot** yang menampilkan **top_n** fitur dengan **importance tertinggi**, yang memudahkan dalam memahami fitur mana yang paling mempengaruhi prediksi model. Visualisasi ini sangat membantu dalam menggali lebih dalam hubungan antara fitur dan hasil klasifikasi.
+
+5. **Manfaat Feature Importance**:
+   - **Reduksi Dimensi**: Dengan mengetahui fitur mana yang paling penting, kita dapat mengurangi jumlah fitur yang digunakan dalam pelatihan model, yang pada gilirannya dapat meningkatkan kecepatan dan efisiensi model.
+   - **Optimasi Model**: Mengetahui fitur yang penting memungkinkan kita untuk fokus pada variabel yang lebih relevan, dan dengan demikian meningkatkan kinerja model.
+   - **Pemahaman dan Interpretasi**: Feature importance meningkatkan **transparansi** model, memberi kita pemahaman yang lebih baik tentang bagaimana model membuat keputusan, yang sangat berguna untuk aplikasi di dunia nyata.
+
+Berikut hasil feature importance:
+
+![image](https://github.com/user-attachments/assets/bf96bf9d-4bf0-488d-b304-21288a1fa53d)
+
+*Gambar 27: Hasil Feature Importance Decision Tree*
 
 
-Tabel ini memperlihatkan **mean accuracy** dari setiap model yang diuji, serta **standard deviation** untuk mengevaluasi konsistensi hasil dari model tersebut selama cross-validation. Perhatikan bahwa model dengan **mean accuracy** yang sangat tinggi dan **standard deviation** yang rendah, seperti **Decision Tree**, **Random Forest**, **SVM**, **Naive Bayes**, dan **Gradient Boosting**, menunjukkan stabilitas yang baik dan tidak cenderung overfitting. Sebaliknya, model **AdaBoost** dengan **standard deviation** yang cukup tinggi menunjukkan adanya variabilitas yang lebih besar dalam kinerjanya.
+
+*Gambar 27: Hasil Feature Importance Decision Tree*
+
+
+*Gambar 27: Hasil Feature Importance Decision Tree*
+
+
+*Gambar 27: Hasil Feature Importance Decision Tree*
+
+
+*Gambar 27: Hasil Feature Importance Decision Tree*
+
+
+
