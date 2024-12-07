@@ -60,7 +60,17 @@ Feature importance adalah teknik yang menghitung skor kontribusi masing-masing f
 ## 3. Data Understanding
 
 ### Dataset yang Digunakan 
-Dataset yang digunakan dalam proyek ini adalah **Mobile Device Usage and User Behavior Dataset** yang tersedia di [Kaggle](https://www.kaggle.com/datasets/valakhorasani/mobile-device-usage-and-user-behavior-dataset). Dataset ini menyediakan informasi rinci terkait penggunaan perangkat seluler dan perilaku pengguna.
+Dataset yang digunakan dalam proyek ini adalah **Mobile Device Usage and User Behavior Dataset**, yang tersedia di [Kaggle](https://www.kaggle.com/datasets/valakhorasani/mobile-device-usage-and-user-behavior-dataset). Dataset ini menyediakan informasi mendetail tentang pola penggunaan perangkat seluler dan perilaku pengguna.
+
+Berikut adalah gambaran awal dari dataset yang digunakan:
+
+| **User ID** | **Device Model**     | **Operating System** | **App Usage Time (min/day)** | **Screen On Time (hours/day)** | **Battery Drain (mAh/day)** | **Number of Apps Installed** | **Data Usage (MB/day)** | **Age** | **Gender** | **User Behavior Class** |
+|-------------|----------------------|----------------------|------------------------------|--------------------------------|-----------------------------|------------------------------|-------------------------|---------|------------|--------------------------|
+| 1           | Google Pixel 5       | Android              | 393                          | 6.4                            | 1872                       | 67                           | 1122                   | 40      | Male       | 4                        |
+| 2           | OnePlus 9            | Android              | 268                          | 4.7                            | 1331                       | 42                           | 944                    | 47      | Female     | 3                        |
+| 3           | Xiaomi Mi 11         | Android              | 154                          | 4.0                            | 761                        | 32                           | 322                    | 42      | Male       | 2                        |
+| 4           | Google Pixel 5       | Android              | 239                          | 4.8                            | 1676                       | 56                           | 871                    | 20      | Male       | 3                        |
+| 5           | iPhone 12            | iOS                  | 187                          | 4.3                            | 1367                       | 58                           | 988                    | 31      | Female     | 3                        |
 
 ### Deskripsi Dataset
 Dataset ini terdiri dari **700 sampel** dengan **10 kolom fitur utama** dan 1 kolom target. Semua data telah diproses sehingga tidak memiliki nilai yang hilang, dan kolom **User ID**, yang tidak relevan dengan analisis, telah dihapus.
@@ -77,10 +87,7 @@ Berikut adalah deskripsi fitur yang digunakan:
 - **Gender**: Jenis kelamin pengguna (Laki-laki/Perempuan).
 - **User Behavior Class**: Kategori perilaku pengguna, yang digunakan sebagai **label target** untuk klasifikasi.
 
-Dataset ini memberikan gambaran menyeluruh tentang kebiasaan penggunaan perangkat, sehingga memungkinkan analisis untuk memahami faktor yang memengaruhi perilaku pengguna secara lebih mendalam. Data ini juga cocok untuk diolah menggunakan algoritma machine learning karena sudah dalam format yang bersih dan siap digunakan.
-
-### Eksplorasi Data
-Kami melakukan **one-hot encoding** pada kolom **Device Model** dan **Operating System** untuk mengubah fitur kategorikal menjadi fitur numerik. Fitur numerikal seperti waktu penggunaan aplikasi, konsumsi baterai, dan lainnya di-normalisasi untuk memastikan skala yang serupa.
+Dataset ini memberikan gambaran menyeluruh tentang kebiasaan penggunaan perangkat, sehingga memungkinkan analisis untuk memahami faktor yang memengaruhi perilaku pengguna secara lebih mendalam. 
 
 ## 4. Data Preparation
 
@@ -90,7 +97,11 @@ Langkah-langkah persiapan data meliputi:
 2. **Normalisasi**: Fitur numerik seperti **App Usage Time**, **Screen On Time**, dan lainnya di-scale menggunakan **StandardScaler**.
 3. **Pembagian Data**: Data dibagi menjadi training (80%) dan testing (20%).
 
-## 5. Modeling
+## 5.  Eksplorasi Data
+-
+
+
+## 6. Modeling
 
 ### Algoritma yang Digunakan
 Algoritma **Random Forest Classifier** dipilih karena mampu menangani dataset dengan jumlah fitur yang cukup banyak dan bekerja dengan baik pada data klasifikasi.
@@ -101,10 +112,7 @@ Hyperparameter tuning dilakukan untuk mencari kombinasi parameter terbaik dengan
 - **max_depth**: Kedalaman maksimum dari pohon.
 - **min_samples_split**: Jumlah minimum sampel untuk membagi node internal.
 
-### Evaluasi Model
-Model diuji menggunakan data testing dan hasil evaluasi awal menunjukkan bahwa akurasi model mencapai **100%**, dengan nilai precision, recall, dan F1-score untuk semua kelas adalah **1.00**. Hasil ini mengindikasikan potensi overfitting yang bisa diperbaiki dengan tuning lebih lanjut atau pemilihan algoritma alternatif.
-
-## 6. Evaluation
+## 7. Evaluation and interptetation
 
 ### Metrik Evaluasi
 Metrik evaluasi yang digunakan adalah:
