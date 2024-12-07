@@ -152,6 +152,8 @@ Berikut adalah tampilan Data setelah dilakukan Label Encoder:
 | 3     | Google Pixel 5      | 0                | 239                      | 4.8                        | 1676                   | 56                       | 871                 | 20  | 1      | 3                  |
 | 4     | iPhone 12           | 1                | 187                      | 4.3                        | 1367                   | 58                       | 988                 | 31  | 0      | 3                  |
 *Tabel 3: Dataset setelah dilakukan Label Encoder*
+
+2. ****
 ## 5.  Eksplorasi Data
 -
 
