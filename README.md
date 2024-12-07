@@ -703,5 +703,36 @@ Berikut hasil feature importance:
 
 *Gambar 31: Hasil Feature Importance Ada Boost*
 
+### Penjelasan dan Analisis Feature Importance
 
+Dalam analisis **feature importance**, kami menganalisis kontribusi masing-masing fitur terhadap performa model prediksi. Berikut adalah hasil **feature importance** untuk berbagai model yang digunakan, beserta alasan dan analisis dari setiap model:
+
+1. **Decision Tree**:
+   - **Fitur Paling Penting**: `Number of Apps Installed`, `Battery Drain (mAh/day)`, dan `Data Usage (MB/day)` memiliki nilai penting yang signifikan.
+   - **Analisis**: Pada model ini, fitur-fitur seperti **jumlah aplikasi yang diinstal**, **drainase baterai**, dan **penggunaan data** terbukti sangat berpengaruh terhadap keputusan klasifikasi. Ini menunjukkan bahwa kebiasaan pengguna perangkat dalam hal penggunaan aplikasi dan konsumsi daya sangat menentukan pola penggunaan perangkat.
+   - **Fitur yang Tidak Penting**: Fitur seperti **jenis perangkat** dan **gender** memiliki **nilai importance** yang sangat kecil, bahkan beberapa di antaranya adalah nol, yang menunjukkan bahwa model ini tidak mempertimbangkan fitur-fitur tersebut dalam pembuatan keputusan.
+
+2. **Random Forest**:
+   - **Fitur Paling Penting**: `Number of Apps Installed`, `Data Usage (MB/day)`, `App Usage Time (min/day)`, dan `Battery Drain (mAh/day)` memiliki nilai importance yang cukup signifikan.
+   - **Analisis**: Random Forest mengonfirmasi temuan dari model **Decision Tree** dengan memberi bobot tinggi pada fitur-fitur yang terkait dengan perilaku pengguna, seperti **waktu penggunaan aplikasi** dan **jumlah aplikasi yang diinstal**. Hal ini menunjukkan bahwa model ini mengandalkan informasi penggunaan sehari-hari yang lebih rinci untuk memprediksi kategori penggunaan perangkat.
+   - **Fitur yang Tidak Penting**: Fitur seperti **gender** dan **jenis perangkat** hampir tidak berpengaruh dalam keputusan model, yang mungkin menunjukkan bahwa model lebih fokus pada penggunaan perangkat daripada karakteristik pengguna.
+
+3. **Gradient Boosting**:
+   - **Fitur Paling Penting**: `App Usage Time (min/day)`, `Battery Drain (mAh/day)`, dan `Number of Apps Installed` adalah fitur yang paling berpengaruh.
+   - **Analisis**: Model **Gradient Boosting** menunjukkan kesamaan dengan model berbasis pohon keputusan dalam hal pentingnya fitur terkait dengan penggunaan aplikasi dan konsumsi daya. Ini mengindikasikan bahwa pola penggunaan perangkat, baik dalam hal **waktu penggunaan aplikasi** dan **drainase baterai**, sangat berperan dalam menentukan kategori penggunaannya.
+   - **Fitur yang Tidak Penting**: Fitur seperti **age**, **gender**, dan **sistem operasi** menunjukkan pentingnya yang sangat kecil atau mendekati nol.
+
+4. **XGBoost**:
+   - **Fitur Paling Penting**: `Battery Drain (mAh/day)`, `App Usage Time (min/day)`, dan `Number of Apps Installed` memiliki pengaruh terbesar.
+   - **Analisis**: Hasil dari **XGBoost** mengonfirmasi temuan dari model lainnya dengan memberikan bobot tinggi pada fitur yang terkait dengan **penggunaan aplikasi** dan **konsumsi daya**. Hal ini mengindikasikan bahwa model ini juga menganggap pola perilaku pengguna perangkat sebagai faktor yang paling menentukan.
+   - **Fitur yang Tidak Penting**: Seperti pada model lain, fitur seperti **gender**, **age**, dan **jenis perangkat** memiliki pengaruh yang minimal.
+
+5. **AdaBoost**:
+   - **Fitur Paling Penting**: `Data Usage (MB/day)`, `App Usage Time (min/day)`, dan `Battery Drain (mAh/day)` adalah fitur yang sangat penting.
+   - **Analisis**: **AdaBoost** juga menunjukkan bahwa fitur terkait dengan penggunaan aplikasi dan konsumsi daya memainkan peran utama dalam memprediksi kategori penggunaan perangkat. Meskipun ada kontribusi kecil dari fitur lainnya, model ini menekankan pola perilaku pengguna sebagai indikator utama.
+
+### Kesimpulan Dari Feature Importance:
+- **Fitur yang paling berpengaruh** di semua model yang mendukung **feature_importances_** adalah fitur terkait dengan penggunaan perangkat, seperti **jumlah aplikasi yang diinstal**, **waktu penggunaan aplikasi**, dan **drainase baterai**. Hal ini menunjukkan bahwa model-model ini mengandalkan perilaku pengguna sehari-hari dalam menentukan kategori penggunaan perangkat.
+- **Fitur yang kurang penting** adalah **gender**, **age**, dan **jenis perangkat**, yang tampaknya tidak berperan signifikan dalam prediksi kategori penggunaan perangkat.
+- Model-model seperti **KNN**, **SVM**, **Logistic Regression**, dan **Naive Bayes** tidak mendukung fitur **feature_importances_**, tetapi mereka masih dapat digunakan untuk klasifikasi berdasarkan pola yang lebih kompleks antar fitur.
 
