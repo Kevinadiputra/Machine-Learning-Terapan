@@ -114,7 +114,7 @@ Berikut adalah tabel dengan nama dan informasi terkait data dalam dataset:
 
 ### Teknik Data Preparation
 Langkah-langkah persiapan data meliputi:
-1. **Label Encoder**: Kolom **Device Model** dan **Operating System** diubah menjadi vektor numerik.
+1. **Label Encoder**: Kolom **Gender** dan **Operating System** diubah menjadi vektor numerik.
 ```python
 # @title Mengubah kolom kategorikal menjadi numerikal menggunakan LabelEncoder
 labencoder = preprocessing.LabelEncoder()
@@ -123,7 +123,9 @@ df['Gender'] = labencoder.fit_transform(df['Gender'])
 df
 ```
 - **Apa itu Label Encoding?**
-  
+
+  Label encoding adalah teknik dalam pemrosesan data yang digunakan untuk mengubah data kategorikal menjadi representasi numerik. Teknik ini menggantikan setiap kategori unik dalam sebuah kolom dengan angka tertentu, biasanya berdasarkan urutan kemunculan atau tingkatannya.[[11]](https://www.geeksforgeeks.org/ml-label-encoding-of-datasets-in-python/)
+
 - **Mengapa Menggunakan Label Encoding?**
    - Kolom **`Operating System`** dan **`Gender`** adalah tipe data kategorikal dengan nilai unik binary, seperti:
      - `Operating System`: "Android" dan "iOS".
@@ -151,10 +153,52 @@ Berikut adalah tampilan Data setelah dilakukan Label Encoder:
 | 2     | Xiaomi Mi 11        | 0                | 154                      | 4.0                        | 761                    | 32                       | 322                 | 42  | 1      | 2                  |
 | 3     | Google Pixel 5      | 0                | 239                      | 4.8                        | 1676                   | 56                       | 871                 | 20  | 1      | 3                  |
 | 4     | iPhone 12           | 1                | 187                      | 4.3                        | 1367                   | 58                       | 988                 | 31  | 0      | 3                  |
+
 *Tabel 3: Dataset setelah dilakukan Label Encoder*
 
-2. ****
-## 5.  Eksplorasi Data
+### 2. One-Hot Encoding pada Kolom Kategorikal Non-Ordinal("Device Model")
+
+**Apa itu One-Hot Encoding?**  
+One-Hot Encoding adalah teknik representasi data yang mengonversi variabel kategorikal menjadi format yang lebih mudah dipahami oleh model machine learning. Teknik ini menciptakan kolom biner terpisah untuk setiap kategori unik pada kolom awal. Setiap kolom baru diisi dengan nilai **1** jika kategori tersebut ada, atau **0** jika tidak.[[12]](https://www.geeksforgeeks.org/ml-one-hot-encoding/)
+
+**Mengapa Menggunakan One-Hot Encoding?**  
+One-Hot Encoding digunakan untuk kolom kategorikal **non-ordinal**, seperti **Device Model**, yang kategorinya tidak memiliki urutan atau hierarki. Dalam kasus ini, representasi numerikal biasa (seperti Label Encoding) dapat menyesatkan model dengan menyiratkan adanya hubungan ordinal antara kategori. Dengan One-Hot Encoding, hubungan ordinal ini dihindari, memastikan model memberikan bobot yang adil untuk setiap kategori.
+
+**Keunggulan One-Hot Encoding**  
+1. **Meningkatkan Akurasi Model**: Representasi biner menghindari bias yang mungkin terjadi akibat interpretasi ordinal pada data.
+2. **Kesesuaian dengan Algoritma Machine Learning**: Algoritma seperti regresi linier dan neural network bekerja lebih baik dengan data numerikal yang tidak menyiratkan hubungan ordinal.
+3. **Memperjelas Informasi Kategori**: Setiap kategori mendapatkan kolom yang jelas tanpa tumpang tindih.
+
+**Langkah-Langkah Implementasi**
+1. **Konversi Kategori ke Representasi Biner**  
+   Menggunakan fungsi `pd.get_dummies`, semua nilai unik dari kolom **Device Model** dikonversi menjadi kolom baru yang hanya berisi **0** dan **1**.  
+   ```python
+   df = df.join(pd.get_dummies(df['Device Model'], dtype=int))
+   ```
+
+2. **Penggabungan dengan Dataset Asli**  
+   Kolom hasil encoding langsung digabungkan dengan dataset awal.
+
+3. **Penghapusan Kolom Asli**  
+   Kolom **Device Model** yang asli dihapus menggunakan fungsi `drop` karena informasinya telah direpresentasikan dalam kolom hasil encoding.  
+   ```python
+   df = df.drop(columns='Device Model')
+   ```
+
+**Hasil**  
+Setelah proses ini, dataset memiliki kolom tambahan untuk setiap model perangkat. Berikut adalah contoh hasil setelah One-Hot Encoding diterapkan pada kolom **Device Model**:
+
+| Operating System | App Usage Time (min/day) | Screen On Time (hours/day) | Battery Drain (mAh/day) | Number of Apps Installed | Data Usage (MB/day) | Age | Gender | User Behavior Class | Google Pixel 5 | OnePlus 9 | Samsung Galaxy S21 | Xiaomi Mi 11 | iPhone 12 |
+|-------------------|--------------------------|----------------------------|--------------------------|--------------------------|---------------------|-----|--------|--------------------|----------------|-----------|--------------------|--------------|-----------|
+| 0                 | 393                      | 6.4                        | 1872                     | 67                       | 1122                | 40  | 1      | 4                  | 1              | 0         | 0                  | 0            | 0         |
+| 0                 | 268                      | 4.7                        | 1331                     | 42                       | 944                 | 47  | 0      | 3                  | 0              | 1         | 0                  | 0            | 0         |
+| 0                 | 154                      | 4.0                        | 761                      | 32                       | 322                 | 42  | 1      | 2                  | 0              | 0         | 0                  | 1            | 0         |
+| 0                 | 239                      | 4.8                        | 1676                     | 56                       | 871                 | 20  | 1      | 3                  | 1              | 0         | 0                  | 0            | 0         |
+| 1                 | 187                      | 4.3                        | 1367                     | 58                       | 988                 | 31  | 0      | 3                  | 0              | 0         | 0                  | 0            | 1         |
+
+*Tabel 4: Dataset setelah One-Hot Encoding*
+
+## 5.  Exploration Data Analysis
 -
 
 
