@@ -4,7 +4,7 @@
 
 ### **Latar Belakang**
 
-Dengan semakin meningkatnya penggunaan perangkat seluler dalam kehidupan sehari-hari, pemahaman mengenai perilaku pengguna perangkat menjadi sangat penting. Pengguna perangkat seluler kini tidak hanya menggunakan perangkat untuk komunikasi, tetapi juga untuk berbagai aktivitas digital lainnya seperti hiburan, belanja online, pendidikan, dan pekerjaan. Seiring dengan perubahan perilaku ini, perangkat seluler kini mengumpulkan sejumlah besar data terkait penggunaan, yang bisa memberikan wawasan berharga tentang preferensi dan kebiasaan pengguna.
+Dengan semakin meningkatnya penggunaan perangkat seluler dalam kehidupan sehari-hari, pemahaman mengenai perilaku pengguna perangkat menjadi sangat penting. Pengguna perangkat seluler kini tidak hanya menggunakan perangkat untuk komunikasi, tetapi juga untuk berbagai aktivitas digital lainnya seperti hiburan, belanja online, pendidikan, dan pekerjaan. Seiring dengan perubahan perilaku ini, perangkat seluler kini mengumpulkan sejumlah besar data terkait penggunaan, yang bisa memberikan wawasan berharga tentang preferensi dan kebiasaan pengguna.[[1]](https://databycy.com/2024/10/27/analyzing-user-behavior-based-on-device-characteristics-and-app-usage/)
 
 Pengetahuan tentang pola perilaku pengguna tidak hanya bermanfaat bagi pengembangan produk, tetapi juga dapat berperan penting dalam berbagai aspek lain, seperti optimasi penggunaan energi, peningkatan pengalaman pengguna, serta strategi pemasaran berbasis data yang lebih efektif. Misalnya, dengan memahami durasi layar menyala dan konsumsi baterai, produsen perangkat dapat merancang produk dengan daya tahan baterai yang lebih baik atau fitur hemat energi yang lebih efisien. Di sisi lain, bagi pengembang aplikasi, wawasan tentang berapa lama aplikasi digunakan dan jumlah aplikasi yang diinstal dapat digunakan untuk menyesuaikan fungsionalitas dan antarmuka pengguna agar lebih menarik dan sesuai dengan kebutuhan pengguna.
 
@@ -13,6 +13,7 @@ Selain itu, data perilaku pengguna ini juga dapat diterapkan dalam pengambilan k
 Pada proyek ini, model machine learning dikembangkan untuk memprediksi **kategori perilaku pengguna perangkat** berdasarkan berbagai metrik, seperti penggunaan aplikasi, durasi layar menyala, konsumsi baterai, jumlah aplikasi yang terinstal, dan data penggunaan lainnya. Melalui analisis data ini, diharapkan dapat ditemukan pola yang mencerminkan kebiasaan pengguna yang berbeda, yang pada akhirnya dapat membantu dalam merancang produk dan layanan yang lebih sesuai dengan kebutuhan pengguna.
 
 Pemahaman yang lebih baik tentang perilaku pengguna tidak hanya menguntungkan bagi perusahaan teknologi, tetapi juga membuka peluang untuk inovasi dalam desain perangkat dan aplikasi yang lebih ramah pengguna, berkelanjutan, dan relevan dengan perkembangan teknologi saat ini.
+
 ## 2. Business Understanding
 
 ### **Problem Statements**
@@ -30,30 +31,30 @@ Untuk mencapai tujuan ini, langkah-langkah berikut dilakukan:
 Sebagai langkah awal, 9 model berbeda akan dievaluasi untuk menentukan model mana yang memberikan akurasi terbaik dalam memprediksi kelas perilaku pengguna. Model yang diuji meliputi:
 Berikut adalah penjelasan yang lebih rapi dan terstruktur mengenai 9 model yang digunakan dalam perbandingan performa untuk memprediksi kelas perilaku pengguna:
 - **Decision Tree (DT)**
-Decision Tree adalah algoritma yang membagi data menjadi beberapa cabang berdasarkan fitur tertentu, dengan tujuan meminimalkan ketidakpastian dalam prediksi. Setiap node dalam pohon mewakili sebuah fitur, dan setiap cabang mewakili keputusan berdasarkan nilai fitur tersebut. Model ini mudah dipahami dan diinterpretasikan.[[1]](https://www.ibm.com/id-id/topics/decision-trees)
+Decision Tree adalah algoritma yang membagi data menjadi beberapa cabang berdasarkan fitur tertentu, dengan tujuan meminimalkan ketidakpastian dalam prediksi. Setiap node dalam pohon mewakili sebuah fitur, dan setiap cabang mewakili keputusan berdasarkan nilai fitur tersebut. Model ini mudah dipahami dan diinterpretasikan.[[2]](https://www.ibm.com/id-id/topics/decision-trees)
 - **Random Forest (RF)**
-Random Forest adalah metode ensemble yang menggunakan banyak pohon keputusan (decision trees) untuk meningkatkan akurasi prediksi. Setiap pohon dibangun menggunakan subset acak dari data dan fitur, dengan hasil akhirnya ditentukan oleh voting mayoritas dari semua pohon. Ini membantu mengurangi overfitting dan meningkatkan generalisasi.[[2]](https://www.ibm.com/topics/random-forest)
+Random Forest adalah metode ensemble yang menggunakan banyak pohon keputusan (decision trees) untuk meningkatkan akurasi prediksi. Setiap pohon dibangun menggunakan subset acak dari data dan fitur, dengan hasil akhirnya ditentukan oleh voting mayoritas dari semua pohon. Ini membantu mengurangi overfitting dan meningkatkan generalisasi.[[3]](https://www.ibm.com/topics/random-forest)
 - **Logistic Regression (LG)**
-Logistic Regression adalah model statistik yang digunakan untuk klasifikasi biner atau multi-kelas. Model ini menghitung probabilitas bahwa suatu input termasuk dalam suatu kelas tertentu menggunakan fungsi logit. Logistic Regression sangat populer karena kesederhanaannya dalam interpretasi.[[3]](https://www.ibm.com/topics/logistic-regression)
+Logistic Regression adalah model statistik yang digunakan untuk klasifikasi biner atau multi-kelas. Model ini menghitung probabilitas bahwa suatu input termasuk dalam suatu kelas tertentu menggunakan fungsi logit. Logistic Regression sangat populer karena kesederhanaannya dalam interpretasi.[[4]](https://www.ibm.com/topics/logistic-regression)
 - **K-Nearest Neighbors (KNN)**
-KNN adalah algoritma non-parametrik yang mengklasifikasikan data berdasarkan kedekatannya dengan data lain. Setiap data diberi label berdasarkan mayoritas kelas dari \(k\) tetangga terdekatnya. Algoritma ini sederhana namun seringkali efektif untuk dataset kecil dan sederhana.[[4]](https://esairina.medium.com/algoritma-k-nearest-neighbor-knn-penjelasan-dan-implementasi-untuk-klasifikasi-kanker-ff9b7fbe0a4)
+KNN adalah algoritma non-parametrik yang mengklasifikasikan data berdasarkan kedekatannya dengan data lain. Setiap data diberi label berdasarkan mayoritas kelas dari \(k\) tetangga terdekatnya. Algoritma ini sederhana namun seringkali efektif untuk dataset kecil dan sederhana.[[5]](https://esairina.medium.com/algoritma-k-nearest-neighbor-knn-penjelasan-dan-implementasi-untuk-klasifikasi-kanker-ff9b7fbe0a4)
 - **Support Vector Machine (SVM)**
-SVM adalah algoritma klasifikasi yang berusaha menemukan hyperplane terbaik yang memisahkan kelas-kelas data. Tujuannya adalah untuk memaksimalkan margin (jarak) antara kelas-kelas tersebut. SVM sangat efektif untuk data dengan dimensi tinggi dan mampu menangani masalah klasifikasi non-linear dengan kernel trick.[[5]](https://www.ibm.com/id-id/topics/support-vector-machine)
+SVM adalah algoritma klasifikasi yang berusaha menemukan hyperplane terbaik yang memisahkan kelas-kelas data. Tujuannya adalah untuk memaksimalkan margin (jarak) antara kelas-kelas tersebut. SVM sangat efektif untuk data dengan dimensi tinggi dan mampu menangani masalah klasifikasi non-linear dengan kernel trick.[[6]](https://www.ibm.com/id-id/topics/support-vector-machine)
 - **AdaBoost**
-AdaBoost (Adaptive Boosting) adalah teknik ensemble yang menggabungkan beberapa model lemah (weak learners) untuk membentuk model yang lebih kuat. Algoritma ini memberi bobot lebih pada data yang salah klasifikasi pada iterasi sebelumnya, dengan tujuan memperbaiki kesalahan yang terjadi.[[6]](https://www.analyticsvidhya.com/blog/2021/09/adaboost-algorithm-a-complete-guide-for-beginners/)
+AdaBoost (Adaptive Boosting) adalah teknik ensemble yang menggabungkan beberapa model lemah (weak learners) untuk membentuk model yang lebih kuat. Algoritma ini memberi bobot lebih pada data yang salah klasifikasi pada iterasi sebelumnya, dengan tujuan memperbaiki kesalahan yang terjadi.[[7]](https://www.analyticsvidhya.com/blog/2021/09/adaboost-algorithm-a-complete-guide-for-beginners/)
 - **XGBoost**
-XGBoost adalah implementasi optimasi dari Gradient Boosting yang menggunakan banyak pohon keputusan. Teknik ini menggabungkan pembelajaran berbasis boosting dan regularisasi untuk meningkatkan kecepatan dan mengurangi overfitting, menjadikannya salah satu algoritma yang paling populer untuk masalah klasifikasi.[[7]](https://xgboost.readthedocs.io/)
+XGBoost adalah implementasi optimasi dari Gradient Boosting yang menggunakan banyak pohon keputusan. Teknik ini menggabungkan pembelajaran berbasis boosting dan regularisasi untuk meningkatkan kecepatan dan mengurangi overfitting, menjadikannya salah satu algoritma yang paling populer untuk masalah klasifikasi.[[8]](https://xgboost.readthedocs.io/)
 - **Naive Bayes**
-Naive Bayes adalah model probabilistik yang menggunakan teorema Bayes untuk klasifikasi. Model ini mengasumsikan bahwa fitur-fitur dalam data bersifat independen, yang menyederhanakan perhitungan probabilitas kelas. Naive Bayes sering digunakan untuk masalah klasifikasi teks, seperti analisis sentimen.[[8]](https://www.ibm.com/topics/naive-bayes)
+Naive Bayes adalah model probabilistik yang menggunakan teorema Bayes untuk klasifikasi. Model ini mengasumsikan bahwa fitur-fitur dalam data bersifat independen, yang menyederhanakan perhitungan probabilitas kelas. Naive Bayes sering digunakan untuk masalah klasifikasi teks, seperti analisis sentimen.[[9]](https://www.ibm.com/topics/naive-bayes)
 - **Gradient Boosting**
-Gradient Boosting adalah metode ensemble yang membangun model secara bertahap. Setiap model baru berfokus pada kesalahan yang dilakukan oleh model sebelumnya, sehingga model secara iteratif memperbaiki kesalahan prediksi. Teknik ini sangat efektif untuk berbagai macam tugas klasifikasi dan regresi.[[9]](https://www.geeksforgeeks.org/ml-gradient-boosting/)
+Gradient Boosting adalah metode ensemble yang membangun model secara bertahap. Setiap model baru berfokus pada kesalahan yang dilakukan oleh model sebelumnya, sehingga model secara iteratif memperbaiki kesalahan prediksi. Teknik ini sangat efektif untuk berbagai macam tugas klasifikasi dan regresi.[[10]](https://www.geeksforgeeks.org/ml-gradient-boosting/)
 ### Evaluasi Model:
 Setiap model ini akan dievaluasi dengan menggunakan **akurasi** untuk menilai seberapa baik prediksi yang dihasilkan dalam memprediksi kelas perilaku pengguna. Selain itu, **confusion matrix** akan digunakan untuk memberikan gambaran lebih mendalam mengenai kesalahan prediksi, termasuk jumlah **false positives** dan **false negatives** untuk masing-masing kelas.
 
 3. **Feature Importance untuk Mengidentifikasi Fitur Utama:**
    - Setelah menentukan model terbaik, **feature importance** akan dilakukan untuk memahami fitur mana yang memiliki pengaruh paling besar terhadap prediksi kelas perilaku pengguna. Proses ini akan mengidentifikasi fitur-fitur seperti **waktu penggunaan aplikasi**, **waktu layar menyala**, dan **konsumsi baterai**, serta faktor-faktor lain yang dapat menjelaskan pola perilaku pengguna dengan lebih baik.
       - **Feature Importance**
-Feature importance adalah teknik yang menghitung skor kontribusi masing-masing fitur terhadap kinerja model prediktif, dengan skor yang lebih tinggi menunjukkan fitur yang memiliki dampak lebih besar pada hasil prediksi. Teknik ini membantu dalam memahami data, mengoptimalkan model, dan mengurangi dimensionalitas. [[10]](https://builtin.com/data-science/feature-importance)
+Feature importance adalah teknik yang menghitung skor kontribusi masing-masing fitur terhadap kinerja model prediktif, dengan skor yang lebih tinggi menunjukkan fitur yang memiliki dampak lebih besar pada hasil prediksi. Teknik ini membantu dalam memahami data, mengoptimalkan model, dan mengurangi dimensionalitas. [[11]](https://builtin.com/data-science/feature-importance)
    
    Dengan mengidentifikasi fitur yang paling berpengaruh, kita dapat memberikan wawasan lebih dalam tentang perilaku pengguna dan memberikan rekomendasi untuk pengembangan produk atau strategi pemasaran yang lebih efektif berdasarkan data tersebut.
 
@@ -124,7 +125,7 @@ df
 ```
 - **Apa itu Label Encoding?**
 
-  Label encoding adalah teknik dalam pemrosesan data yang digunakan untuk mengubah data kategorikal menjadi representasi numerik. Teknik ini menggantikan setiap kategori unik dalam sebuah kolom dengan angka tertentu, biasanya berdasarkan urutan kemunculan atau tingkatannya.[[11]](https://www.geeksforgeeks.org/ml-label-encoding-of-datasets-in-python/)
+  Label encoding adalah teknik dalam pemrosesan data yang digunakan untuk mengubah data kategorikal menjadi representasi numerik. Teknik ini menggantikan setiap kategori unik dalam sebuah kolom dengan angka tertentu, biasanya berdasarkan urutan kemunculan atau tingkatannya.[[12]](https://www.geeksforgeeks.org/ml-label-encoding-of-datasets-in-python/)
 
 - **Mengapa Menggunakan Label Encoding?**
    - Kolom **`Operating System`** dan **`Gender`** adalah tipe data kategorikal dengan nilai unik binary, seperti:
@@ -159,7 +160,7 @@ Berikut adalah tampilan Data setelah dilakukan Label Encoder:
 ### 2. One-Hot Encoding pada Kolom Kategorikal Non-Ordinal("Device Model")
 
 **Apa itu One-Hot Encoding?**  
-One-Hot Encoding adalah teknik representasi data yang mengonversi variabel kategorikal menjadi format yang lebih mudah dipahami oleh model machine learning. Teknik ini menciptakan kolom biner terpisah untuk setiap kategori unik pada kolom awal. Setiap kolom baru diisi dengan nilai **1** jika kategori tersebut ada, atau **0** jika tidak.[[12]](https://www.geeksforgeeks.org/ml-one-hot-encoding/)
+One-Hot Encoding adalah teknik representasi data yang mengonversi variabel kategorikal menjadi format yang lebih mudah dipahami oleh model machine learning. Teknik ini menciptakan kolom biner terpisah untuk setiap kategori unik pada kolom awal. Setiap kolom baru diisi dengan nilai **1** jika kategori tersebut ada, atau **0** jika tidak.[[13]](https://www.geeksforgeeks.org/ml-one-hot-encoding/)
 
 **Mengapa Menggunakan One-Hot Encoding?**  
 One-Hot Encoding digunakan untuk kolom kategorikal **non-ordinal**, seperti **Device Model**, yang kategorinya tidak memiliki urutan atau hierarki. Dalam kasus ini, representasi numerikal biasa (seperti Label Encoding) dapat menyesatkan model dengan menyiratkan adanya hubungan ordinal antara kategori. Dengan One-Hot Encoding, hubungan ordinal ini dihindari, memastikan model memberikan bobot yang adil untuk setiap kategori.
@@ -198,8 +199,105 @@ Setelah proses ini, dataset memiliki kolom tambahan untuk setiap model perangkat
 
 *Tabel 4: Dataset setelah One-Hot Encoding*
 
-## 5.  Exploration Data Analysis
--
+## 5. Exploratory Data Analysis
+
+Pada tahap Exploratory Data Analysis (EDA), dilakukan eksplorasi awal terhadap dataset untuk memahami distribusi data, statistik deskriptif, dan hubungan antar fitur. Berikut adalah penjelasan dan hasil analisis dari data yang diberikan.
+
+### **Melihat Deskripsi Statistik**
+
+Fungsi `describe()` menghasilkan deskripsi statistik seperti **count**, **mean**, **std**, **min**, **25%**, **50% (median)**, **75%**, dan **max** untuk setiap kolom numerik dalam dataset.
+
+| Statistik          | Operating System | App Usage Time (min/day) | Screen On Time (hours/day) | Battery Drain (mAh/day) | Number of Apps Installed | Data Usage (MB/day) | Age   | Gender | User Behavior Class | Google Pixel 5 | OnePlus 9 | Samsung Galaxy S21 | Xiaomi Mi 11 | iPhone 12 |
+|---------------------|------------------|--------------------------|----------------------------|--------------------------|--------------------------|---------------------|-------|--------|---------------------|----------------|-----------|--------------------|--------------|-----------|
+| **Count**           | 700              | 700                      | 700                        | 700                      | 700                      | 700                 | 700   | 700    | 700                 | 700            | 700       | 700                | 700          | 700       |
+| **Mean**            | 0.21             | 271.13                   | 5.27                       | 1525.16                 | 50.68                   | 929.74             | 38.48 | 0.52   | 2.99                | 0.20           | 0.19      | 0.19               | 0.21         | 0.21      |
+| **Std Dev**         | 0.41             | 177.20                   | 3.07                       | 819.14                  | 26.94                   | 640.45             | 12.01 | 0.50   | 1.40                | 0.40           | 0.39      | 0.39               | 0.41         | 0.41      |
+| **Min**             | 0.00             | 30.00                    | 1.00                       | 302.00                  | 10.00                   | 102.00            | 18.00 | 0.00   | 1.00                | 0.00           | 0.00      | 0.00               | 0.00         | 0.00      |
+| **25%**             | 0.00             | 113.25                   | 2.50                       | 722.25                  | 26.00                   | 373.00            | 28.00 | 0.00   | 2.00                | 0.00           | 0.00      | 0.00               | 0.00         | 0.00      |
+| **50% (Median)**    | 0.00             | 227.50                   | 4.90                       | 1502.50                 | 49.00                   | 823.50             | 38.00 | 1.00   | 3.00                | 0.00           | 0.00      | 0.00               | 0.00         | 0.00      |
+| **75%**             | 0.00             | 434.25                   | 7.40                       | 2229.50                 | 74.00                   | 1341.00           | 49.00 | 1.00   | 4.00                | 0.00           | 0.00      | 0.00               | 0.00         | 0.00      |
+| **Max**             | 1.00             | 598.00                   | 12.00                      | 2993.00                 | 99.00                   | 2497.00           | 59.00 | 1.00   | 5.00                | 1.00           | 1.00      | 1.00               | 1.00         | 1.00      |
+
+*Tabel 5 : Tampilan Statistik Data*
+
+#### **Analisis Deskriptif**
+
+1. **Operating System**: Kolom ini berisi nilai biner (0 atau 1) untuk tipe sistem operasi. Mean sebesar 0.21 menunjukkan bahwa mayoritas data memiliki nilai 0.
+2. **App Usage Time**: Waktu rata-rata penggunaan aplikasi adalah 271.13 menit per hari, dengan standar deviasi sebesar 177.20 menit, menunjukkan adanya variasi yang signifikan di antara pengguna.
+3. **Screen On Time**: Rata-rata waktu layar menyala adalah 5.27 jam per hari, dengan variasi yang relatif moderat.
+4. **Battery Drain**: Penggunaan daya rata-rata adalah 1525.16 mAh per hari, dengan maksimum mencapai 2993 mAh.
+5. **Age**: Rata-rata usia pengguna adalah 38.48 tahun, dengan kisaran usia 18–59 tahun.
+6. **Gender**: Kolom biner yang hampir seimbang (0 untuk perempuan, 1 untuk laki-laki) dengan rata-rata 0.52.
+7. **User Behavior Class**: Rata-rata kelas perilaku pengguna adalah 2.99, mendekati median (3), menunjukkan distribusi yang cukup seimbang.
+
+### **Exploratory Data Analysis - Univariate Analysis**
+
+![image](https://github.com/user-attachments/assets/d40fd8ab-cec0-4984-8867-95d159be8a75)
+
+*Gambar 1: Univariate Analysis(Bocplot dan Histogram distribusi)*
+
+![image](https://github.com/user-attachments/assets/a13ad5ab-8d86-4f33-9ddc-6852f7872793)
+
+*Gambar 2: Univariate Analysis(Bocplot dan Histogram distribusi)*
+
+![image](https://github.com/user-attachments/assets/9f0ebcac-1fa3-4fe2-b9ee-e465201774c6)
+
+*Gambar 3: Univariate Analysis(Bocplot dan Histogram distribusi)*
+
+![image](https://github.com/user-attachments/assets/9e3d95e9-1bd4-42d6-933f-541468717e1d)
+
+*Gambar 4: Univariate Analysis(Bocplot dan Histogram distribusi)*
+
+![image](https://github.com/user-attachments/assets/23610339-7791-44ff-a922-f4679bdfe450)
+
+*Gambar 5: Univariate Analysis(Bocplot dan Histogram distribusi)*
+
+![image](https://github.com/user-attachments/assets/aec95395-b717-4246-9fdd-cd1b293c8f76)
+
+*Gambar 6: Univariate Analysis(Bocplot dan Histogram distribusi)*
+
+![image](https://github.com/user-attachments/assets/6c6f91c6-e1a1-435c-be4f-df1cbc73b0ff)
+
+*Gambar 7: Univariate Analysis(Bocplot dan Histogram distribusi)*
+
+![image](https://github.com/user-attachments/assets/2599108f-0faf-4408-b042-b64881edda94)
+
+*Gambar 8: Univariate Analysis(Bocplot dan Histogram distribusi)*
+
+![image](https://github.com/user-attachments/assets/ff5b5854-d894-4329-b4b5-469c2fadf6bd)
+
+*Gambar 9: Univariate Analysis(Bocplot dan Histogram distribusi)*
+
+![image](https://github.com/user-attachments/assets/9fffa7eb-de6d-4f01-80ed-0b3e55f37450)
+
+*Gambar 10: Univariate Analysis(Bocplot dan Histogram distribusi)*
+
+![image](https://github.com/user-attachments/assets/9a947174-4057-4b04-9c2c-1cb4aa001a74)
+
+*Gambar 11: Univariate Analysis(Bocplot dan Histogram distribusi)*
+
+![image](https://github.com/user-attachments/assets/1df6ae2a-fc5a-40a2-bcfc-6b73f50dd54c)
+
+*Gambar 12: Univariate Analysis(Bocplot dan Histogram distribusi)*
+
+![image](https://github.com/user-attachments/assets/a421f129-4940-419b-963e-b0818ff6b764)
+
+*Gambar 13: Univariate Analysis(Bocplot dan Histogram distribusi)*
+
+![image](https://github.com/user-attachments/assets/6c8aaf7e-3ac9-4ce6-918e-81ae2beb29e1)
+
+Berdasarkan hasil visualisasi **Boxplot** yang ditampilkan, kita dapat menarik beberapa kesimpulan penting mengenai distribusi data dalam dataset ini:
+
+- **Tidak ada outlier pada dataset**: Boxplot menunjukkan bahwa semua nilai berada dalam rentang interkuartil (IQR) yang normal, tanpa adanya nilai ekstrem yang terletak jauh di luar batas atas atau bawah.
+  
+- **Distribusi data terpusat dengan baik**: Mayoritas data terdistribusi secara simetris, yang berarti bahwa tidak ada kecenderungan data yang menyimpang secara signifikan ke salah satu sisi.
+
+- **Nilai tengah berada di dalam rentang yang diharapkan**: Posisi median yang terlihat di boxplot menunjukkan bahwa nilai tengah data berada dalam kisaran yang wajar, memberikan indikasi bahwa distribusi data tidak terdistorsi.
+
+- **Variabilitas antar data**: Berdasarkan panjang whisker, kita dapat melihat bahwa data memiliki variasi yang cukup seimbang di kedua sisi median, menunjukkan tidak ada ketidakseimbangan signifikan dalam variasi data.
+
+Dari analisis ini, kita dapat menyimpulkan bahwa dataset ini tidak membutuhkan penanganan khusus terkait outlier atau distribusi yang tidak normal, sehingga dapat digunakan lebih lanjut tanpa perlu proses pembersihan data yang rumit.
+
 
 
 ## 6. Modeling
