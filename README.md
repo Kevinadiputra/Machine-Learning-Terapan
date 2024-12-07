@@ -481,8 +481,6 @@ for model_name, df in predictions.items():
 
 ## 8. Evaluation and interpretation
 
-### Evaluasi dan Interpretasi Model
-
 #### 1. **Metrik yang Digunakan**
 
 Untuk mengevaluasi performa model klasifikasi, beberapa metrik umum digunakan, seperti:
@@ -735,4 +733,46 @@ Dalam analisis **feature importance**, kami menganalisis kontribusi masing-masin
 - **Fitur yang paling berpengaruh** di semua model yang mendukung **feature_importances_** adalah fitur terkait dengan penggunaan perangkat, seperti **jumlah aplikasi yang diinstal**, **waktu penggunaan aplikasi**, dan **drainase baterai**. Hal ini menunjukkan bahwa model-model ini mengandalkan perilaku pengguna sehari-hari dalam menentukan kategori penggunaan perangkat.
 - **Fitur yang kurang penting** adalah **gender**, **age**, dan **jenis perangkat**, yang tampaknya tidak berperan signifikan dalam prediksi kategori penggunaan perangkat.
 - Model-model seperti **KNN**, **SVM**, **Logistic Regression**, dan **Naive Bayes** tidak mendukung fitur **feature_importances_**, tetapi mereka masih dapat digunakan untuk klasifikasi berdasarkan pola yang lebih kompleks antar fitur.
+
+## Kesimpulan
+
+Berdasarkan **problem statements** dan **goals** dalam laporan proyek ini, dapat disimpulkan bahwa:
+
+1. **Fitur yang Paling Berpengaruh terhadap Kelas Perilaku Pengguna**: Melalui analisis **feature importance** yang dilakukan dengan menggunakan berbagai model klasifikasi, kita berhasil mengidentifikasi fitur-fitur yang memiliki pengaruh signifikan dalam menentukan kelas perilaku pengguna. Misalnya, untuk model **Decision Tree** dan **Random Forest**, fitur seperti **Number of Apps Installed**, **Battery Drain**, dan **Data Usage** terbukti memiliki peran penting. Ini menunjukkan bahwa interaksi pengguna dengan aplikasi yang terpasang dan penggunaan baterai serta data menjadi faktor utama dalam mengklasifikasikan perilaku pengguna.
+
+2. **Model yang Paling Efektif untuk Prediksi Kelas Perilaku Pengguna**: Setelah melakukan evaluasi terhadap berbagai model seperti **Decision Tree**, **Random Forest**, **Gradient Boosting**, dan **XGBoost**, didapatkan bahwa model **Random Forest** dan **XGBoost** memiliki performa terbaik dalam memprediksi kelas perilaku pengguna. Kedua model ini menunjukkan hasil yang lebih stabil dan akurat dalam klasifikasi dibandingkan dengan model lainnya seperti **K-Nearest Neighbors** dan **Naive Bayes**, yang tidak mendukung **feature importance** dan memberikan performa yang lebih rendah.
+
+3. **Analisis Hasil Feature Importance**: Hasil analisis menunjukkan bahwa beberapa fitur, seperti **Number of Apps Installed**, **Battery Drain (mAh/day)**, dan **Data Usage (MB/day)**, memiliki kontribusi besar dalam menentukan klasifikasi perilaku pengguna. Hal ini memberi wawasan penting mengenai faktor-faktor yang perlu difokuskan lebih lanjut dalam pengembangan model yang lebih baik.
+
+### **Tujuan yang Tercapai**
+Dengan pendekatan yang digunakan, tujuan proyek untuk mengidentifikasi fitur-fitur yang paling berpengaruh dan memilih model terbaik untuk memprediksi kelas perilaku pengguna telah tercapai. Model **Random Forest** dan **XGBoost** menunjukkan performa yang paling optimal, sementara analisis **feature importance** membantu memahami fitur mana yang memiliki pengaruh terbesar dalam klasifikasi.
+
+---
+# **Daftar Pustaka**
+
+1. Databycy. (2024). *Analyzing user behavior based on device characteristics and app usage.* Diakses dari https://databycy.com/2024/10/27/analyzing-user-behavior-based-on-device-characteristics-and-app-usage/
+   
+2. IBM. (n.d.). *Decision Trees*. Diakses dari https://www.ibm.com/id-id/topics/decision-trees
+
+3. IBM. (n.d.). *Random Forest*. Diakses dari https://www.ibm.com/topics/random-forest
+
+4. IBM. (n.d.). *Logistic Regression*. Diakses dari https://www.ibm.com/topics/logistic-regression
+
+5. Esairina. (2020). *Algoritma K-Nearest Neighbor (KNN): Penjelasan dan Implementasi untuk Klasifikasi Kanker*. Diakses dari https://esairina.medium.com/algoritma-k-nearest-neighbor-knn-penjelasan-dan-implementasi-untuk-klasifikasi-kanker-ff9b7fbe0a4
+
+6. IBM. (n.d.). *Support Vector Machine*. Diakses dari https://www.ibm.com/id-id/topics/support-vector-machine
+
+7. Analytics Vidhya. (2021). *AdaBoost Algorithm: A Complete Guide for Beginners*. Diakses dari https://www.analyticsvidhya.com/blog/2021/09/adaboost-algorithm-a-complete-guide-for-beginners/
+
+8. XGBoost. (n.d.). *XGBoost Documentation*. Diakses dari https://xgboost.readthedocs.io/
+
+9. IBM. (n.d.). *Naive Bayes*. Diakses dari https://www.ibm.com/topics/naive-bayes
+
+10. GeeksforGeeks. (n.d.). *Gradient Boosting: A Machine Learning Technique*. Diakses dari https://www.geeksforgeeks.org/ml-gradient-boosting/
+
+11. BuiltIn. (n.d.). *Feature Importance: How It Works*. Diakses dari https://builtin.com/data-science/feature-importance
+
+12. GeeksforGeeks. (n.d.). *Label Encoding of Datasets in Python*. Diakses dari https://www.geeksforgeeks.org/ml-label-encoding-of-datasets-in-python/
+
+13. GeeksforGeeks. (n.d.). *One-Hot Encoding in Python*. Diakses dari https://www.geeksforgeeks.org/ml-one-hot-encoding/
 
