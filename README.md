@@ -15,17 +15,15 @@ Pada proyek ini, model machine learning dikembangkan untuk memprediksi **kategor
 Pemahaman yang lebih baik tentang perilaku pengguna tidak hanya menguntungkan bagi perusahaan teknologi, tetapi juga membuka peluang untuk inovasi dalam desain perangkat dan aplikasi yang lebih ramah pengguna, berkelanjutan, dan relevan dengan perkembangan teknologi saat ini.
 ## 2. Business Understanding
 
-## 2. Pemahaman Bisnis
-
-### **Pernyataan Masalah**
+### **Problem Statements**
 1. **Fitur apa yang paling mempengaruhi kelas perilaku pengguna (user behavior class)?**
 2. **Model mana yang paling efektif dan baik dalam memprediksi kelas perilaku pengguna?**
 
-### **Tujuan**
+### **Goals**
 1. **Mengidentifikasi fitur-fitur yang paling berpengaruh terhadap kelas perilaku pengguna.**
 2. **Mengidentifikasi model terbaik untuk memprediksi kelas perilaku pengguna.**
 
-### **Solusi**
+### **Solutions**
 Untuk mencapai tujuan ini, langkah-langkah berikut dilakukan:
 
 1. **Membandingkan Performa 9 Model:**
@@ -54,25 +52,32 @@ Setiap model ini akan dievaluasi dengan menggunakan **akurasi** untuk menilai se
 
 3. **Feature Importance untuk Mengidentifikasi Fitur Utama:**
    - Setelah menentukan model terbaik, **feature importance** akan dilakukan untuk memahami fitur mana yang memiliki pengaruh paling besar terhadap prediksi kelas perilaku pengguna. Proses ini akan mengidentifikasi fitur-fitur seperti **waktu penggunaan aplikasi**, **waktu layar menyala**, dan **konsumsi baterai**, serta faktor-faktor lain yang dapat menjelaskan pola perilaku pengguna dengan lebih baik.
+      - **Feature Importance**
+Feature importance adalah teknik yang menghitung skor kontribusi masing-masing fitur terhadap kinerja model prediktif, dengan skor yang lebih tinggi menunjukkan fitur yang memiliki dampak lebih besar pada hasil prediksi. Teknik ini membantu dalam memahami data, mengoptimalkan model, dan mengurangi dimensionalitas. [[10]](https://builtin.com/data-science/feature-importance)
    
    Dengan mengidentifikasi fitur yang paling berpengaruh, kita dapat memberikan wawasan lebih dalam tentang perilaku pengguna dan memberikan rekomendasi untuk pengembangan produk atau strategi pemasaran yang lebih efektif berdasarkan data tersebut.
 
 ## 3. Data Understanding
 
-### Deskripsi Dataset
-Dataset yang digunakan berisi 700 sampel dengan 11 kolom fitur:
-- **Device Model**: Model perangkat.
-- **Operating System**: Sistem operasi perangkat (Android/iOS).
-- **App Usage Time (min/day)**: Waktu penggunaan aplikasi per hari dalam menit.
-- **Screen On Time (hours/day)**: Waktu layar menyala per hari dalam jam.
-- **Battery Drain (mAh/day)**: Konsumsi baterai per hari.
-- **Number of Apps Installed**: Jumlah aplikasi terinstal.
-- **Data Usage (MB/day)**: Penggunaan data per hari dalam MB.
-- **Age**: Usia pengguna.
-- **Gender**: Jenis kelamin pengguna.
-- **User Behavior Class**: Kelas perilaku pengguna (target).
+### Dataset yang Digunakan 
+Dataset yang digunakan dalam proyek ini adalah **Mobile Device Usage and User Behavior Dataset** yang tersedia di [Kaggle](https://www.kaggle.com/datasets/valakhorasani/mobile-device-usage-and-user-behavior-dataset). Dataset ini menyediakan informasi rinci terkait penggunaan perangkat seluler dan perilaku pengguna.
 
-Dataset ini tidak memiliki data yang hilang dan sudah dibersihkan dari kolom **User ID** yang tidak relevan.
+### Deskripsi Dataset
+Dataset ini terdiri dari **700 sampel** dengan **10 kolom fitur utama** dan 1 kolom target. Semua data telah diproses sehingga tidak memiliki nilai yang hilang, dan kolom **User ID**, yang tidak relevan dengan analisis, telah dihapus.
+
+Berikut adalah deskripsi fitur yang digunakan:
+- **Device Model**: Jenis atau model perangkat pengguna (misalnya, Android/iOS).
+- **Operating System**: Sistem operasi yang digunakan oleh perangkat.
+- **App Usage Time (min/day)**: Total waktu penggunaan aplikasi dalam satu hari (menit).
+- **Screen On Time (hours/day)**: Durasi layar perangkat aktif dalam satu hari (jam).
+- **Battery Drain (mAh/day)**: Konsumsi baterai perangkat dalam satu hari (mAh).
+- **Number of Apps Installed**: Jumlah aplikasi yang terinstal pada perangkat.
+- **Data Usage (MB/day)**: Penggunaan data internet dalam satu hari (MB).
+- **Age**: Usia pengguna perangkat (tahun).
+- **Gender**: Jenis kelamin pengguna (Laki-laki/Perempuan).
+- **User Behavior Class**: Kategori perilaku pengguna, yang digunakan sebagai **label target** untuk klasifikasi.
+
+Dataset ini memberikan gambaran menyeluruh tentang kebiasaan penggunaan perangkat, sehingga memungkinkan analisis untuk memahami faktor yang memengaruhi perilaku pengguna secara lebih mendalam. Data ini juga cocok untuk diolah menggunakan algoritma machine learning karena sudah dalam format yang bersih dan siap digunakan.
 
 ### Eksplorasi Data
 Kami melakukan **one-hot encoding** pada kolom **Device Model** dan **Operating System** untuk mengubah fitur kategorikal menjadi fitur numerik. Fitur numerikal seperti waktu penggunaan aplikasi, konsumsi baterai, dan lainnya di-normalisasi untuk memastikan skala yang serupa.
