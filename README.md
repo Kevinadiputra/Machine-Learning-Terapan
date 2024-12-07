@@ -1,4 +1,6 @@
-# **Predictive Analytics Project Report-Kevin Adiputra Mahesa**
+# **Predictive Analytics Project Report: User Behavior Classification**
+
+**Prepared by:** Kevin Adiputra Mahesa
 
 ## 1. Domain Project
 
