@@ -232,61 +232,49 @@ Fungsi `describe()` menghasilkan deskripsi statistik seperti **count**, **mean**
 
 ### **Exploratory Data Analysis - Univariate Analysis**
 
-![image](https://github.com/user-attachments/assets/d40fd8ab-cec0-4984-8867-95d159be8a75)
+![image](https://github.com/user-attachments/assets/d40fd8ab-cec0-4984-8867-95d159be8a75)  
+*Gambar 1: Univariate Analysis (Operating System)*
 
-*Gambar 1: Univariate Analysis(Bocplot dan Histogram distribusi)*
+![image](https://github.com/user-attachments/assets/a13ad5ab-8d86-4f33-9ddc-6852f7872793)  
+*Gambar 2: Univariate Analysis (App Usage Time - min/day)*
 
-![image](https://github.com/user-attachments/assets/a13ad5ab-8d86-4f33-9ddc-6852f7872793)
+![image](https://github.com/user-attachments/assets/9f0ebcac-1fa3-4fe2-b9ee-e465201774c6)  
+*Gambar 3: Univariate Analysis (Screen On Time - hours/day)*
 
-*Gambar 2: Univariate Analysis(Bocplot dan Histogram distribusi)*
+![image](https://github.com/user-attachments/assets/9e3d95e9-1bd4-42d6-933f-541468717e1d)  
+*Gambar 4: Univariate Analysis (Battery Drain - mAh/day)*
 
-![image](https://github.com/user-attachments/assets/9f0ebcac-1fa3-4fe2-b9ee-e465201774c6)
+![image](https://github.com/user-attachments/assets/23610339-7791-44ff-a922-f4679bdfe450)  
+*Gambar 5: Univariate Analysis (Number of Apps Installed)*
 
-*Gambar 3: Univariate Analysis(Bocplot dan Histogram distribusi)*
+![image](https://github.com/user-attachments/assets/aec95395-b717-4246-9fdd-cd1b293c8f76)  
+*Gambar 6: Univariate Analysis (Data Usage - MB/day)*
 
-![image](https://github.com/user-attachments/assets/9e3d95e9-1bd4-42d6-933f-541468717e1d)
+![image](https://github.com/user-attachments/assets/6c6f91c6-e1a1-435c-be4f-df1cbc73b0ff)  
+*Gambar 7: Univariate Analysis (Age)*
 
-*Gambar 4: Univariate Analysis(Bocplot dan Histogram distribusi)*
+![image](https://github.com/user-attachments/assets/2599108f-0faf-4408-b042-b64881edda94)  
+*Gambar 8: Univariate Analysis (Gender)*
 
-![image](https://github.com/user-attachments/assets/23610339-7791-44ff-a922-f4679bdfe450)
+![image](https://github.com/user-attachments/assets/ff5b5854-d894-4329-b4b5-469c2fadf6bd)  
+*Gambar 9: Univariate Analysis (User Behavior Class)*
 
-*Gambar 5: Univariate Analysis(Bocplot dan Histogram distribusi)*
+![image](https://github.com/user-attachments/assets/9fffa7eb-de6d-4f01-80ed-0b3e55f37450)  
+*Gambar 10: Univariate Analysis (Google Pixel 5)*
 
-![image](https://github.com/user-attachments/assets/aec95395-b717-4246-9fdd-cd1b293c8f76)
+![image](https://github.com/user-attachments/assets/9a947174-4057-4b04-9c2c-1cb4aa001a74)  
+*Gambar 11: Univariate Analysis (OnePlus 9)*
 
-*Gambar 6: Univariate Analysis(Bocplot dan Histogram distribusi)*
+![image](https://github.com/user-attachments/assets/1df6ae2a-fc5a-40a2-bcfc-6b73f50dd54c)  
+*Gambar 12: Univariate Analysis (Samsung Galaxy S21)*
 
-![image](https://github.com/user-attachments/assets/6c6f91c6-e1a1-435c-be4f-df1cbc73b0ff)
+![image](https://github.com/user-attachments/assets/a421f129-4940-419b-963e-b0818ff6b764)  
+*Gambar 13: Univariate Analysis (Xiaomi Mi 11)*
 
-*Gambar 7: Univariate Analysis(Bocplot dan Histogram distribusi)*
+![image](https://github.com/user-attachments/assets/6c8aaf7e-3ac9-4ce6-918e-81ae2beb29e1)  
+*Gambar 14: Univariate Analysis (iPhone 12)*
 
-![image](https://github.com/user-attachments/assets/2599108f-0faf-4408-b042-b64881edda94)
-
-*Gambar 8: Univariate Analysis(Bocplot dan Histogram distribusi)*
-
-![image](https://github.com/user-attachments/assets/ff5b5854-d894-4329-b4b5-469c2fadf6bd)
-
-*Gambar 9: Univariate Analysis(Bocplot dan Histogram distribusi)*
-
-![image](https://github.com/user-attachments/assets/9fffa7eb-de6d-4f01-80ed-0b3e55f37450)
-
-*Gambar 10: Univariate Analysis(Bocplot dan Histogram distribusi)*
-
-![image](https://github.com/user-attachments/assets/9a947174-4057-4b04-9c2c-1cb4aa001a74)
-
-*Gambar 11: Univariate Analysis(Bocplot dan Histogram distribusi)*
-
-![image](https://github.com/user-attachments/assets/1df6ae2a-fc5a-40a2-bcfc-6b73f50dd54c)
-
-*Gambar 12: Univariate Analysis(Bocplot dan Histogram distribusi)*
-
-![image](https://github.com/user-attachments/assets/a421f129-4940-419b-963e-b0818ff6b764)
-
-*Gambar 13: Univariate Analysis(Bocplot dan Histogram distribusi)*
-
-![image](https://github.com/user-attachments/assets/6c8aaf7e-3ac9-4ce6-918e-81ae2beb29e1)
-
-Berdasarkan hasil visualisasi **Boxplot** yang ditampilkan, kita dapat menarik beberapa kesimpulan penting mengenai distribusi data dalam dataset ini:
+Berdasarkan hasil visualisasi **Boxplot dan Histogram** yang ditampilkan, kita dapat menarik beberapa kesimpulan penting mengenai distribusi data dalam dataset ini:
 
 - **Tidak ada outlier pada dataset**: Boxplot menunjukkan bahwa semua nilai berada dalam rentang interkuartil (IQR) yang normal, tanpa adanya nilai ekstrem yang terletak jauh di luar batas atas atau bawah.
   
@@ -298,9 +286,87 @@ Berdasarkan hasil visualisasi **Boxplot** yang ditampilkan, kita dapat menarik b
 
 Dari analisis ini, kita dapat menyimpulkan bahwa dataset ini tidak membutuhkan penanganan khusus terkait outlier atau distribusi yang tidak normal, sehingga dapat digunakan lebih lanjut tanpa perlu proses pembersihan data yang rumit.
 
+### **Exploration Data Analysis-Multivariate Analysis**
 
+![image](https://github.com/user-attachments/assets/3235e15f-35b8-46dd-9162-25ecf58b149e)
 
-## 6. Modeling
+*Gambar 15: Multivariate Analysis(Matriks korelasi)*
+
+Berdasarkan analisis matriks korelasi yang ditampilkan, kita dapat menyimpulkan beberapa hubungan yang signifikan antar variabel:
+
+1. **Waktu Penggunaan Aplikasi, Waktu Layar, Pengurasan Baterai, Jumlah Aplikasi yang Diinstal, dan Penggunaan Data**: 
+   Terdapat korelasi yang kuat dan positif antara variabel-variabel ini. Hal ini menunjukkan bahwa semakin tinggi nilai salah satu variabel, semakin tinggi pula nilai variabel lainnya. Sebagai contoh, pengguna yang menghabiskan lebih banyak waktu untuk menggunakan aplikasi cenderung memiliki **waktu layar yang lebih lama**, **pengurasan baterai yang lebih tinggi**, **jumlah aplikasi yang lebih banyak**, dan **penggunaan data yang lebih tinggi**. Pola ini mengindikasikan bahwa faktor-faktor ini saling mempengaruhi dan dapat digunakan untuk memprediksi perilaku pengguna di masa mendatang.
+
+2. **Waktu Penggunaan Aplikasi, Waktu Layar, dan Pengurasan Baterai dengan Kategori Perilaku Pengguna**: 
+   Ditemukan korelasi positif yang cukup kuat antara **waktu penggunaan aplikasi**, **waktu layar**, dan **pengurasan baterai** dengan **kategori perilaku pengguna**. Artinya, pengguna yang memiliki pola penggunaan yang serupa (misalnya dalam hal durasi aplikasi yang digunakan dan pengurasan baterai) cenderung memiliki kategori perilaku pengguna yang serupa pula. Ini memberikan wawasan bahwa pengguna dengan kebiasaan penggunaan serupa mungkin memiliki pola perilaku yang serupa pula dalam hal pengelolaan perangkat dan aplikasinya.
+
+![image](https://github.com/user-attachments/assets/6773e282-c5c1-4d90-87f3-2aa610d76573)
+
+*Gambar 16: Multivariate Analysis(PairPlot)*
+
+### **Interpretasi Analisis Multivariat**
+
+**Pola Umum**
+
+Matriks scatterplot menunjukkan bahwa sebagian besar fitur memiliki korelasi yang sangat lemah atau tidak ada hubungan dengan **User Behavior Class**. Namun, ada beberapa fitur seperti "Operating System" dan "Age" yang menunjukkan sedikit kecenderungan berdasarkan **User Behavior Class**, dengan kemungkinan konsentrasi kelas tertentu di kisaran tertentu.
+
+Sebagian besar fitur lainnya tampaknya tidak memiliki hubungan yang signifikan dengan variabel target.
+
+1. **Operating System**: Terlihat sedikit konsentrasi kelas 1 dan 3 di bagian tengah distribusi dari fitur "Operating System". Meskipun demikian, hubungan ini tidak terlalu kuat.
+   
+2. **Age**: Ada sedikit indikasi bahwa kelas 2 dan 5 lebih banyak ditemukan di ujung bawah distribusi "Age", meskipun pola ini juga tidak terlalu jelas.
+   
+3. **Screen Size**: Tidak ada pola atau korelasi yang dapat terlihat antara "Screen Size" dengan **User Behavior Class**.
+   
+4. **Battery Drain**: Fitur "Battery Drain" terlihat hampir independen dari **User Behavior Class**, tanpa korelasi yang kuat.
+   
+5. **Number of Apps Installed**: Ada sedikit indikasi bahwa kelas 2 lebih sering muncul di rentang atas distribusi "Number of Apps Installed".
+   
+6. **Data Usage Efficiency**: Distribusi "Data Usage Efficiency" antar **User Behavior Class** tampaknya acak tanpa pola yang jelas.
+
+## 6. Feature Engineering
+
+Pada bagian ini, dilakukan beberapa langkah untuk mempersiapkan data agar dapat digunakan dalam model machine learning, meliputi pemisahan atribut independen dan dependen, normalisasi data, serta pembagian dataset menjadi data latih dan data uji.
+
+#### **1. Memisahkan Atribut Independen dan Dependen**
+
+Langkah pertama dalam feature engineering adalah memisahkan dataset menjadi dua bagian, yaitu **atribut independen (X)** dan **atribut dependen (Y)**. Atribut dependen dalam proyek ini adalah **User Behavior Class**, yang menjadi target untuk diprediksi, sedangkan atribut independen terdiri dari variabel-variabel yang akan digunakan untuk memprediksi perilaku pengguna.
+
+```python
+x = df.drop(columns='User Behavior Class')
+y = df['User Behavior Class']
+```
+
+Pada kode di atas, `x` berisi seluruh kolom yang ada kecuali kolom **User Behavior Class**, yang kemudian disimpan dalam variabel `y` sebagai target label.
+
+#### **2. Normalisasi Data menggunakan MinMaxScaler**
+
+Normalisasi atau skaling sangat penting untuk memastikan bahwa semua fitur berada dalam skala yang seragam. Hal ini dilakukan untuk menghindari fitur dengan rentang nilai yang lebih besar mendominasi perhitungan model. Dalam hal ini, **MinMaxScaler** digunakan untuk mengubah setiap fitur ke dalam rentang [0, 1].
+
+```python
+scalar = MinMaxScaler()
+x_scale = scalar.fit_transform(x)
+```
+
+Dengan menggunakan `MinMaxScaler`, kita memastikan bahwa setiap kolom dalam data `x` memiliki nilai yang berada dalam rentang yang konsisten, memudahkan model dalam belajar dan meningkatkan performa model.
+
+#### **3. Pembagian Dataset menjadi Data Latih dan Data Uji**
+
+Setelah normalisasi, dataset dibagi menjadi dua bagian: **data latih (training data)** dan **data uji (testing data)**. Pembagian ini bertujuan agar model dapat dilatih pada data latih dan dievaluasi pada data uji yang belum pernah dilihat sebelumnya. Pembagian dilakukan dengan proporsi 80% untuk data latih dan 20% untuk data uji.
+
+```python
+x_train, x_test, y_train, y_test = train_test_split(x_scale, y, test_size=0.2, random_state=42)
+```
+
+Selanjutnya, label target **User Behavior Class** yang ada pada `y_train` dan `y_test` dikurangi dengan 1. Hal ini dilakukan karena kelas target pada dataset dimulai dari 1, sedangkan dalam pemodelan machine learning biasanya kelas target dimulai dari 0.
+
+```python
+y_train = y_train - 1
+y_test = y_test - 1
+```
+Dengan demikian, dataset siap digunakan untuk tahap pelatihan model, dengan variabel independen yang telah dinormalisasi dan variabel dependen yang sudah disiapkan.
+
+## 7. Modeling
 
 ### Algoritma yang Digunakan
 Algoritma **Random Forest Classifier** dipilih karena mampu menangani dataset dengan jumlah fitur yang cukup banyak dan bekerja dengan baik pada data klasifikasi.
@@ -311,7 +377,7 @@ Hyperparameter tuning dilakukan untuk mencari kombinasi parameter terbaik dengan
 - **max_depth**: Kedalaman maksimum dari pohon.
 - **min_samples_split**: Jumlah minimum sampel untuk membagi node internal.
 
-## 7. Evaluation and interptetation
+## 8. Evaluation and interpretation
 
 ### Metrik Evaluasi
 Metrik evaluasi yang digunakan adalah:
