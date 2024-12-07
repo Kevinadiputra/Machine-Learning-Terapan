@@ -1,6 +1,6 @@
 # **Predictive Analytics Project Report: User Behavior Classification**
 
-**Prepared by:** Kevin Adiputra Mahesa
+**Dibuat Oleh:** Kevin Adiputra Mahesa
 
 ## 1. Domain Project
 
@@ -558,7 +558,8 @@ Berikut adalah langkah-langkah untuk menghitung metrik evaluasi yang digunakan d
 5. **Confusion Matrix**:
    - Tentukan jumlah True Positives, True Negatives, False Positives, dan False Negatives dari hasil prediksi model.
    - Visualisasikan confusion matrix menggunakan heatmap untuk memudahkan interpretasi.
-  
+
+#### 3. **Hasil Evaluasi** 
 Berikut hasil-hasil evaluasi tiap model:
 
 ![image](https://github.com/user-attachments/assets/b4c93535-b996-4a3c-8ca6-a62370f5839c)
@@ -613,4 +614,42 @@ Berikut adalah tabel yang menunjukkan hasil ringkasan metrik **Accuracy** untuk 
 | XGBoost                        | 0.992857     |
 | AdaBoost                       | 0.557143     |
 
+*Tabel 6: Ringkasan Hasil Akurasi tiap model *
+
 Tabel ini merangkum hasil **accuracy** dari beberapa model yang diuji, dengan sebagian besar model mencapai hasil sempurna (1.000000), kecuali untuk K-Nearest Neighbors, Logistic Regression, XGBoost, dan AdaBoost.
+
+#### 4. **Cross-Validation** 
+
+Dalam proyek ini, saya menggunakan teknik **cross-validation** untuk mengevaluasi kinerja masing-masing model dan mengidentifikasi apakah model mengalami **overfitting**. Overfitting terjadi ketika model terlalu menyesuaikan diri dengan data latih dan tidak dapat menggeneralisasi dengan baik pada data uji yang tidak terlihat sebelumnya. Salah satu cara untuk mendeteksi masalah ini adalah dengan membandingkan hasil model pada data latih dan data uji. Namun, untuk mengatasi masalah ini, saya menerapkan **cross-validation**.
+
+Cross-validation adalah teknik yang membagi data latih menjadi beberapa subset (fold), kemudian melatih model menggunakan sebagian data dan menguji model pada sisa data, secara bergantian. Dalam hal ini, saya menggunakan **k-fold cross-validation** dengan **k = 5**, yang berarti data latih dibagi menjadi lima bagian yang berbeda. Setiap model diuji dengan menggunakan kombinasi dari empat bagian sebagai data latih dan satu bagian sebagai data uji. Proses ini diulang sebanyak lima kali sehingga setiap bagian menjadi data uji sekali.
+
+Dengan menggunakan cross-validation, saya dapat mengukur **mean accuracy** dan **standard deviation** dari masing-masing model. **Mean accuracy** memberikan gambaran umum tentang seberapa baik model dalam mengklasifikasikan data, sementara **standard deviation** mengukur seberapa konsisten hasil model pada data yang berbeda. Jika hasil **mean accuracy** model cukup tinggi namun **standard deviation** juga tinggi, ini bisa menjadi indikasi bahwa model overfitting karena performanya bervariasi tergantung pada subset data yang digunakan.
+
+Berikut adalah langkah-langkah yang diambil:
+1. **Cross-validation** digunakan untuk setiap model dengan parameter `cv=5` (5-fold cross-validation).
+2. Hasil **mean accuracy** dan **standard deviation** dihitung untuk setiap model.
+3. Dibandingkan hasil cross-validation antar model untuk mengevaluasi konsistensi dan potensi overfitting.
+
+Hasil cross-validation memberikan wawasan yang lebih baik mengenai stabilitas dan generalisasi model. Jika **standard deviation** tinggi, hal ini menunjukkan bahwa model mungkin overfitting pada data tertentu, dan evaluasi lebih lanjut diperlukan untuk meningkatkan stabilitas model.
+
+Berikut hasil cross-validation:
+Berikut adalah **tabel ringkasan hasil cross-validation** yang menunjukkan **Mean Accuracy** dan **Standard Deviation** dari masing-masing model:
+
+| **Model**                     | **Mean Accuracy** | **Standard Deviation** |
+|-------------------------------|-------------------|------------------------|
+| Decision Tree                  | 1.000000          | 0.000000               |
+| Random Forest                  | 1.000000          | 0.000000               |
+| K-Nearest Neighbors            | 0.917857          | 0.015361               |
+| Support Vector Machine (SVM)   | 1.000000          | 0.000000               |
+| Logistic Regression            | 0.966071          | 0.006682               |
+| Naive Bayes                    | 1.000000          | 0.000000               |
+| Gradient Boosting              | 1.000000          | 0.000000               |
+| XGBoost                        | 0.994643          | 0.007143               |
+| AdaBoost                       | 0.721429          | 0.100604               |
+
+*Tabel 7: Ringkasan hasil cross-validation tiap model*
+
+
+
+Tabel ini memperlihatkan **mean accuracy** dari setiap model yang diuji, serta **standard deviation** untuk mengevaluasi konsistensi hasil dari model tersebut selama cross-validation. Perhatikan bahwa model dengan **mean accuracy** yang sangat tinggi dan **standard deviation** yang rendah, seperti **Decision Tree**, **Random Forest**, **SVM**, **Naive Bayes**, dan **Gradient Boosting**, menunjukkan stabilitas yang baik dan tidak cenderung overfitting. Sebaliknya, model **AdaBoost** dengan **standard deviation** yang cukup tinggi menunjukkan adanya variabilitas yang lebih besar dalam kinerjanya.
