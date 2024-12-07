@@ -368,23 +368,247 @@ Dengan demikian, dataset siap digunakan untuk tahap pelatihan model, dengan vari
 
 ## 7. Modeling
 
-### Algoritma yang Digunakan
-Algoritma **Random Forest Classifier** dipilih karena mampu menangani dataset dengan jumlah fitur yang cukup banyak dan bekerja dengan baik pada data klasifikasi.
+Pada bagian ini, dilakukan proses pemodelan dengan menggunakan sembilan model machine learning yang berbeda untuk menentukan model terbaik dalam memprediksi **User Behavior Class** berdasarkan fitur-fitur yang ada. Setiap model dievaluasi menggunakan data latih dan data uji, serta hasilnya dibandingkan untuk memilih model yang memiliki performa terbaik.
 
-### Hyperparameter Tuning
-Hyperparameter tuning dilakukan untuk mencari kombinasi parameter terbaik dengan menggunakan metode **Grid Search**. Kombinasi parameter yang dicari termasuk:
-- **n_estimators**: Jumlah pohon dalam hutan.
-- **max_depth**: Kedalaman maksimum dari pohon.
-- **min_samples_split**: Jumlah minimum sampel untuk membagi node internal.
+#### **1. Pemilihan Model**
+Sembilan model yang digunakan dalam eksperimen ini adalah:
+
+- **Decision Tree**: Model berbasis pohon keputusan yang membagi data berdasarkan pertanyaan yang bersifat biner.
+- **Random Forest**: Ensemble model yang menggunakan banyak pohon keputusan untuk meningkatkan performa prediksi.
+- **K-Nearest Neighbors (KNN)**: Model berbasis jarak yang mengklasifikasikan data berdasarkan tetangga terdekatnya.
+- **Support Vector Machine (SVM)**: Model yang mencari hyperplane terbaik untuk memisahkan kelas-kelas dalam data.
+- **Logistic Regression**: Model klasifikasi yang menggunakan regresi logistik untuk memprediksi probabilitas kelas.
+- **Naive Bayes**: Model probabilistik yang mengasumsikan independensi antar fitur dan menggunakan teorema Bayes untuk prediksi.
+- **Gradient Boosting**: Model ensemble yang menggabungkan banyak model lemah menjadi satu model yang kuat melalui teknik boosting.
+- **XGBoost**: Variasi dari gradient boosting yang lebih efisien dan sering digunakan dalam kompetisi data science.
+- **AdaBoost**: Teknik boosting yang meningkatkan akurasi dengan menyesuaikan model berdasarkan kesalahan model sebelumnya.
+
+#### **2. Proses Pelatihan dan Evaluasi Model**
+Setiap model dilatih dengan data latih (`x_train`, `y_train`) dan dievaluasi menggunakan data uji (`x_test`, `y_test`). Setelah pelatihan, model memprediksi kelas **User Behavior Class** pada data uji. Kemudian, hasil prediksi dibandingkan dengan nilai aktual untuk menghitung akurasi.
+
+```python
+# Melatih model
+model.fit(x_train, y_train)
+
+# Prediksi pada data uji
+y_pred = model.predict(x_test)
+```
+
+#### **3. Pengukuran Akurasi dan Evaluasi Kinerja**
+Akurasi model dihitung dengan membandingkan prediksi (`y_pred`) dan nilai aktual (`y_test`) menggunakan fungsi `accuracy_score`. Selain itu, **classification report** juga ditampilkan untuk memberikan gambaran lebih lanjut tentang performa model, termasuk precision, recall, dan F1-score.
+
+```python
+# Menghitung akurasi
+acc = accuracy_score(y_test, y_pred)
+```
+
+Confusion matrix juga digunakan untuk memberikan gambaran tentang seberapa baik model dalam mengklasifikasikan data ke dalam kategori yang tepat.
+
+```python
+# Confusion matrix
+cm = confusion_matrix(y_test, y_pred)
+```
+
+Confusion matrix divisualisasikan menggunakan heatmap untuk memudahkan interpretasi hasil prediksi terhadap kategori yang sebenarnya.
+
+#### **4. Menyimpan Hasil dan Visualisasi**
+Hasil evaluasi model disimpan dalam bentuk DataFrame untuk memberikan ringkasan akurasi dari semua model yang diuji. Visualisasi confusion matrix untuk masing-masing model juga ditampilkan untuk mempermudah analisis kesalahan prediksi.
+
+```python
+# Menyimpan hasil untuk analisis lebih lanjut
+results.append({"Model": name, "Accuracy": acc})
+```
+
+#### **5. Ringkasan Hasil**
+Setelah proses evaluasi selesai, hasil akurasi untuk setiap model ditampilkan dalam bentuk tabel yang memudahkan perbandingan. Ini membantu dalam memilih model yang paling tepat untuk kasus ini.
+
+```python
+# Ringkasan Hasil
+results_df = pd.DataFrame(results)
+print("\nRingkasan Hasil:")
+print(results_df)
+```
+
+#### **6. Prediksi dan Aktual**
+Terakhir, hasil prediksi dan nilai aktual untuk setiap model ditampilkan untuk memungkinkan analisis lebih mendalam terkait kinerja masing-masing model dalam mengklasifikasikan data.
+
+```python
+# Menampilkan prediksi dan aktual untuk tiap model
+for model_name, df in predictions.items():
+    print(f"\n=== Hasil Prediksi dan Aktual: {model_name} ===")
+    print(df.head())
+```
+
+#### **Kelebihan dan Kekurangan Tiap Model**
+
+1. **Decision Tree**
+   - **Kelebihan**: Mudah diinterpretasikan, cepat dalam pelatihan dan prediksi, tidak memerlukan pra-pemrosesan data yang rumit.
+   - **Kekurangan**: Rentan terhadap overfitting, terutama pada data yang sangat kompleks atau jika kedalaman pohon tidak dibatasi.
+
+2. **Random Forest**
+   - **Kelebihan**: Mengurangi overfitting dibandingkan Decision Tree, akurasi tinggi karena menggunakan banyak pohon keputusan (ensemble), dapat menangani data dengan banyak fitur.
+   - **Kekurangan**: Model lebih kompleks dan sulit diinterpretasikan, membutuhkan lebih banyak sumber daya komputasi.
+
+3. **K-Nearest Neighbors (KNN)**
+   - **Kelebihan**: Mudah dipahami dan diterapkan, tidak memerlukan pelatihan eksplisit (lazy learning), efektif untuk data dengan dimensi rendah.
+   - **Kekurangan**: Sangat lambat untuk data besar, memerlukan banyak memori, kinerja sangat tergantung pada pemilihan jumlah tetangga (k) dan fitur.
+
+4. **Support Vector Machine (SVM)**
+   - **Kelebihan**: Kuat untuk klasifikasi dengan margin yang jelas antara kelas, efektif untuk data berdimensi tinggi dan kecil.
+   - **Kekurangan**: Memiliki waktu pelatihan yang lama untuk dataset besar, pemilihan kernel yang tepat bisa sulit.
+
+5. **Logistic Regression**
+   - **Kelebihan**: Mudah dipahami dan diterapkan, cepat dalam pelatihan, sangat efektif untuk data yang memiliki hubungan linier antara fitur dan target.
+   - **Kekurangan**: Tidak dapat menangani masalah non-linier tanpa transformasi fitur, sering kali tidak cukup kuat untuk data yang kompleks.
+
+6. **Naive Bayes**
+   - **Kelebihan**: Sederhana, cepat, dan efisien untuk dataset besar, bekerja dengan baik pada data yang memiliki distribusi kondisional independen.
+   - **Kekurangan**: Asumsi independensi antar fitur tidak selalu valid, dapat memberikan hasil yang buruk jika asumsi tersebut tidak terpenuhi.
+
+7. **Gradient Boosting**
+   - **Kelebihan**: Kinerja yang sangat baik pada dataset kompleks, mengurangi overfitting dengan melakukan boosting bertahap, menangani berbagai jenis data.
+   - **Kekurangan**: Waktu pelatihan yang lama, lebih sensitif terhadap noise dan outlier.
+
+8. **XGBoost**
+   - **Kelebihan**: Meningkatkan kecepatan dan akurasi dibandingkan dengan gradient boosting tradisional, sangat efisien, mendukung regulasi untuk menghindari overfitting.
+   - **Kekurangan**: Cukup rumit untuk diimplementasikan dan memerlukan pemilihan hyperparameter yang teliti.
+
+9. **AdaBoost**
+   - **Kelebihan**: Meningkatkan akurasi dengan memperhatikan kesalahan model sebelumnya, efektif dalam mengurangi bias.
+   - **Kekurangan**: Sensitif terhadap data noisy dan outlier, akurasi sangat bergantung pada model dasar yang digunakan.
 
 ## 8. Evaluation and interpretation
 
-### Metrik Evaluasi
-Metrik evaluasi yang digunakan adalah:
-- **Accuracy**: Mengukur seberapa sering model memberikan prediksi yang benar.
-- **Precision**: Mengukur seberapa baik model memprediksi kelas positif dengan benar.
-- **Recall**: Mengukur seberapa baik model menangkap semua sampel yang benar-benar positif.
-- **F1-Score**: Rata-rata harmonik dari precision dan recall.
+### Evaluasi dan Interpretasi Model
 
-### Hasil Proyek
-Setelah pelatihan awal, model berhasil mencapai hasil evaluasi yang sangat baik dengan semua metrik bernilai sempurna. Namun, tuning lebih lanjut atau penggunaan algoritma lain seperti **XGBoost** dapat dilakukan untuk memastikan model lebih robust dan tidak overfitting.
+#### 1. **Metrik yang Digunakan**
+
+Untuk mengevaluasi performa model klasifikasi, beberapa metrik umum digunakan, seperti:
+
+- **Akurasi**: Persentase prediksi yang benar dari total prediksi yang dilakukan. Metrik ini sangat berguna ketika data kelas terdistribusi secara merata.
+  $\[
+  \text{Akurasi} = \frac{\text{Jumlah Prediksi Benar}}{\text{Jumlah Total Prediksi}}
+  \]$
+
+- **Precision**: Mengukur seberapa tepat model dalam mengklasifikasikan kelas positif, yaitu berapa banyak dari prediksi positif yang benar-benar positif.
+  $\[
+  \text{Precision} = \frac{TP}{TP + FP}
+  \]$
+  Dimana:
+  - $\( TP \)$ = True Positive (jumlah prediksi positif yang benar)
+  - $\( FP \)$ = False Positive (jumlah prediksi positif yang salah)
+
+- **Recall**: Mengukur seberapa banyak kelas positif yang berhasil ditemukan oleh model, yaitu seberapa baik model dalam menangani kelas positif.
+  $\[
+  \text{Recall} = \frac{TP}{TP + FN}
+  \]$
+  Dimana:
+  - $\( FN \)$ = False Negative (jumlah prediksi negatif yang salah)
+
+- **F1-Score**: Rata-rata harmonis antara precision dan recall. F1-score memberikan gambaran yang lebih baik saat menghadapi data yang tidak seimbang.
+  $\[
+  \text{F1-Score} = 2 \times \frac{\text{Precision} \times \text{Recall}}{\text{Precision} + \text{Recall}}
+  \]$
+
+- **Confusion Matrix**: Matriks yang menggambarkan jumlah prediksi benar dan salah untuk setiap kelas dalam model. Ini memungkinkan kita melihat seberapa baik model dalam mengklasifikasikan data ke dalam kategori yang tepat.
+  - **True Positives (TP)**: Klasifikasi yang benar untuk kelas positif.
+  - **True Negatives (TN)**: Klasifikasi yang benar untuk kelas negatif.
+  - **False Positives (FP)**: Klasifikasi yang salah sebagai positif, padahal sebenarnya negatif.
+  - **False Negatives (FN)**: Klasifikasi yang salah sebagai negatif, padahal sebenarnya positif.
+
+  Confusion matrix membantu dalam melihat distribusi kesalahan prediksi dan memberikan gambaran visual melalui heatmap.
+
+#### 2. **Langkah Menghitung Metrik Evaluasi**
+
+Berikut adalah langkah-langkah untuk menghitung metrik evaluasi yang digunakan dalam model klasifikasi:
+
+1. **Akurasi**:
+   - Hitung jumlah prediksi benar (baik positif maupun negatif).
+   - Bagi jumlah prediksi benar dengan total data yang diprediksi.
+   - Rumus:
+     $\[
+     \text{Akurasi} = \frac{\text{TP} + \text{TN}}{\text{TP} + \text{TN} + \text{FP} + \text{FN}}
+     \]$
+
+2. **Precision**:
+   - Tentukan berapa banyak prediksi positif yang benar (True Positive).
+   - Bagi jumlah True Positive dengan jumlah seluruh prediksi yang dianggap positif (True Positive + False Positive).
+   - Rumus:
+     $\[
+     \text{Precision} = \frac{\text{TP}}{\text{TP} + \text{FP}}
+     \]$
+
+3. **Recall**:
+   - Tentukan berapa banyak kelas positif yang benar-benar diprediksi sebagai positif.
+   - Bagi jumlah True Positive dengan jumlah seluruh data yang benar-benar positif (True Positive + False Negative).
+   - Rumus:
+     $\[
+     \text{Recall} = \frac{\text{TP}}{\text{TP} + \text{FN}}
+     \]$
+
+4. **F1-Score**:
+   - Gunakan rumus rata-rata harmonis antara Precision dan Recall untuk menghitung F1-Score.
+   - Rumus:
+     $\[
+     \text{F1-Score} = 2 \times \frac{\text{Precision} \times \text{Recall}}{\text{Precision} + \text{Recall}}
+     \]$
+
+5. **Confusion Matrix**:
+   - Tentukan jumlah True Positives, True Negatives, False Positives, dan False Negatives dari hasil prediksi model.
+   - Visualisasikan confusion matrix menggunakan heatmap untuk memudahkan interpretasi.
+  
+Berikut hasil-hasil evaluasi tiap model:
+
+![image](https://github.com/user-attachments/assets/b4c93535-b996-4a3c-8ca6-a62370f5839c)
+
+*Gambar 17: Hasil Evaluasi Decision Tree*
+
+![image](https://github.com/user-attachments/assets/48405e93-7a73-4dca-b4ff-dbeb6020811f)
+
+*Gambar 18: Hasil Evaluasi Random Forest*
+
+![image](https://github.com/user-attachments/assets/26a214d5-f057-4a5f-b311-4bbfd84ab1e0)
+
+*Gambar 19: Hasil Evaluasi K-Nearest Neighbors*
+
+![image](https://github.com/user-attachments/assets/3f94f6a0-e387-425e-8253-6fc517ef3489)
+
+*Gambar 20: Hasil Evaluasi Support Vector Machine*
+
+![image](https://github.com/user-attachments/assets/574793da-a999-4900-9ecf-43a35e6e51f7)
+
+
+*Gambar 21: Hasil Evaluasi Logistic Regression*
+
+![image](https://github.com/user-attachments/assets/396443aa-bbde-4f25-a101-ed28f39432b3)
+
+*Gambar 22: Hasil Evaluasi Naive Bayes*
+
+![image](https://github.com/user-attachments/assets/bccd9917-be9d-4f17-a111-d69e94380b07)
+
+*Gambar 23: Hasil Evaluasi Gradient Boosting*
+
+![image](https://github.com/user-attachments/assets/7e7021cd-674f-4357-9e26-d7f63263addb)
+
+*Gambar 24: Hasil Evaluasi XGBoost*
+
+![image](https://github.com/user-attachments/assets/a388f496-55e2-4f6c-bf8e-b9144a27bf6f)
+
+
+*Gambar 25: Hasil Evaluasi Ada Boost*
+
+Berikut adalah tabel yang menunjukkan hasil ringkasan metrik **Accuracy** untuk berbagai model yang digunakan:
+
+| **Model**                     | **Accuracy** |
+|-------------------------------|--------------|
+| Decision Tree                  | 1.000000     |
+| Random Forest                  | 1.000000     |
+| K-Nearest Neighbors            | 0.942857     |
+| Support Vector Machine (SVM)   | 1.000000     |
+| Logistic Regression            | 0.971429     |
+| Naive Bayes                    | 1.000000     |
+| Gradient Boosting              | 1.000000     |
+| XGBoost                        | 0.992857     |
+| AdaBoost                       | 0.557143     |
+
+Tabel ini merangkum hasil **accuracy** dari beberapa model yang diuji, dengan sebagian besar model mencapai hasil sempurna (1.000000), kecuali untuk K-Nearest Neighbors, Logistic Regression, XGBoost, dan AdaBoost.
