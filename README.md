@@ -72,6 +72,8 @@ Berikut adalah gambaran awal dari dataset yang digunakan:
 | 4           | Google Pixel 5       | Android              | 239                          | 4.8                            | 1676                       | 56                           | 871                    | 20      | Male       | 3                        |
 | 5           | iPhone 12            | iOS                  | 187                          | 4.3                            | 1367                       | 58                           | 988                    | 31      | Female     | 3                        |
 
+*Tabel 1: Gambaran awal Dataset*
+
 ### Deskripsi Dataset
 Dataset ini terdiri dari **700 sampel** dengan **10 kolom fitur utama** dan 1 kolom target. Semua data telah diproses sehingga tidak memiliki nilai yang hilang, dan kolom **User ID**, yang tidak relevan dengan analisis, telah dihapus.
 
@@ -89,14 +91,67 @@ Berikut adalah deskripsi fitur yang digunakan:
 
 Dataset ini memberikan gambaran menyeluruh tentang kebiasaan penggunaan perangkat, sehingga memungkinkan analisis untuk memahami faktor yang memengaruhi perilaku pengguna secara lebih mendalam. 
 
+### Informasi Dataset
+Berikut adalah tabel dengan nama dan informasi terkait data dalam dataset:
+
+| **Nomor** | **Nama Kolom**              | **Tipe Data** | **Jumlah Non-Null** | **Deskripsi**                       |
+|-----------|-----------------------------|---------------|---------------------|-------------------------------------|
+| 1         | User ID                     | `int64`       | 700                 | Identitas unik untuk setiap pengguna. |
+| 2         | Device Model                | `object`      | 700                 | Model perangkat pengguna.          |
+| 3         | Operating System            | `object`      | 700                 | Sistem operasi perangkat (Android/iOS). |
+| 4         | App Usage Time (min/day)    | `int64`       | 700                 | Total waktu penggunaan aplikasi dalam menit per hari. |
+| 5         | Screen On Time (hours/day)  | `float64`     | 700                 | Durasi layar menyala dalam jam per hari. |
+| 6         | Battery Drain (mAh/day)     | `int64`       | 700                 | Konsumsi baterai per hari dalam mAh. |
+| 7         | Number of Apps Installed    | `int64`       | 700                 | Jumlah aplikasi yang diinstal pada perangkat. |
+| 8         | Data Usage (MB/day)         | `int64`       | 700                 | Total penggunaan data internet dalam MB per hari. |
+| 9         | Age                         | `int64`       | 700                 | Usia pengguna perangkat.            |
+| 10        | Gender                      | `object`      | 700                 | Jenis kelamin pengguna.             |
+| 11        | User Behavior Class         | `int64`       | 700                 | Kategori perilaku pengguna, digunakan sebagai target. |
+
+*Tabel 2: Informasi Dataset*
+
 ## 4. Data Preparation
 
 ### Teknik Data Preparation
 Langkah-langkah persiapan data meliputi:
-1. **One-Hot Encoding**: Kolom **Device Model** dan **Operating System** diubah menjadi vektor numerik.
-2. **Normalisasi**: Fitur numerik seperti **App Usage Time**, **Screen On Time**, dan lainnya di-scale menggunakan **StandardScaler**.
-3. **Pembagian Data**: Data dibagi menjadi training (80%) dan testing (20%).
+1. **Label Encoder**: Kolom **Device Model** dan **Operating System** diubah menjadi vektor numerik.
+```python
+# @title Mengubah kolom kategorikal menjadi numerikal menggunakan LabelEncoder
+labencoder = preprocessing.LabelEncoder()
+df['Operating System'] = labencoder.fit_transform(df['Operating System'])
+df['Gender'] = labencoder.fit_transform(df['Gender'])
+df
+```
+- **Apa itu Label Encoding?**
+  
+- **Mengapa Menggunakan Label Encoding?**
+   - Kolom **`Operating System`** dan **`Gender`** adalah tipe data kategorikal dengan nilai unik binary, seperti:
+     - `Operating System`: "Android" dan "iOS".
+     - `Gender`: "Male" dan "Female".
+   - Label Encoding mengubah nilai-nilai kategorikal ini menjadi angka numerik, seperti pada kasus kali ini:
+     - "Android" → 0, "iOS" → 1.
+     - "Male" → 0, "Female" → 1.
+   - Pendekatan ini ideal untuk kolom dengan **nilai kategorikal yang bersifat biner (binary)**, karena:
+     - Mudah diterapkan.
+     - Efisien untuk model yang tidak bergantung pada hubungan antar-kategori.
 
+- **Keunggulan Label Encoding untuk Binary Categories:**
+   - Proses sederhana dan cepat.
+   - Tidak memperkenalkan redundansi seperti **One-Hot Encoding** yang menambahkan kolom tambahan.
+   - Sangat cocok untuk dataset dengan fitur binary kategorikal.
+
+- **Hasil:**
+   Setelah transformasi, kolom `Operating System` dan `Gender` dalam dataset `df` akan berisi nilai numerik, mempermudah algoritma machine learning untuk memproses data tersebut.
+  
+Berikut adalah tampilan Data setelah dilakukan Label Encoder:
+| Index | Device Model        | Operating System | App Usage Time (min/day) | Screen On Time (hours/day) | Battery Drain (mAh/day) | Number of Apps Installed | Data Usage (MB/day) | Age | Gender | User Behavior Class |
+|-------|---------------------|------------------|--------------------------|----------------------------|-------------------------|--------------------------|---------------------|-----|--------|--------------------|
+| 0     | Google Pixel 5      | 0                | 393                      | 6.4                        | 1872                   | 67                       | 1122                | 40  | 1      | 4                  |
+| 1     | OnePlus 9           | 0                | 268                      | 4.7                        | 1331                   | 42                       | 944                 | 47  | 0      | 3                  |
+| 2     | Xiaomi Mi 11        | 0                | 154                      | 4.0                        | 761                    | 32                       | 322                 | 42  | 1      | 2                  |
+| 3     | Google Pixel 5      | 0                | 239                      | 4.8                        | 1676                   | 56                       | 871                 | 20  | 1      | 3                  |
+| 4     | iPhone 12           | 1                | 187                      | 4.3                        | 1367                   | 58                       | 988                 | 31  | 0      | 3                  |
+*Tabel 3: Dataset setelah dilakukan Label Encoder*
 ## 5.  Eksplorasi Data
 -
 
