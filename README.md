@@ -687,16 +687,19 @@ Berikut hasil feature importance:
 
 *Gambar 27: Hasil Feature Importance Decision Tree*
 
-
-
-*Gambar 27: Hasil Feature Importance Decision Tree*
-
+![image](https://github.com/user-attachments/assets/616f0588-23de-4acd-8707-e9f10babeff5)
 
 *Gambar 27: Hasil Feature Importance Decision Tree*
 
+![image](https://github.com/user-attachments/assets/61c30846-26e8-4b99-becf-0e8067557776)
 
 *Gambar 27: Hasil Feature Importance Decision Tree*
 
+![image](https://github.com/user-attachments/assets/e61ef63d-fb35-49c1-b9eb-431221740c31)
+
+*Gambar 27: Hasil Feature Importance Decision Tree*
+
+![image](https://github.com/user-attachments/assets/e3a45c79-effb-4708-b7c8-f053e40e0d63)
 
 *Gambar 27: Hasil Feature Importance Decision Tree*
 
