@@ -255,6 +255,12 @@ Sebagian besar fitur lainnya tampaknya tidak memiliki hubungan yang signifikan d
    
 6. **Data Usage Efficiency**: Distribusi "Data Usage Efficiency" antar **User Behavior Class** tampaknya acak tanpa pola yang jelas.
 
+![image](https://github.com/user-attachments/assets/3fa18e10-ed5b-44cf-80d6-0d62d13e8fc9)
+
+*Gambar 16: Melihat Distribusi User Behavior Class*
+
+Pada Langkah ini didapatkan bahwa pada kolom User Behavior Class memiliki ditribusi yang cukup seimbang, sehingga dapat digunakan untuk pelatihan model lebih lanjut.
+
 ## 4. Data Preparation
 
 ### Teknik Data Preparation
@@ -344,6 +350,8 @@ Setelah proses ini, dataset memiliki kolom tambahan untuk setiap model perangkat
 *Tabel 6: Dataset setelah One-Hot Encoding*
 
 
+**
+
 ## 6. Feature Engineering
 
 Pada bagian ini, dilakukan beberapa langkah untuk mempersiapkan data agar dapat digunakan dalam model machine learning, meliputi pemisahan atribut independen dan dependen, normalisasi data, serta pembagian dataset menjadi data latih dan data uji.
@@ -359,23 +367,16 @@ y = df['User Behavior Class']
 
 Pada kode di atas, `x` berisi seluruh kolom yang ada kecuali kolom **User Behavior Class**, yang kemudian disimpan dalam variabel `y` sebagai target label.
 
-#### **2. Normalisasi Data menggunakan MinMaxScaler**
+Berikut adalah urutan yang telah diperbarui dengan **normalisasi dilakukan setelah pembagian data**:
 
-Normalisasi atau skaling sangat penting untuk memastikan bahwa semua fitur berada dalam skala yang seragam. Hal ini dilakukan untuk menghindari fitur dengan rentang nilai yang lebih besar mendominasi perhitungan model. Dalam hal ini, **MinMaxScaler** digunakan untuk mengubah setiap fitur ke dalam rentang [0, 1].
+---
 
-```python
-scalar = MinMaxScaler()
-x_scale = scalar.fit_transform(x)
-```
+#### **2. Pembagian Dataset menjadi Data Latih dan Data Uji**
 
-Dengan menggunakan `MinMaxScaler`, kita memastikan bahwa setiap kolom dalam data `x` memiliki nilai yang berada dalam rentang yang konsisten, memudahkan model dalam belajar dan meningkatkan performa model.
-
-#### **3. Pembagian Dataset menjadi Data Latih dan Data Uji**
-
-Setelah normalisasi, dataset dibagi menjadi dua bagian: **data latih (training data)** dan **data uji (testing data)**. Pembagian ini bertujuan agar model dapat dilatih pada data latih dan dievaluasi pada data uji yang belum pernah dilihat sebelumnya. Pembagian dilakukan dengan proporsi 80% untuk data latih dan 20% untuk data uji.
+Dataset dibagi menjadi dua bagian: **data latih (training data)** dan **data uji (testing data)**. Pembagian ini dilakukan dengan proporsi 80% untuk data latih dan 20% untuk data uji. Hal ini memastikan model dilatih menggunakan data yang cukup besar dan dievaluasi menggunakan data yang tidak digunakan dalam pelatihan.
 
 ```python
-x_train, x_test, y_train, y_test = train_test_split(x_scale, y, test_size=0.2, random_state=42)
+x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=42)
 ```
 
 Selanjutnya, label target **User Behavior Class** yang ada pada `y_train` dan `y_test` dikurangi dengan 1. Hal ini dilakukan karena kelas target pada dataset dimulai dari 1, sedangkan dalam pemodelan machine learning biasanya kelas target dimulai dari 0.
@@ -384,7 +385,20 @@ Selanjutnya, label target **User Behavior Class** yang ada pada `y_train` dan `y
 y_train = y_train - 1
 y_test = y_test - 1
 ```
-Dengan demikian, dataset siap digunakan untuk tahap pelatihan model, dengan variabel independen yang telah dinormalisasi dan variabel dependen yang sudah disiapkan.
+
+---
+
+#### **3. Normalisasi Data menggunakan MinMaxScaler**
+
+Setelah pembagian data, dilakukan normalisasi pada fitur `x_train` dan `x_test`. Normalisasi memastikan semua fitur berada dalam skala yang seragam, sehingga fitur dengan rentang nilai yang lebih besar tidak mendominasi proses pelatihan model. Normalisasi dilakukan menggunakan **MinMaxScaler** yang mengubah nilai setiap fitur ke dalam rentang [0, 1].
+
+```python
+scaler = MinMaxScaler()
+x_train = scaler.fit_transform(x_train)
+x_test = scaler.transform(x_test)
+```
+
+Dataset kini siap untuk digunakan pada tahap pelatihan model dengan fitur yang telah dinormalisasi dan label target yang sesuai.
 
 ## 7. Modeling
 
