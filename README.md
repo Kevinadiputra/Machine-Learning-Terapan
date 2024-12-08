@@ -78,7 +78,7 @@ Berikut adalah gambaran awal dari dataset yang digunakan:
 *Tabel 1: Gambaran awal Dataset*
 
 ### Deskripsi Dataset
-Dataset ini terdiri dari **700 sampel** dengan **10 kolom fitur utama** dan 1 kolom target. Semua data telah diproses sehingga tidak memiliki nilai yang hilang, dan kolom **User ID**, yang tidak relevan dengan analisis, telah dihapus.
+Dataset ini terdiri dari **700 sampel** dengan **10 kolom fitur utama** dan 1 kolom target. Semua data telah diproses sehingga tidak memiliki nilai yang hilang.
 
 Berikut adalah deskripsi fitur yang digunakan:
 - **Device Model**: Jenis atau model perangkat pengguna (misalnya, Android/iOS).
@@ -113,95 +113,9 @@ Berikut adalah tabel dengan nama dan informasi terkait data dalam dataset:
 
 *Tabel 2: Informasi Dataset*
 
-## 4. Data Preparation
+### Menghapus kolom **User ID**, yang tidak relevan dengan analisis.
 
-### Teknik Data Preparation
-Langkah-langkah persiapan data meliputi:
-1. **Label Encoder**: Kolom **Gender** dan **Operating System** diubah menjadi vektor numerik.
-```python
-# @title Mengubah kolom kategorikal menjadi numerikal menggunakan LabelEncoder
-labencoder = preprocessing.LabelEncoder()
-df['Operating System'] = labencoder.fit_transform(df['Operating System'])
-df['Gender'] = labencoder.fit_transform(df['Gender'])
-df
-```
-- **Apa itu Label Encoding?**
-
-  Label encoding adalah teknik dalam pemrosesan data yang digunakan untuk mengubah data kategorikal menjadi representasi numerik. Teknik ini menggantikan setiap kategori unik dalam sebuah kolom dengan angka tertentu, biasanya berdasarkan urutan kemunculan atau tingkatannya.[[12]](https://www.geeksforgeeks.org/ml-label-encoding-of-datasets-in-python/)
-
-- **Mengapa Menggunakan Label Encoding?**
-   - Kolom **`Operating System`** dan **`Gender`** adalah tipe data kategorikal dengan nilai unik binary, seperti:
-     - `Operating System`: "Android" dan "iOS".
-     - `Gender`: "Male" dan "Female".
-   - Label Encoding mengubah nilai-nilai kategorikal ini menjadi angka numerik, seperti pada kasus kali ini:
-     - "Android" → 0, "iOS" → 1.
-     - "Male" → 0, "Female" → 1.
-   - Pendekatan ini ideal untuk kolom dengan **nilai kategorikal yang bersifat biner (binary)**, karena:
-     - Mudah diterapkan.
-     - Efisien untuk model yang tidak bergantung pada hubungan antar-kategori.
-
-- **Keunggulan Label Encoding untuk Binary Categories:**
-   - Proses sederhana dan cepat.
-   - Tidak memperkenalkan redundansi seperti **One-Hot Encoding** yang menambahkan kolom tambahan.
-   - Sangat cocok untuk dataset dengan fitur binary kategorikal.
-
-- **Hasil:**
-   Setelah transformasi, kolom `Operating System` dan `Gender` dalam dataset `df` akan berisi nilai numerik, mempermudah algoritma machine learning untuk memproses data tersebut.
-  
-Berikut adalah tampilan Data setelah dilakukan Label Encoder:
-| Index | Device Model        | Operating System | App Usage Time (min/day) | Screen On Time (hours/day) | Battery Drain (mAh/day) | Number of Apps Installed | Data Usage (MB/day) | Age | Gender | User Behavior Class |
-|-------|---------------------|------------------|--------------------------|----------------------------|-------------------------|--------------------------|---------------------|-----|--------|--------------------|
-| 0     | Google Pixel 5      | 0                | 393                      | 6.4                        | 1872                   | 67                       | 1122                | 40  | 1      | 4                  |
-| 1     | OnePlus 9           | 0                | 268                      | 4.7                        | 1331                   | 42                       | 944                 | 47  | 0      | 3                  |
-| 2     | Xiaomi Mi 11        | 0                | 154                      | 4.0                        | 761                    | 32                       | 322                 | 42  | 1      | 2                  |
-| 3     | Google Pixel 5      | 0                | 239                      | 4.8                        | 1676                   | 56                       | 871                 | 20  | 1      | 3                  |
-| 4     | iPhone 12           | 1                | 187                      | 4.3                        | 1367                   | 58                       | 988                 | 31  | 0      | 3                  |
-
-*Tabel 3: Dataset setelah dilakukan Label Encoder*
-
-### 2. One-Hot Encoding pada Kolom Kategorikal Non-Ordinal("Device Model")
-
-**Apa itu One-Hot Encoding?**  
-One-Hot Encoding adalah teknik representasi data yang mengonversi variabel kategorikal menjadi format yang lebih mudah dipahami oleh model machine learning. Teknik ini menciptakan kolom biner terpisah untuk setiap kategori unik pada kolom awal. Setiap kolom baru diisi dengan nilai **1** jika kategori tersebut ada, atau **0** jika tidak.[[13]](https://www.geeksforgeeks.org/ml-one-hot-encoding/)
-
-**Mengapa Menggunakan One-Hot Encoding?**  
-One-Hot Encoding digunakan untuk kolom kategorikal **non-ordinal**, seperti **Device Model**, yang kategorinya tidak memiliki urutan atau hierarki. Dalam kasus ini, representasi numerikal biasa (seperti Label Encoding) dapat menyesatkan model dengan menyiratkan adanya hubungan ordinal antara kategori. Dengan One-Hot Encoding, hubungan ordinal ini dihindari, memastikan model memberikan bobot yang adil untuk setiap kategori.
-
-**Keunggulan One-Hot Encoding**  
-1. **Meningkatkan Akurasi Model**: Representasi biner menghindari bias yang mungkin terjadi akibat interpretasi ordinal pada data.
-2. **Kesesuaian dengan Algoritma Machine Learning**: Algoritma seperti regresi linier dan neural network bekerja lebih baik dengan data numerikal yang tidak menyiratkan hubungan ordinal.
-3. **Memperjelas Informasi Kategori**: Setiap kategori mendapatkan kolom yang jelas tanpa tumpang tindih.
-
-**Langkah-Langkah Implementasi**
-1. **Konversi Kategori ke Representasi Biner**  
-   Menggunakan fungsi `pd.get_dummies`, semua nilai unik dari kolom **Device Model** dikonversi menjadi kolom baru yang hanya berisi **0** dan **1**.  
-   ```python
-   df = df.join(pd.get_dummies(df['Device Model'], dtype=int))
-   ```
-
-2. **Penggabungan dengan Dataset Asli**  
-   Kolom hasil encoding langsung digabungkan dengan dataset awal.
-
-3. **Penghapusan Kolom Asli**  
-   Kolom **Device Model** yang asli dihapus menggunakan fungsi `drop` karena informasinya telah direpresentasikan dalam kolom hasil encoding.  
-   ```python
-   df = df.drop(columns='Device Model')
-   ```
-
-**Hasil**  
-Setelah proses ini, dataset memiliki kolom tambahan untuk setiap model perangkat. Berikut adalah contoh hasil setelah One-Hot Encoding diterapkan pada kolom **Device Model**:
-
-| Operating System | App Usage Time (min/day) | Screen On Time (hours/day) | Battery Drain (mAh/day) | Number of Apps Installed | Data Usage (MB/day) | Age | Gender | User Behavior Class | Google Pixel 5 | OnePlus 9 | Samsung Galaxy S21 | Xiaomi Mi 11 | iPhone 12 |
-|-------------------|--------------------------|----------------------------|--------------------------|--------------------------|---------------------|-----|--------|--------------------|----------------|-----------|--------------------|--------------|-----------|
-| 0                 | 393                      | 6.4                        | 1872                     | 67                       | 1122                | 40  | 1      | 4                  | 1              | 0         | 0                  | 0            | 0         |
-| 0                 | 268                      | 4.7                        | 1331                     | 42                       | 944                 | 47  | 0      | 3                  | 0              | 1         | 0                  | 0            | 0         |
-| 0                 | 154                      | 4.0                        | 761                      | 32                       | 322                 | 42  | 1      | 2                  | 0              | 0         | 0                  | 1            | 0         |
-| 0                 | 239                      | 4.8                        | 1676                     | 56                       | 871                 | 20  | 1      | 3                  | 1              | 0         | 0                  | 0            | 0         |
-| 1                 | 187                      | 4.3                        | 1367                     | 58                       | 988                 | 31  | 0      | 3                  | 0              | 0         | 0                  | 0            | 1         |
-
-*Tabel 4: Dataset setelah One-Hot Encoding*
-
-## 5. Exploratory Data Analysis
+### Exploratory Data Analysis
 
 Pada tahap Exploratory Data Analysis (EDA), dilakukan eksplorasi awal terhadap dataset untuk memahami distribusi data, statistik deskriptif, dan hubungan antar fitur. Berikut adalah penjelasan dan hasil analisis dari data yang diberikan.
 
@@ -220,7 +134,7 @@ Fungsi `describe()` menghasilkan deskripsi statistik seperti **count**, **mean**
 | **75%**             | 0.00             | 434.25                   | 7.40                       | 2229.50                 | 74.00                   | 1341.00           | 49.00 | 1.00   | 4.00                | 0.00           | 0.00      | 0.00               | 0.00         | 0.00      |
 | **Max**             | 1.00             | 598.00                   | 12.00                      | 2993.00                 | 99.00                   | 2497.00           | 59.00 | 1.00   | 5.00                | 1.00           | 1.00      | 1.00               | 1.00         | 1.00      |
 
-*Tabel 5 : Tampilan Statistik Data*
+*Tabel 3 : Tampilan Statistik Data*
 
 #### **Analisis Deskriptif**
 
@@ -326,6 +240,95 @@ Sebagian besar fitur lainnya tampaknya tidak memiliki hubungan yang signifikan d
    
 6. **Data Usage Efficiency**: Distribusi "Data Usage Efficiency" antar **User Behavior Class** tampaknya acak tanpa pola yang jelas.
 
+## 4. Data Preparation
+
+### Teknik Data Preparation
+Langkah-langkah persiapan data meliputi:
+1. **Label Encoder**: Kolom **Gender** dan **Operating System** diubah menjadi vektor numerik.
+```python
+# @title Mengubah kolom kategorikal menjadi numerikal menggunakan LabelEncoder
+labencoder = preprocessing.LabelEncoder()
+df['Operating System'] = labencoder.fit_transform(df['Operating System'])
+df['Gender'] = labencoder.fit_transform(df['Gender'])
+df
+```
+- **Apa itu Label Encoding?**
+
+  Label encoding adalah teknik dalam pemrosesan data yang digunakan untuk mengubah data kategorikal menjadi representasi numerik. Teknik ini menggantikan setiap kategori unik dalam sebuah kolom dengan angka tertentu, biasanya berdasarkan urutan kemunculan atau tingkatannya.[[12]](https://www.geeksforgeeks.org/ml-label-encoding-of-datasets-in-python/)
+
+- **Mengapa Menggunakan Label Encoding?**
+   - Kolom **`Operating System`** dan **`Gender`** adalah tipe data kategorikal dengan nilai unik binary, seperti:
+     - `Operating System`: "Android" dan "iOS".
+     - `Gender`: "Male" dan "Female".
+   - Label Encoding mengubah nilai-nilai kategorikal ini menjadi angka numerik, seperti pada kasus kali ini:
+     - "Android" → 0, "iOS" → 1.
+     - "Male" → 0, "Female" → 1.
+   - Pendekatan ini ideal untuk kolom dengan **nilai kategorikal yang bersifat biner (binary)**, karena:
+     - Mudah diterapkan.
+     - Efisien untuk model yang tidak bergantung pada hubungan antar-kategori.
+
+- **Keunggulan Label Encoding untuk Binary Categories:**
+   - Proses sederhana dan cepat.
+   - Tidak memperkenalkan redundansi seperti **One-Hot Encoding** yang menambahkan kolom tambahan.
+   - Sangat cocok untuk dataset dengan fitur binary kategorikal.
+
+- **Hasil:**
+   Setelah transformasi, kolom `Operating System` dan `Gender` dalam dataset `df` akan berisi nilai numerik, mempermudah algoritma machine learning untuk memproses data tersebut.
+  
+Berikut adalah tampilan Data setelah dilakukan Label Encoder:
+| Index | Device Model        | Operating System | App Usage Time (min/day) | Screen On Time (hours/day) | Battery Drain (mAh/day) | Number of Apps Installed | Data Usage (MB/day) | Age | Gender | User Behavior Class |
+|-------|---------------------|------------------|--------------------------|----------------------------|-------------------------|--------------------------|---------------------|-----|--------|--------------------|
+| 0     | Google Pixel 5      | 0                | 393                      | 6.4                        | 1872                   | 67                       | 1122                | 40  | 1      | 4                  |
+| 1     | OnePlus 9           | 0                | 268                      | 4.7                        | 1331                   | 42                       | 944                 | 47  | 0      | 3                  |
+| 2     | Xiaomi Mi 11        | 0                | 154                      | 4.0                        | 761                    | 32                       | 322                 | 42  | 1      | 2                  |
+| 3     | Google Pixel 5      | 0                | 239                      | 4.8                        | 1676                   | 56                       | 871                 | 20  | 1      | 3                  |
+| 4     | iPhone 12           | 1                | 187                      | 4.3                        | 1367                   | 58                       | 988                 | 31  | 0      | 3                  |
+
+*Tabel 4: Dataset setelah dilakukan Label Encoder*
+
+### 2. One-Hot Encoding pada Kolom Kategorikal Non-Ordinal("Device Model")
+
+**Apa itu One-Hot Encoding?**  
+One-Hot Encoding adalah teknik representasi data yang mengonversi variabel kategorikal menjadi format yang lebih mudah dipahami oleh model machine learning. Teknik ini menciptakan kolom biner terpisah untuk setiap kategori unik pada kolom awal. Setiap kolom baru diisi dengan nilai **1** jika kategori tersebut ada, atau **0** jika tidak.[[13]](https://www.geeksforgeeks.org/ml-one-hot-encoding/)
+
+**Mengapa Menggunakan One-Hot Encoding?**  
+One-Hot Encoding digunakan untuk kolom kategorikal **non-ordinal**, seperti **Device Model**, yang kategorinya tidak memiliki urutan atau hierarki. Dalam kasus ini, representasi numerikal biasa (seperti Label Encoding) dapat menyesatkan model dengan menyiratkan adanya hubungan ordinal antara kategori. Dengan One-Hot Encoding, hubungan ordinal ini dihindari, memastikan model memberikan bobot yang adil untuk setiap kategori.
+
+**Keunggulan One-Hot Encoding**  
+1. **Meningkatkan Akurasi Model**: Representasi biner menghindari bias yang mungkin terjadi akibat interpretasi ordinal pada data.
+2. **Kesesuaian dengan Algoritma Machine Learning**: Algoritma seperti regresi linier dan neural network bekerja lebih baik dengan data numerikal yang tidak menyiratkan hubungan ordinal.
+3. **Memperjelas Informasi Kategori**: Setiap kategori mendapatkan kolom yang jelas tanpa tumpang tindih.
+
+**Langkah-Langkah Implementasi**
+1. **Konversi Kategori ke Representasi Biner**  
+   Menggunakan fungsi `pd.get_dummies`, semua nilai unik dari kolom **Device Model** dikonversi menjadi kolom baru yang hanya berisi **0** dan **1**.  
+   ```python
+   df = df.join(pd.get_dummies(df['Device Model'], dtype=int))
+   ```
+
+2. **Penggabungan dengan Dataset Asli**  
+   Kolom hasil encoding langsung digabungkan dengan dataset awal.
+
+3. **Penghapusan Kolom Asli**  
+   Kolom **Device Model** yang asli dihapus menggunakan fungsi `drop` karena informasinya telah direpresentasikan dalam kolom hasil encoding.  
+   ```python
+   df = df.drop(columns='Device Model')
+   ```
+
+**Hasil**  
+Setelah proses ini, dataset memiliki kolom tambahan untuk setiap model perangkat. Berikut adalah contoh hasil setelah One-Hot Encoding diterapkan pada kolom **Device Model**:
+
+| Operating System | App Usage Time (min/day) | Screen On Time (hours/day) | Battery Drain (mAh/day) | Number of Apps Installed | Data Usage (MB/day) | Age | Gender | User Behavior Class | Google Pixel 5 | OnePlus 9 | Samsung Galaxy S21 | Xiaomi Mi 11 | iPhone 12 |
+|-------------------|--------------------------|----------------------------|--------------------------|--------------------------|---------------------|-----|--------|--------------------|----------------|-----------|--------------------|--------------|-----------|
+| 0                 | 393                      | 6.4                        | 1872                     | 67                       | 1122                | 40  | 1      | 4                  | 1              | 0         | 0                  | 0            | 0         |
+| 0                 | 268                      | 4.7                        | 1331                     | 42                       | 944                 | 47  | 0      | 3                  | 0              | 1         | 0                  | 0            | 0         |
+| 0                 | 154                      | 4.0                        | 761                      | 32                       | 322                 | 42  | 1      | 2                  | 0              | 0         | 0                  | 1            | 0         |
+| 0                 | 239                      | 4.8                        | 1676                     | 56                       | 871                 | 20  | 1      | 3                  | 1              | 0         | 0                  | 0            | 0         |
+| 1                 | 187                      | 4.3                        | 1367                     | 58                       | 988                 | 31  | 0      | 3                  | 0              | 0         | 0                  | 0            | 1         |
+
+*Tabel 5: Dataset setelah One-Hot Encoding*
+
+
 ## 6. Feature Engineering
 
 Pada bagian ini, dilakukan beberapa langkah untuk mempersiapkan data agar dapat digunakan dalam model machine learning, meliputi pemisahan atribut independen dan dependen, normalisasi data, serta pembagian dataset menjadi data latih dan data uji.
@@ -384,6 +387,61 @@ Sembilan model yang digunakan dalam eksperimen ini adalah:
 - **Gradient Boosting**: Model ensemble yang menggabungkan banyak model lemah menjadi satu model yang kuat melalui teknik boosting.
 - **XGBoost**: Variasi dari gradient boosting yang lebih efisien dan sering digunakan dalam kompetisi data science.
 - **AdaBoost**: Teknik boosting yang meningkatkan akurasi dengan menyesuaikan model berdasarkan kesalahan model sebelumnya.
+
+#### **2. Parameter yang digunakan**
+
+Berikut adalah parameter yang digunakan untuk 9 model: 
+
+1. **Decision Tree**  
+   Menggunakan `DecisionTreeClassifier()`. Parameter default termasuk:
+   - Kriteria untuk split: **gini** (impurity).
+   - Kedalaman maksimum pohon: **None** (tidak ada batasan).
+   - Minimum sampel per leaf: **1**.
+
+2. **Random Forest**  
+   Menggunakan `RandomForestClassifier()`. Parameter default:
+   - Jumlah pohon: **100**.
+   - Kriteria split: **gini**.
+   - Sampel untuk split per pohon: **bootstrap=True**.
+
+3. **K-Nearest Neighbors (KNN)**  
+   Menggunakan `KNeighborsClassifier()`. Parameter default:
+   - Jumlah tetangga: **5**.
+   - Metrik jarak: **Euclidean**.
+   - Bobot tetangga: **uniform**.
+
+4. **Support Vector Machine (SVM)**  
+   Menggunakan `SVC()`. Parameter default:
+   - Kernel: **rbf** (Radial Basis Function).
+   - Parameter regularisasi: \(C = 1.0\).
+   - Gamma: **scale** (otomatis).
+
+5. **Logistic Regression**  
+   Menggunakan `LogisticRegression()`. Parameter default:
+   - Solver: **lbfgs**.
+   - Regularisasi: **L2**.
+   - Jumlah iterasi maksimum: **100**.
+
+6. **Naive Bayes**  
+   Menggunakan `GaussianNB()`. Tidak memiliki parameter utama. Menggunakan asumsi independensi antar fitur dan distribusi Gaussian untuk data kontinu.
+
+7. **Gradient Boosting**  
+   Menggunakan `GradientBoostingClassifier()`. Parameter default:
+   - Jumlah pohon: **100**.
+   - Kedalaman maksimum pohon: **3**.
+   - Learning rate: **0.1**.
+   
+8. **XGBoost**  
+   Menggunakan `XGBClassifier()`. Parameter default:
+   - Jumlah pohon: **100**.
+   - Learning rate: **0.3**.
+   - Kedalaman maksimum: **6**.
+
+9. **AdaBoost**  
+   Menggunakan `AdaBoostClassifier()`. Parameter default:
+   - Estimator dasar: **DecisionTreeClassifier()** dengan kedalaman maksimum **1**.
+   - Jumlah estimator: **50**.
+   - Learning rate: **1.0**.
 
 #### **2. Proses Pelatihan dan Evaluasi Model**
 Setiap model dilatih dengan data latih (`x_train`, `y_train`) dan dievaluasi menggunakan data uji (`x_test`, `y_test`). Setelah pelatihan, model memprediksi kelas **User Behavior Class** pada data uji. Kemudian, hasil prediksi dibandingkan dengan nilai aktual untuk menghitung akurasi.
@@ -644,7 +702,6 @@ Berikut adalah **tabel ringkasan hasil cross-validation** yang menunjukkan **Mea
 | Gradient Boosting              | 1.000000          | 0.000000               |
 | XGBoost                        | 0.994643          | 0.007143               |
 | AdaBoost                       | 0.721429          | 0.100604               |
-
 
 *Tabel 7: Ringkasan hasil cross-validation tiap model*
 
