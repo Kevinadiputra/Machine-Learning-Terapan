@@ -349,8 +349,15 @@ Setelah proses ini, dataset memiliki kolom tambahan untuk setiap model perangkat
 
 *Tabel 6: Dataset setelah One-Hot Encoding*
 
+### 3. Menghapus Kolom "Iphone 12"
 
-**
+```python
+# @title menghapus kolom Iphone 12
+df = df.drop(columns='iPhone 12')
+df
+```
+
+Dikarenakan fitur Iphone 12 dan operating system memiliki korelasi yang terlalu tinggi, maka saya menghapus fitur iphone 12 agar tidak ada korelasi yang terlalu tinggi. korelasi yang terlalu tinggi (1) dapat memperbesar risiko overfiting.
 
 ## 6. Feature Engineering
 
