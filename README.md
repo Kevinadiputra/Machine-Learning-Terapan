@@ -115,6 +115,21 @@ Berikut adalah tabel dengan nama dan informasi terkait data dalam dataset:
 
 ### Menghapus kolom **User ID**, yang tidak relevan dengan analisis.
 
+| **Nomor** | **Nama Kolom**              | **Tipe Data** | **Jumlah Non-Null** | **Deskripsi**                       |
+|-----------|-----------------------------|---------------|---------------------|-------------------------------------|
+| 1         | Device Model                | `object`      | 700                 | Model perangkat pengguna.          |
+| 2         | Operating System            | `object`      | 700                 | Sistem operasi perangkat (Android/iOS). |
+| 3         | App Usage Time (min/day)    | `int64`       | 700                 | Total waktu penggunaan aplikasi dalam menit per hari. |
+| 4         | Screen On Time (hours/day)  | `float64`     | 700                 | Durasi layar menyala dalam jam per hari. |
+| 5         | Battery Drain (mAh/day)     | `int64`       | 700                 | Konsumsi baterai per hari dalam mAh. |
+| 6         | Number of Apps Installed    | `int64`       | 700                 | Jumlah aplikasi yang diinstal pada perangkat. |
+| 7         | Data Usage (MB/day)         | `int64`       | 700                 | Total penggunaan data internet dalam MB per hari. |
+| 8         | Age                         | `int64`       | 700                 | Usia pengguna perangkat.            |
+| 9        | Gender                      | `object`      | 700                 | Jenis kelamin pengguna.             |
+| 10        | User Behavior Class         | `int64`       | 700                 | Kategori perilaku pengguna, digunakan sebagai target. |
+
+*Tabel 3: Menghapus Kolom "User ID"*
+
 ### Exploratory Data Analysis
 
 Pada tahap Exploratory Data Analysis (EDA), dilakukan eksplorasi awal terhadap dataset untuk memahami distribusi data, statistik deskriptif, dan hubungan antar fitur. Berikut adalah penjelasan dan hasil analisis dari data yang diberikan.
@@ -134,7 +149,7 @@ Fungsi `describe()` menghasilkan deskripsi statistik seperti **count**, **mean**
 | **75%**             | 0.00             | 434.25                   | 7.40                       | 2229.50                 | 74.00                   | 1341.00           | 49.00 | 1.00   | 4.00                | 0.00           | 0.00      | 0.00               | 0.00         | 0.00      |
 | **Max**             | 1.00             | 598.00                   | 12.00                      | 2993.00                 | 99.00                   | 2497.00           | 59.00 | 1.00   | 5.00                | 1.00           | 1.00      | 1.00               | 1.00         | 1.00      |
 
-*Tabel 3 : Tampilan Statistik Data*
+*Tabel 4 : Tampilan Statistik Data*
 
 #### **Analisis Deskriptif**
 
@@ -284,7 +299,7 @@ Berikut adalah tampilan Data setelah dilakukan Label Encoder:
 | 3     | Google Pixel 5      | 0                | 239                      | 4.8                        | 1676                   | 56                       | 871                 | 20  | 1      | 3                  |
 | 4     | iPhone 12           | 1                | 187                      | 4.3                        | 1367                   | 58                       | 988                 | 31  | 0      | 3                  |
 
-*Tabel 4: Dataset setelah dilakukan Label Encoder*
+*Tabel 5: Dataset setelah dilakukan Label Encoder*
 
 ### 2. One-Hot Encoding pada Kolom Kategorikal Non-Ordinal("Device Model")
 
@@ -326,7 +341,7 @@ Setelah proses ini, dataset memiliki kolom tambahan untuk setiap model perangkat
 | 0                 | 239                      | 4.8                        | 1676                     | 56                       | 871                 | 20  | 1      | 3                  | 1              | 0         | 0                  | 0            | 0         |
 | 1                 | 187                      | 4.3                        | 1367                     | 58                       | 988                 | 31  | 0      | 3                  | 0              | 0         | 0                  | 0            | 1         |
 
-*Tabel 5: Dataset setelah One-Hot Encoding*
+*Tabel 6: Dataset setelah One-Hot Encoding*
 
 
 ## 6. Feature Engineering
@@ -669,7 +684,7 @@ Berikut adalah tabel yang menunjukkan hasil ringkasan metrik **Accuracy** untuk 
 | XGBoost                        | 0.992857     |
 | AdaBoost                       | 0.557143     |
 
-*Tabel 6: Ringkasan Hasil Akurasi tiap model*
+*Tabel 7: Ringkasan Hasil Akurasi tiap model*
 
 Tabel ini merangkum hasil **accuracy** dari beberapa model yang diuji, dengan sebagian besar model mencapai hasil sempurna (1.000000), kecuali untuk K-Nearest Neighbors, Logistic Regression, XGBoost, dan AdaBoost.
 
@@ -703,7 +718,7 @@ Berikut adalah **tabel ringkasan hasil cross-validation** yang menunjukkan **Mea
 | XGBoost                        | 0.994643          | 0.007143               |
 | AdaBoost                       | 0.721429          | 0.100604               |
 
-*Tabel 7: Ringkasan hasil cross-validation tiap model*
+*Tabel 8: Ringkasan hasil cross-validation tiap model*
 
 ![image](https://github.com/user-attachments/assets/4c66f3ca-9b77-4023-b471-37f73178b15f)
 
