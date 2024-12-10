@@ -487,13 +487,119 @@ Pada tahap ini, dilakukan persiapan data untuk model **Content-Based Filtering**
 
 ## Modeling
 
-Pada tahap ini, saya mengimplementasikan dua metode sistem rekomendasi:
+### **Tahap Modeling: Collaborative Filtering dengan SVD**
 
-### 1. **Collaborative Filtering** (Menggunakan KNN)
-Model ini mencari pengguna yang memiliki preferensi serupa dengan pengguna yang sedang dianalisis. Rekomendasi diberikan berdasarkan rating yang diberikan oleh pengguna serupa.
+Pada tahap ini, dilakukan implementasi model **Collaborative Filtering** menggunakan algoritma **Singular Value Decomposition (SVD)** dari pustaka **Surprise**. 
 
-### 2. **Content-Based Filtering**
-Menggunakan genre film sebagai dasar untuk memberikan rekomendasi. Model ini memberikan film yang serupa dengan film yang telah ditonton oleh pengguna.
+#### **Pemilihan Model: SVD**
+Model **SVD** dipilih karena merupakan algoritma berbasis faktorisasi matriks yang mampu menangani data yang jarang dan menghasilkan rekomendasi personal. Alasan pemilihannya adalah:
+1. **Efektivitas**: SVD menguraikan hubungan antara pengguna dan item ke dalam dimensi laten, memungkinkan analisis yang lebih mendalam meskipun data matriks tidak lengkap.
+2. **Akurasi**: Algoritma ini sering kali menghasilkan prediksi yang lebih akurat dibandingkan metode berbasis heuristik.
+3. **Skalabilitas**: Dengan optimisasi algoritma, SVD dapat menangani dataset besar dengan efisiensi yang baik.
+
+---
+
+#### **Parameter yang Digunakan**
+Dalam proyek ini, digunakan **parameter default** dari pustaka **Surprise**, yang meliputi:
+- `n_factors`: Dimensi laten (default: 100).
+- `n_epochs`: Jumlah iterasi pelatihan (default: 20).
+- `lr_all`: Learning rate (default: 0.005).
+- `reg_all`: Regularisasi untuk mencegah overfitting (default: 0.02).  
+Penggunaan parameter default memastikan model dapat digunakan dengan konfigurasi standar tanpa penyesuaian tambahan.
+
+---
+
+#### **Proses Modeling**
+1. **Pelatihan Model**  
+   Model dilatih menggunakan **training set** untuk mempelajari pola hubungan laten antara pengguna dan item berdasarkan data rating yang tersedia.
+
+2. **Evaluasi Model**  
+   Model diuji pada **testing set** untuk mengukur performa prediksi. Metode evaluasi menggunakan **Mean Absolute Error (MAE)**, yang menghitung rata-rata selisih absolut antara prediksi dan nilai aktual.  
+
+3. **Fungsi Rekomendasi**  
+   - Item yang belum dirating oleh pengguna diidentifikasi.  
+   - Model memprediksi rating untuk item-item tersebut.  
+   - Item dengan prediksi rating tertinggi direkomendasikan kepada pengguna.
+
+---
+
+#### **Kelebihan**
+1. **Penanganan Missing Values**: SVD dirancang untuk bekerja pada matriks data yang jarang, sehingga dapat menangani kasus di mana sebagian besar pengguna belum memberikan rating.
+2. **Akurasi yang Baik**: Algoritma ini menghasilkan prediksi yang sering kali lebih akurat dibandingkan pendekatan non-faktorisasi.
+3. **Generalitas**: SVD dapat digunakan untuk berbagai jenis dataset, tidak hanya data rating tetapi juga data lain yang bersifat matriks.
+4. **Efisiensi**: Dengan implementasi optimasi, SVD dapat menangani dataset besar tanpa membutuhkan terlalu banyak memori.
+
+---
+
+#### **Kekurangan**
+1. **Ketergantungan pada Parameter**: Performa model sangat bergantung pada pemilihan parameter seperti `n_factors`, `lr_all`, dan `reg_all`. Pengaturan yang kurang tepat dapat menyebabkan underfitting atau overfitting.
+2. **Tidak Cocok untuk Dataset Sangat Kecil**: Pada dataset dengan jumlah pengguna atau item yang sangat sedikit, algoritma SVD mungkin kurang efektif karena tidak cukup data untuk pelatihan dimensi laten.
+3. **Kompleksitas Komputasi**: Meskipun efisien, SVD tetap memiliki kompleksitas yang lebih tinggi dibandingkan algoritma berbasis heuristik.
+4. **Tidak Menangani Data Kontekstual**: SVD tidak mempertimbangkan informasi tambahan seperti waktu atau lokasi, yang bisa relevan dalam beberapa aplikasi rekomendasi.
+
+Dengan kelebihan dan kekurangannya, SVD adalah pilihan yang ideal untuk sistem rekomendasi berbasis data rating, terutama jika dataset yang digunakan cukup besar dan memiliki tingkat sparsity tinggi. Implementasi default memungkinkan pendekatan baseline yang baik sebelum dilakukan penyesuaian parameter lebih lanjut.
+
+### **Rekomendasi untuk User 2**
+
+Berdasarkan model **Collaborative Filtering** menggunakan algoritma **SVD**, berikut adalah **daftar rekomendasi** yang diberikan untuk **User 2** beserta rating yang diprediksi untuk setiap film:
+
+1. **Forrest Gump (1994)** - **Predicted Rating: 4.55**
+2. **Singin' in the Rain (1952)** - **Predicted Rating: 4.54**
+3. **Lawrence of Arabia (1962)** - **Predicted Rating: 4.48**
+4. **Das Boot (1981)** - **Predicted Rating: 4.47**
+5. **Amadeus (1984)** - **Predicted Rating: 4.45**
+
+Model **Collaborative Filtering** yang menggunakan **SVD** memprediksi rating untuk film yang belum pernah ditonton oleh pengguna berdasarkan pola perilaku pengguna lain yang mirip. Dalam hal ini, untuk **User 2**, sistem memberikan rekomendasi film dengan **rating yang diprediksi tinggi**, yang berarti bahwa film-film ini kemungkinan akan disukai oleh User 2, berdasarkan preferensi pengguna yang memiliki pola rating yang serupa.
+
+- **Forrest Gump (1994)**, yang memiliki prediksi rating tertinggi (4.55), mungkin merupakan film yang sangat sesuai dengan preferensi User 2 berdasarkan sejarah rating mereka.
+- **Singin' in the Rain (1952)** dan **Lawrence of Arabia (1962)** adalah film klasik yang mendapatkan rating prediksi tinggi, menunjukkan bahwa User 2 cenderung menikmati film-film dengan genre atau era serupa.
+- **Das Boot (1981)** dan **Amadeus (1984)** juga masuk dalam rekomendasi, menunjukkan bahwa model mempertimbangkan variasi genre (drama perang dan biografi musik) yang mungkin relevan bagi User 2.
+
+### **Content-Based Filtering**
+
+Pada tahap ini, **Content-Based Filtering** digunakan untuk memberikan rekomendasi berdasarkan kesamaan fitur konten, seperti genre film. Berikut adalah tahapan yang dilakukan dalam model ini:
+
+1. **Vektorisasi Genre Menggunakan TF-IDF**  
+   Proses pertama adalah melakukan **vektorisasi** pada kolom `genres` menggunakan **TF-IDF (Term Frequency-Inverse Document Frequency)**. TF-IDF adalah teknik yang digunakan untuk mengubah teks menjadi representasi numerik yang lebih mudah dipahami oleh model. Dalam hal ini, genre setiap film diubah menjadi vektor yang menggambarkan frekuensi relatif dari kata-kata dalam genre tersebut. Berikut adalah hasil matriks **TF-IDF** setelah proses vektorisasi:
+   ```
+   [ 0.5, 0.1, 0.3, ... ]  # Representasi numerik genre film
+   ```
+   
+   Matriks ini memungkinkan sistem untuk memahami hubungan antara genre satu film dengan genre lainnya dalam bentuk angka, yang kemudian digunakan untuk menghitung kesamaan antar film.
+
+2. **Penghitungan Cosine Similarity**  
+   Setelah matriks TF-IDF diperoleh, tahap selanjutnya adalah menghitung **cosine similarity**, yaitu ukuran yang digunakan untuk menilai sejauh mana dua vektor memiliki arah yang sama, dengan nilai antara -1 hingga 1. Nilai lebih dekat ke 1 menunjukkan kesamaan yang lebih tinggi. Hasil **cosine similarity** ini akan membentuk matriks kemiripan antara film satu dengan film lainnya berdasarkan genre.
+
+   Berikut adalah hasil **cosine similarity** untuk beberapa film:
+   ```
+   [0.8, 0.75, 0.5, ...]  # Matriks kemiripan antar film
+   ```
+
+3. **Rekomendasi Berbasis Konten**  
+   Fungsi **content_based_recommendation** digunakan untuk memberikan rekomendasi film berdasarkan kesamaan genre. Fungsi ini akan menerima **judul film** sebagai input dan memberikan **n rekomendasi teratas** berdasarkan kemiripan genre. Prosesnya adalah sebagai berikut:
+   
+   - Menentukan indeks film berdasarkan judul yang diberikan.
+   - Mengambil skor kemiripan (similarity scores) dengan film lainnya.
+   - Menyusun skor kemiripan tersebut, mengurutkannya dari yang tertinggi, dan mengambil film-film yang memiliki skor kemiripan tertinggi.
+   
+   Contoh output untuk rekomendasi berbasis konten untuk film *"Toy Story (1995)"* adalah:
+   ```
+   1. Jumanji (1995)
+   2. Grumpier Old Men (1995)
+   3. Waiting to Exhale (1995)
+   4. Father of the Bride Part II (1995)
+   5. Toy Story 2 (1999)
+   ```
+
+### **Kelebihan dan Kekurangan Content-Based Filtering**
+#### Kelebihan:
+- **Rekomendasi Tepat Berdasarkan Konten**: Sistem ini sangat efektif dalam memberikan rekomendasi berdasarkan kesamaan genre atau atribut lainnya, yang memungkinkan film dengan tema yang mirip dapat direkomendasikan.
+- **Tidak Bergantung pada Pengguna Lain**: Berbeda dengan collaborative filtering, metode ini tidak membutuhkan data dari pengguna lain untuk menghasilkan rekomendasi, menjadikannya lebih pribadi.
+  
+#### Kekurangan:
+- **Rekomendasi Terbatas**: Karena bergantung hanya pada genre atau fitur konten lainnya, sistem ini dapat memberikan rekomendasi yang terbatas pada kategori yang serupa dan mungkin tidak menyarankan variasi atau genre baru.
+- **Masalah dengan Film Baru**: Sistem ini memerlukan data tentang genre film untuk memberikan rekomendasi, sehingga film baru yang belum memiliki banyak informasi genre mungkin tidak bisa mendapatkan rekomendasi yang optimal.
+
 
 ---
 
