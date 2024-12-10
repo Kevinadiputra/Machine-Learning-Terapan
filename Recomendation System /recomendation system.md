@@ -1,4 +1,4 @@
-# Laporan Proyek Machine Learning Terapan - Kevin Adiputra Mahesa
+# Laporan Proyek Machine Learning - Kevin Adiputra Mahesa
 
 ## Latar Belakang
 
@@ -623,18 +623,177 @@ Pada tahap ini, **Content-Based Filtering** digunakan untuk memberikan rekomenda
 
 ## Evaluation
 
-### Collaborative Filtering
-Untuk evaluasi Collaborative Filtering, saya menggunakan metrik **Root Mean Squared Error (RMSE)**. Nilai RMSE yang lebih rendah menunjukkan model yang lebih akurat dalam memprediksi rating pengguna.
+### Evaluasi *Content-Based Filtering*
 
-### Content-Based Filtering
-Evaluasi Content-Based Filtering didasarkan pada analisis **kemiripan genre**. Rekomendasi yang diberikan oleh model lebih relevan dengan preferensi genre pengguna dan tidak tergantung pada data rating.
+Untuk evaluasi Collaborative Filtering, saya menggunakan metrik **Root Mean Squared Error (RMSE) dan Mean Absolute Error(MAE)**. Nilai RMSE yang lebih rendah menunjukkan model yang lebih akurat dalam memprediksi rating pengguna.
+
+### Hasil Evaluasi Model Collaborative Filtering
+
+| **Metrik**        | **Fold 1** | **Fold 2** | **Fold 3** | **Fold 4** | **Fold 5** | **Mean** | **Std Dev** |
+|--------------------|------------|------------|------------|------------|------------|-----------|-------------|
+| **RMSE (testset)** | 0.8741     | 0.8799     | 0.8659     | 0.8686     | 0.8754     | 0.8727    | 0.0050      |
+| **MAE (testset)**  | 0.6689     | 0.6752     | 0.6680     | 0.6689     | 0.6728     | 0.6708    | 0.0028      |
+
+*Tabel 17: hasil evaluasi model collaborative filtering*
+
+### Waktu Eksekusi
+
+| **Proses**         | **Fold 1** | **Fold 2** | **Fold 3** | **Fold 4** | **Fold 5** | **Mean** | **Std Dev** |
+|---------------------|------------|------------|------------|------------|------------|-----------|-------------|
+| **Fit Time (detik)** | 4.32       | 3.92       | 1.55       | 1.62       | 1.60       | 2.60      | 1.25        |
+| **Test Time (detik)**| 0.42       | 0.21       | 0.11       | 0.27       | 0.13       | 0.23      | 0.11        |
+
+*Tabel 18: Waktu eksekusi*
+
+### Ringkasan
+
+| **Metrik**        | **Nilai**  |
+|--------------------|------------|
+| **Mean RMSE**      | 0.8727     |
+| **Mean MAE**       | 0.6708     |
+
+*Tabel 19: Ringkasan Hasil evaluasi*
+
+### **Rumus Evaluasi**
+1. **Root Mean Square Error (RMSE)**:
+   $\[
+   RMSE = \sqrt{\frac{1}{N} \sum_{i=1}^{N} (\hat{y}_i - y_i)^2}
+   \]$
+   - **N**: Jumlah data (prediksi).
+   - $\(\hat{y}_i\)$: Prediksi model untuk data ke- $\(i\)$.
+   - $\(y_i\)$: Nilai sebenarnya untuk data ke- $\(i\)$.
+
+2. **Mean Absolute Error (MAE)**:
+   $\[
+   MAE = \frac{1}{N} \sum_{i=1}^{N} |\hat{y}_i - y_i|
+   \]$
+   - Sama dengan RMSE, tetapi menggunakan nilai absolut perbedaan.
+
+### **Alasan Penggunaan RMSE dan MAE**
+- **RMSE** memberikan bobot lebih besar pada kesalahan besar karena menggunakan kuadrat dari selisih, sehingga lebih sensitif terhadap outlier.
+- **MAE** lebih sederhana dan tidak terlalu dipengaruhi oleh outlier, sehingga memberikan gambaran rata-rata kesalahan secara langsung.
+- Dengan menggunakan kedua metrik, kita dapat memperoleh gambaran lengkap tentang performa model dalam memprediksi rating.
 
 ---
 
+### **Interpretasi Hasil Evaluasi**
+#### **RMSE (Cross-Validation)**
+- **Mean RMSE**: 0.8727
+  - RMSE menunjukkan rata-rata akar kuadrat kesalahan antara prediksi dan nilai sebenarnya.
+  - Nilai RMSE yang mendekati 0 menunjukkan performa prediksi yang baik.
+  - Dalam kasus ini, RMSE sebesar **0.8727** menunjukkan bahwa rata-rata prediksi model memiliki kesalahan sebesar 0.8727 (skala rating biasanya 1–5).
+
+#### **MAE (Cross-Validation)**
+- **Mean MAE**: 0.6708
+  - MAE menunjukkan rata-rata kesalahan absolut antara prediksi dan nilai sebenarnya.
+  - Dengan nilai MAE sebesar **0.6708**, model menghasilkan kesalahan rata-rata sekitar 0.67 per prediksi.
+
+#### **Variabilitas**
+- **Standar Deviasi (Std)**:
+  - **RMSE Std**: 0.0050
+  - **MAE Std**: 0.0028
+  - Standar deviasi yang kecil menunjukkan bahwa performa model konsisten pada setiap lipatan validasi.
+
+#### **Waktu Eksekusi**
+- **Waktu Pelatihan**: Rata-rata 2.60 detik.
+- **Waktu Pengujian**: Rata-rata 0.23 detik.
+  - Model dapat digunakan dengan efisiensi waktu yang baik untuk proses pelatihan dan prediksi.
+
+---
+
+### **Kesimpulan**
+- Model **SVD** yang digunakan memiliki performa baik dengan RMSE < 1, yang menunjukkan tingkat akurasi prediksi tinggi.
+- **RMSE** lebih sensitif terhadap kesalahan besar, sedangkan **MAE** memberikan nilai rata-rata kesalahan absolut. Kedua metrik menunjukkan kesalahan prediksi yang relatif kecil.
+- Konsistensi performa ditunjukkan oleh rendahnya standar deviasi dari hasil cross-validation.
+
+Hasil ini menunjukkan bahwa model cukup andal untuk merekomendasikan item berdasarkan preferensi pengguna.
+
+Berikut adalah penjelasan untuk laporan evaluasi *content-based filtering* yang Anda lakukan:
+
+---
+
+### Evaluasi *Content-Based Filtering*
+
+#### 1. **Tujuan Evaluasi**
+Evaluasi bertujuan untuk mengukur tingkat kesesuaian genre antara film asli dengan film yang direkomendasikan oleh model *content-based filtering*. Pendekatan ini dilakukan dengan menghitung persentase kesamaan genre (genre similarity) dari film rekomendasi terhadap film yang dijadikan acuan.
+
+#### 2. **Metode Evaluasi**
+- **Dataset yang Digunakan:** 
+  - Film asli yang dianalisis: *Toy Story (1995)*.
+  - Film yang direkomendasikan: Lima film dengan skor kemiripan tertinggi terhadap film asli.
+- **Langkah Evaluasi:**
+  1. **Ekstraksi Genre:**
+     - Genre dari film asli diambil dan dipisahkan menjadi sebuah himpunan (*set*) untuk mempermudah perbandingan.
+     - Genre dari setiap film yang direkomendasikan juga diambil dalam bentuk himpunan.
+  2. **Perhitungan Kesamaan:**
+     - Menghitung jumlah genre yang sama antara film asli dan film yang direkomendasikan (irisan atau *intersection* dari dua himpunan).
+     - Menghitung persentase kesamaan dengan rumus:
+       $\[
+       \text{Kesamaan} = \frac{\text{Jumlah Genre yang Sama}}{\text{Jumlah Genre Film Asli}} \times 100
+       \]$
+  3. **Rata-rata Kesamaan:**
+     - Setelah menghitung kesamaan untuk semua film rekomendasi, diambil rata-rata dari semua skor kesamaan tersebut.
+
+#### 3. **Hasil Evaluasi**
+Berikut adalah hasil perhitungan:
+
+| **Film Rekomendasi**                    | **Genre**                                      | **Kesamaan Genre (%)** |
+|------------------------------------------|-----------------------------------------------|-------------------------|
+| *Antz (1998)*                            | *Adventure, Animation, Children, Comedy, Fantasy* | 100.00%                |
+| *Toy Story 2 (1999)*                     | *Adventure, Animation, Children, Comedy, Fantasy* | 100.00%                |
+| *Adventures of Rocky and Bullwinkle (2000)* | *Adventure, Animation, Children, Comedy, Fantasy* | 100.00%                |
+| *Emperor's New Groove (2000)*            | *Adventure, Animation, Children, Comedy, Fantasy* | 100.00%                |
+| *Monsters, Inc. (2001)*                  | *Adventure, Animation, Children, Comedy, Fantasy* | 100.00%                |
+
+*Tabel 20: Hasil Evaluasi content base Filtering*
+
+**Rata-rata Kesamaan Genre:** 100.00%
+
+#### 4. **Analisis Hasil**
+- **Kesesuaian Genre:**
+  Semua film rekomendasi memiliki tingkat kesamaan genre sebesar 100% dengan film asli (*Toy Story (1995)*). Hal ini menunjukkan bahwa model bekerja dengan sangat baik dalam merekomendasikan film-film dengan genre yang sama.
+- **Kekuatan Model:**
+  - Model berhasil menjaga konsistensi rekomendasi berdasarkan informasi genre yang tersedia.
+  - Genre seperti *Adventure, Animation, Children, Comedy, Fantasy* yang dimiliki film asli juga ditemukan di semua film rekomendasi.
+- **Keterbatasan Model:**
+  - Model hanya mempertimbangkan informasi genre sebagai dasar rekomendasi. Ini dapat menyebabkan model mengabaikan faktor lain seperti popularitas, rating, atau preferensi pengguna yang lebih kompleks.
+
+#### 5. **Kesimpulan**
+Hasil evaluasi menunjukkan bahwa model *content-based filtering* sangat efektif dalam merekomendasikan film dengan genre yang sama. Namun, untuk meningkatkan relevansi rekomendasi, perlu mempertimbangkan faktor tambahan di luar genre seperti preferensi pengguna atau ulasan film.
+
 ## Kesimpulan
 
-Setelah melakukan evaluasi, saya dapat menyimpulkan bahwa:
-1. **Collaborative Filtering** efektif dalam memberikan rekomendasi yang dipersonalisasi berdasarkan data rating pengguna, namun mengalami masalah **cold start** untuk pengguna baru.
-2. **Content-Based Filtering** memberikan rekomendasi yang relevan berdasarkan genre film yang serupa, cocok digunakan dalam situasi dengan data pengguna terbatas.
+Berdasarkan hasil evaluasi dan pencapaian *goals* yang telah ditetapkan, berikut adalah kesimpulan dari proyek ini:
 
-Metode yang paling tepat bergantung pada konteks aplikasi dan ketersediaan data pengguna.
+1. **Pembuatan Sistem Rekomendasi**  
+   - Sistem rekomendasi berhasil dikembangkan menggunakan dua pendekatan: *Collaborative Filtering* dan *Content-Based Filtering*.
+   - *Content-Based Filtering* memberikan rekomendasi film dengan kesesuaian genre yang sangat tinggi (100% rata-rata kesamaan genre untuk film uji). Hal ini menunjukkan keunggulannya dalam memberikan rekomendasi berbasis informasi eksplisit seperti genre film.  
+   - *Collaborative Filtering* memberikan hasil yang lebih kompleks dengan evaluasi kuantitatif menggunakan RMSE dan MAE dari data pengguna terhadap preferensi film. Model ini menunjukkan performa baik dengan nilai RMSE rata-rata 0.8727 dan MAE rata-rata 0.6708, menandakan tingkat kesalahan prediksi yang cukup rendah.
+
+2. **Perbandingan Metode Rekomendasi**  
+   - *Content-Based Filtering* sangat efektif dalam memastikan film yang direkomendasikan memiliki kesamaan fitur eksplisit dengan film yang telah ditonton pengguna, tetapi terbatas pada informasi metadata seperti genre. Metode ini tidak mampu menangkap preferensi individu yang lebih kompleks.  
+   - *Collaborative Filtering* lebih unggul dalam menangkap pola preferensi berbasis data perilaku pengguna secara kolektif. Metode ini lebih cocok untuk skenario di mana data interaksi pengguna tersedia dalam jumlah besar dan beragam.  
+
+3. **Pilihan Metode Terbaik**  
+   - Jika tujuan utamanya adalah memberikan rekomendasi berbasis kesamaan fitur film, *Content-Based Filtering* adalah pilihan yang tepat.  
+   - Jika fokusnya adalah pada personalisasi berdasarkan pola preferensi pengguna, *Collaborative Filtering* menawarkan solusi yang lebih relevan dan fleksibel.
+
+---
+
+##Daftar Pustaka
+
+1. **How Netflix Recommendation Algorithm Works**  
+   Stratoflow. (n.d.). *How Netflix Recommendation Algorithm Works*. Retrieved from [https://stratoflow.com/how-netflix-recommendation-algorithm-work/](https://stratoflow.com/how-netflix-recommendation-algorithm-work/)
+
+2. **Spotify Recommendation Algorithm**  
+   Stratoflow. (n.d.). *Spotify Recommendation Algorithm*. Retrieved from [https://stratoflow.com/spotify-recommendation-algorithm/](https://stratoflow.com/spotify-recommendation-algorithm/)
+
+3. **Amazon Recommendation Engine**  
+   Clouddevs. (n.d.). *Building Personalized Recommendation Engines*. Retrieved from [https://clouddevs.com/go/building-personalized-recommendation-engines/](https://clouddevs.com/go/building-personalized-recommendation-engines/)
+
+4. **Understanding Singular Value Decomposition**  
+   Analytics Vidhya. (2020). *Understanding Singular Value Decomposition*. Retrieved from [https://www.analyticsvidhya.com/blog/2020/12/understanding-singular-value-decomposition/](https://www.analyticsvidhya.com/blog/2020/12/understanding-singular-value-decomposition/)
+
+5. **Content-Based Filtering Using TF-IDF**  
+   - GeeksforGeeks. (n.d.). *Content-Based Filtering Recommender System Using Python*. Retrieved from [https://www.geeksforgeeks.org/content-based-filtering-recommender-system-using-python/](https://www.geeksforgeeks.org/content-based-filtering-recommender-system-using-python/)  
+   - Towards Data Science. (n.d.). *How to Build a Content-Based Recommendation System Using TF-IDF*. Retrieved from [https://towardsdatascience.com/how-to-build-a-content-based-recommendation-system-using-tf-idf-b419a0424912](https://towardsdatascience.com/how-to-build-a-content-based-recommendation-system-using-tf-idf-b419a0424912)
