@@ -1,4 +1,4 @@
-# Laporan Proyek Machine Learning - Kevin Adiputra Mahesa
+# Laporan Proyek Machine Learning Terapan - Kevin Adiputra Mahesa
 
 ## Latar Belakang
 
@@ -561,19 +561,37 @@ Pada tahap ini, **Content-Based Filtering** digunakan untuk memberikan rekomenda
 
 1. **Vektorisasi Genre Menggunakan TF-IDF**  
    Proses pertama adalah melakukan **vektorisasi** pada kolom `genres` menggunakan **TF-IDF (Term Frequency-Inverse Document Frequency)**. TF-IDF adalah teknik yang digunakan untuk mengubah teks menjadi representasi numerik yang lebih mudah dipahami oleh model. Dalam hal ini, genre setiap film diubah menjadi vektor yang menggambarkan frekuensi relatif dari kata-kata dalam genre tersebut. Berikut adalah hasil matriks **TF-IDF** setelah proses vektorisasi:
-   ```
-   [ 0.5, 0.1, 0.3, ... ]  # Representasi numerik genre film
-   ```
-   
+
+| **Film ke-** | **TF-IDF Genre 1** | **TF-IDF Genre 2** | **TF-IDF Genre 3** | **...** | **TF-IDF Genre n** |
+|--------------|---------------------|---------------------|---------------------|---------|---------------------|
+| 1            | 0.0000              | 0.4168              | 0.5162              | ...     | 0.0000              |
+| 2            | 0.0000              | 0.5124              | 0.0000              | ...     | 0.0000              |
+| 3            | 0.0000              | 0.0000              | 0.0000              | ...     | 0.0000              |
+| ...          | ...                 | ...                 | ...                 | ...     | ...                 |
+| m            | 0.5786              | 0.0000              | 0.8156              | ...     | 0.0000              |
+
+*Tabel 15: Hasil Vektroisasi TF-IDF*
+
    Matriks ini memungkinkan sistem untuk memahami hubungan antara genre satu film dengan genre lainnya dalam bentuk angka, yang kemudian digunakan untuk menghitung kesamaan antar film.
 
 2. **Penghitungan Cosine Similarity**  
    Setelah matriks TF-IDF diperoleh, tahap selanjutnya adalah menghitung **cosine similarity**, yaitu ukuran yang digunakan untuk menilai sejauh mana dua vektor memiliki arah yang sama, dengan nilai antara -1 hingga 1. Nilai lebih dekat ke 1 menunjukkan kesamaan yang lebih tinggi. Hasil **cosine similarity** ini akan membentuk matriks kemiripan antara film satu dengan film lainnya berdasarkan genre.
 
    Berikut adalah hasil **cosine similarity** untuk beberapa film:
-   ```
-   [0.8, 0.75, 0.5, ...]  # Matriks kemiripan antar film
-   ```
+
+| **Film ke-** | **1**     | **2**     | **3**     | **...** | **m**     |
+|--------------|-----------|-----------|-----------|---------|-----------|
+| 1            | 1.0000    | 0.8136    | 0.1528    | ...     | 0.2676    |
+| 2            | 0.8136    | 1.0000    | 0.0000    | ...     | 0.0000    |
+| 3            | 0.1528    | 0.0000    | 1.0000    | ...     | 0.5709    |
+| ...          | ...       | ...       | ...       | ...     | ...       |
+| m            | 0.2676    | 0.0000    | 0.5709    | ...     | 1.0000    |
+
+*Tabel 16: Hasil Cosine similarity*
+
+- Matriks ini mengukur tingkat kesamaan antar film berdasarkan vektor TF-IDF dari genre mereka.
+- Nilai berkisar antara **0** (tidak mirip) hingga **1** (identik).
+- Matriks ini digunakan untuk menemukan film yang paling mirip dengan film input.
 
 3. **Rekomendasi Berbasis Konten**  
    Fungsi **content_based_recommendation** digunakan untuk memberikan rekomendasi film berdasarkan kesamaan genre. Fungsi ini akan menerima **judul film** sebagai input dan memberikan **n rekomendasi teratas** berdasarkan kemiripan genre. Prosesnya adalah sebagai berikut:
@@ -582,7 +600,7 @@ Pada tahap ini, **Content-Based Filtering** digunakan untuk memberikan rekomenda
    - Mengambil skor kemiripan (similarity scores) dengan film lainnya.
    - Menyusun skor kemiripan tersebut, mengurutkannya dari yang tertinggi, dan mengambil film-film yang memiliki skor kemiripan tertinggi.
    
-   Contoh output untuk rekomendasi berbasis konten untuk film *"Toy Story (1995)"* adalah:
+   berikut output untuk rekomendasi berbasis konten untuk film *"Toy Story (1995)"* adalah:
    ```
    1. Jumanji (1995)
    2. Grumpier Old Men (1995)
