@@ -44,6 +44,7 @@ Untuk mencapai tujuan-tujuan dalam memberikan rekomendasi yang relevan, saya men
    Untuk pendekatan *content-based filtering*, saya menggunakan **TF-IDF (Term Frequency-Inverse Document Frequency)** untuk mengukur pentingnya kata-kata dalam deskripsi film atau konten lain yang relevan. Dengan menghitung bobot TF-IDF dari fitur terkait (seperti genre, aktor, atau deskripsi teks lainnya), sistem dapat mengukur kemiripan antara film yang belum ditonton dengan film yang sudah disukai atau ditonton oleh pengguna. Selanjutnya, **cosine similarity** digunakan untuk menghitung kesamaan antara dua vektor TF-IDF, sehingga rekomendasi dapat diberikan berdasarkan kemiripan konten yang telah dilihat. Pendekatan ini sangat efektif ketika kita memiliki informasi konten yang lebih kaya dan dapat mendasarkan rekomendasi pada fitur deskriptif dari item tersebut.[[5]](https://www.geeksforgeeks.org/content-based-filtering-recommender-system-using-python/), [[6]](https://towardsdatascience.com/how-to-build-a-content-based-recommendation-system-using-tf-idf-b419a0424912)
 
 Kedua pendekatan ini dipilih karena mereka saling melengkapi, memberikan solusi yang lebih baik untuk mempersonalisasi pengalaman pengguna dalam memilih konten atau produk yang relevan.
+
 ---
 
 ## Data Understanding
@@ -131,7 +132,65 @@ Dataset ini akan digunakan untuk menganalisis dan membangun sistem rekomendasi b
 4. **Cek Missing Values dan Duplikat**:
    Saya juga memeriksa adanya *missing values* dan duplikasi pada kedua dataset. Mengidentifikasi dan menangani data yang hilang atau duplikat sangat penting untuk menjaga kualitas analisis. Berdasarkan hasil pemeriksaan, tidak ditemukan adanya missing values atau duplikasi dalam dataset, sehingga tidak diperlukan penanganan lebih lanjut.
 
----
+**Missing Values**
+
+Berikut adalah tabel yang menunjukkan jumlah *missing value* pada dataset *Movies* dan *Ratings*:
+
+**Tabel Jumlah Missing Value Dataset Movies:**
+
+| Column  | Missing Value |
+|---------|---------------|
+| movieId | 0             |
+| title   | 0             |
+| genres  | 0             |
+
+*Tabel 5: Hasil pengecekkan missing value pada dataset Movies*
+
+**Tabel Jumlah Missing Value Dataset Ratings:**
+
+| Column    | Missing Value |
+|-----------|---------------|
+| userId    | 0             |
+| movieId   | 0             |
+| rating    | 0             |
+| timestamp | 0             |
+
+*Tabel 6: Hasil pengecekan missing values pada dataset ratings*
+
+- **Dataset Movies**: 
+   - Semua kolom (`movieId`, `title`, `genres`) tidak memiliki nilai yang hilang (missing value) pada dataset ini. Hal ini menunjukkan bahwa data yang tersedia lengkap dan tidak memerlukan pembersihan lebih lanjut terkait data yang hilang.
+
+- **Dataset Ratings**:
+   - Begitu pula pada dataset *Ratings*, tidak ada nilai yang hilang pada kolom-kolom yang ada (yakni `userId`, `movieId`, `rating`, dan `timestamp`). Dengan demikian, dataset ini juga siap digunakan tanpa perlunya penanganan missing value.
+
+Karena tidak ada missing value pada kedua dataset, kita dapat melanjutkan analisis tanpa perlu melakukan proses imputasi atau pembersihan data terkait nilai yang hilang.
+
+**Duplicate**
+Berikut adalah tabel yang menunjukkan jumlah duplikat pada dataset *Movies* dan *Ratings*:
+
+**Tabel Jumlah Duplikat Dataset Movies:**
+
+| Dataset | Jumlah Duplikat |
+|---------|------------------|
+| Movies  | 0               |
+
+*Tabel 7: Hasil pengecekan duplikasi pada dataset movies*
+
+**Tabel Jumlah Duplikat Dataset Ratings:**
+
+| Dataset | Jumlah Duplikat |
+|---------|------------------|
+| Ratings | 0               |
+
+*Tabel 8: Hasil pengecekan duplikasi pada dataset ratings*
+
+- **Dataset Movies**:
+   - Tidak ditemukan baris data yang duplikat. Artinya, semua entri pada dataset ini unik dan tidak ada data yang perlu dihapus karena duplikasi.
+
+- **Dataset Ratings**:
+   - Sama seperti dataset *Movies*, dataset *Ratings* juga tidak mengandung data duplikat. Dengan demikian, tidak ada langkah tambahan yang diperlukan untuk membersihkan data terkait duplikasi.
+
+Dari hasil ini, kedua dataset telah memenuhi syarat untuk digunakan langsung dalam proses analisis atau pembuatan model, tanpa perlu modifikasi lebih lanjut terkait duplikasi data.
 
 ## Data Preparation
 
