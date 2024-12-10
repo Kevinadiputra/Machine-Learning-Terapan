@@ -242,22 +242,173 @@ Dari hasil ini, kedua dataset telah memenuhi syarat untuk digunakan langsung dal
 
 ![image](https://github.com/user-attachments/assets/aaf86776-fa53-4367-aa7a-461a236153cf)
 
+*Gambar 1: Distribusi Rating*
+
+### **Insight Visualisasi Rating Film (Revisi)**
+
+**1. Rating Terbanyak**  
+Sebagian besar pengguna memberikan rating di sekitar nilai **4**. Hal ini menunjukkan bahwa mayoritas film dalam dataset berhasil memenuhi ekspektasi pengguna, mencerminkan tingkat kepuasan yang cukup tinggi.
+
+**2. Distribusi Rating**  
+Distribusi rating menunjukkan pola **miring ke kanan (right-skewed)**. Artinya, lebih banyak rating berada di sisi nilai tinggi (3-5) dibandingkan dengan nilai rendah (1-2).  
+- **Implikasi:** Sebagian besar film dalam dataset dinilai sebagai "bagus" hingga "sangat bagus," menunjukkan kualitas film yang cukup memadai menurut pengguna.
+
+**3. Pola Rating Ekstrem**  
+- **Rating Rendah:** Hanya sedikit pengguna memberikan rating di kisaran nilai **1**. Ini mengindikasikan bahwa hanya sedikit film yang dianggap sangat mengecewakan oleh pengguna.  
+- **Rating Tinggi:** Rating di kisaran **5** cukup signifikan, tetapi tidak sebanyak rating di sekitar nilai **4**. Hal ini dapat mengindikasikan adanya potensi untuk perbaikan dalam kualitas film agar lebih banyak pengguna memberikan rating sempurna.
+
+**4. Kesimpulan Utama**  
+Hasil visualisasi distribusi rating memberikan wawasan bahwa:  
+- Mayoritas film berada dalam kategori "memuaskan" hingga "baik."  
+- Ada peluang untuk meningkatkan kepuasan pengguna, khususnya dengan fokus pada elemen-elemen yang mendorong lebih banyak rating **5**.
+
 ### Top 10 film dengan rating tertinggi
 
 ![image](https://github.com/user-attachments/assets/942002ce-e078-453f-b7d4-c8a071b1d71c)
+
+*Gambar 2: Top 10 film dengan rating tertinggi*
+
+Berikut adalah tabel dan insight berdasarkan data Top 10 film dengan rata-rata rating tertinggi:
+
+| **No.** | **Judul Film**                                  | **Rata-rata Rating** |
+|---------|------------------------------------------------|-----------------------|
+| 1       | Paper Birds (Pájaros de papel) (2010)          | 5.0                   |
+| 2       | Act of Killing, The (2012)                     | 5.0                   |
+| 3       | Jump In! (2007)                                | 5.0                   |
+| 4       | Human (2015)                                   | 5.0                   |
+| 5       | L.A. Slasher (2015)                            | 5.0                   |
+| 6       | Lady Jane (1986)                               | 5.0                   |
+| 7       | Bill Hicks: Revelations (1993)                 | 5.0                   |
+| 8       | Justice League: Doom (2012)                    | 5.0                   |
+| 9       | Open Hearts (Elsker dig for evigt) (2002)      | 5.0                   |
+| 10      | Formula of Love (1984)                         | 5.0                   |
+
+*Table 11: Daftar Top 10 Film dengan Rata-rata Rating Tertinggi*
+
+Berdasarkan visualisasi dan tabel, dapat disimpulkan sebagai berikut: 
+
+1. **Konsistensi Rating Tinggi:**
+   - Semua film dalam daftar ini memiliki rata-rata rating sempurna, yaitu **5.0**. Hal ini menunjukkan bahwa film-film tersebut benar-benar disukai oleh semua penggunanya yang memberikan rating.
+   - Keberadaan rating sempurna menandakan kualitas yang diakui secara universal oleh komunitas pengguna.
+
+2. **Keanekaragaman Genre dan Tahun Rilis:**
+   - Film-film ini berasal dari berbagai tahun rilis, mulai dari tahun **1984** hingga **2015**.
+   - Genre film cukup beragam, termasuk dokumenter seperti *The Act of Killing*, animasi superhero seperti *Justice League: Doom*, hingga drama romantis seperti *Open Hearts*.
+
+3. **Indikasi Jumlah Penonton:**
+   - Sebagian besar film dengan rating sempurna ini mungkin memiliki basis penonton yang kecil namun sangat puas.
+   - Perlu dianalisis lebih lanjut apakah jumlah penonton memengaruhi rata-rata rating sempurna, misalnya dengan memeriksa jumlah total rating yang diberikan.
+
+4. **Relevansi untuk Rekomendasi:**
+   - Film-film ini dapat dijadikan pilihan rekomendasi premium untuk pengguna baru yang mencari kualitas terbaik menurut rating pengguna sebelumnya.
+   - Platform dapat mempromosikan film-film ini untuk meningkatkan engagement dan kepuasan pengguna.
 
 ### Jumlah Rating perfilm
 
 ![image](https://github.com/user-attachments/assets/69705ccc-f425-4684-9c40-951b29d3ff47)
 
+*Gambar 3: Distribusi rating perfilm*
+
+Berikut adalah tabel hasil distribusi jumlah rating untuk 10 film dengan jumlah rating terbanyak dan penjelasannya:
+
+| **No.** | **Judul Film**                                  | **Jumlah Rating** |
+|---------|------------------------------------------------|--------------------|
+| 1       | Forrest Gump (1994)                            | 329                |
+| 2       | Shawshank Redemption, The (1994)               | 317                |
+| 3       | Pulp Fiction (1994)                            | 307                |
+| 4       | Silence of the Lambs, The (1991)               | 279                |
+| 5       | Matrix, The (1999)                             | 278                |
+| 6       | Star Wars: Episode IV - A New Hope (1977)      | 251                |
+| 7       | Jurassic Park (1993)                           | 238                |
+| 8       | Braveheart (1995)                              | 237                |
+| 9       | Terminator 2: Judgment Day (1991)              | 224                |
+| 10      | Schindler's List (1993)                        | 220                |
+
+*Table 12: 10 film dengan rating terbanyak*
+
+1. **Dominasi Film Populer:**
+   - Film-film dengan jumlah rating terbanyak adalah film populer dan ikonis, seperti *Forrest Gump* dan *The Shawshank Redemption*. Hal ini mencerminkan pengaruh besar dari popularitas film terhadap banyaknya jumlah rating yang diterima.
+
+2. **Pola Distribusi:**
+   - Distribusi jumlah rating menunjukkan pola ekor panjang (long-tail), di mana hanya sedikit film yang memiliki jumlah rating tinggi, sementara mayoritas lainnya memiliki rating yang relatif rendah. Ini mencerminkan perbedaan besar antara film yang sangat dikenal dan film niche atau kurang populer.
+
+3. **Kaitan dengan Tahun Rilis:**
+   - Sebagian besar film dalam daftar berasal dari era 1990-an. Ini mungkin mengindikasikan bahwa era tersebut menghasilkan film-film berkualitas tinggi yang hingga saat ini masih dinikmati banyak pengguna.
+
+4. **Kesimpulan Distribusi:**
+   - Mayoritas film dalam dataset memiliki jumlah rating yang rendah, mengindikasikan bahwa ada lebih banyak film yang bersifat niche atau memiliki pangsa penonton yang kecil. Namun, film yang berhasil mendapatkan banyak rating biasanya adalah film blockbuster yang ikonis.
+
 ### Distribusi Rating user
 
 ![image](https://github.com/user-attachments/assets/27e37b56-e9a8-48a6-8040-8d1530a9dc7d)
 
-### Koeralasi jumlah rating dan rating rata-rata
+*Gambar 4: Distribusi Rating per user*
+
+Berikut adalah tabel hasil distribusi rating per pengguna berdasarkan data yang Anda berikan:
+
+| **No.** | **ID Pengguna** | **Jumlah Rating** |
+|---------|----------------|--------------------|
+| 1       | 414            | 2698              |
+| 2       | 599            | 2478              |
+| 3       | 474            | 2108              |
+| 4       | 448            | 1864              |
+| 5       | 274            | 1346              |
+| 6       | 610            | 1302              |
+| 7       | 68             | 1260              |
+| 8       | 380            | 1218              |
+| 9       | 606            | 1115              |
+| 10      | 288            | 1055              |
+
+*Tabel 13: Distribusi Jumlah Rating per Pengguna dengan Rating Tertinggi*
+
+---
+
+#### **Karakteristik Distribusi**
+1. **Distribusi Asimetris:**
+   - Sebagian besar pengguna memiliki jumlah rating yang jauh lebih sedikit dibandingkan pengguna yang aktif, menciptakan bentuk distribusi asimetris dengan ekor panjang ke kanan. Pengguna yang sangat aktif secara signifikan memengaruhi total distribusi.
+
+2. **Ekor Kanan:**
+   - Pengguna super aktif, seperti pengguna dengan ID 414 (memberikan 2698 rating), menjadi anomali dalam dataset, dengan kontribusi yang sangat besar terhadap data rating keseluruhan.
+
+---
+
+#### **Implikasi Data**
+1. **Mayoritas Pengguna Pasif:**
+   - Sebagian besar pengguna memberikan sedikit sekali rating. Ini mungkin mengindikasikan:
+     - Ketidakaktifan mereka pada platform.
+     - Kurangnya antusiasme untuk memberikan penilaian pada film yang telah mereka tonton.
+   
+2. **Pengguna Super Aktif:**
+   - Segmen kecil pengguna yang memberikan jumlah rating tinggi, seperti ID 414 atau 599, menunjukkan keterlibatan yang sangat baik. Pengguna ini bisa dimanfaatkan sebagai:
+     - Sumber umpan balik untuk peningkatan kualitas rekomendasi.
+     - Fokus analisis untuk memahami kebiasaan pengguna aktif.
+
+### Korelasi jumlah rating dan rating rata-rata
 
 ![image](https://github.com/user-attachments/assets/faa9fa08-9baf-42d8-b0a6-2fb0a8a51d45)
 
+*Gambar 5: Korelasi jumlah raiting dan rating rata-rata*
+
+### **Analisis Korelasi: Jumlah Rating vs. Rating Rata-rata**
+
+#### **Deskripsi Korelasi**
+Hasil visualisasi korelasi menunjukkan hubungan antara **jumlah rating yang diterima suatu film** dengan **rating rata-rata yang diberikan oleh pengguna**. Korelasi yang ditemukan bersifat **positif lemah**, mengindikasikan bahwa walaupun terdapat kecenderungan, hubungan antara kedua variabel ini tidak terlalu kuat.
+
+---
+
+#### **Temuan Utama**
+1. **Tren Umum**  
+   - **Kecenderungan Positif:** Data menunjukkan bahwa film dengan jumlah rating lebih banyak cenderung memiliki rating rata-rata yang lebih tinggi. Hal ini dapat diartikan bahwa popularitas film sering kali berbanding lurus dengan persepsi kualitasnya di mata pengguna.  
+   - **Indikasi Kepercayaan:** Banyaknya rating juga dapat meningkatkan kepercayaan pengguna lain terhadap nilai rata-rata, yang sering dianggap sebagai cerminan kualitas produk.
+
+2. **Sebaran Data**  
+   - Sebagian besar film dalam dataset hanya memiliki sedikit jumlah rating, dengan konsentrasi data di wilayah jumlah rating rendah. Hal ini menunjukkan bahwa banyak film yang mungkin kurang populer atau kurang dikenal oleh pengguna.
+
+3. **Pengecualian**  
+   - **Outlier:** Beberapa film dengan jumlah rating tinggi memiliki rating rata-rata yang rendah, atau sebaliknya. Outlier ini mengindikasikan bahwa ada faktor lain, seperti:
+     - **Kualitas Subjektif:** Film tertentu mungkin menarik bagi segmen pengguna tertentu tetapi tidak disukai oleh yang lain.  
+     - **Bias Rating:** Pengguna yang sangat menyukai atau tidak menyukai film tersebut mungkin memberikan rating ekstrem.
+     - **Pengaruh Waktu:** Jumlah rating bisa meningkat seiring waktu, tetapi rata-rata rating bisa dipengaruhi oleh ulasan awal yang dominan.
 
 ## Data Preparation
 
