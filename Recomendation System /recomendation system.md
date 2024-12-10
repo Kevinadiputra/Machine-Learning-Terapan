@@ -88,24 +88,48 @@ Dengan tabel di atas, kita bisa melihat bagaimana setiap film diwakili oleh ID u
 3. **Informasi Dasar Dataset**:
    Selanjutnya, saya memeriksa informasi dasar dari kedua dataset menggunakan `.info()`. Langkah ini memberikan wawasan tentang jumlah kolom, jumlah baris, serta tipe data dari setiap kolom di dalam dataset. Ini penting untuk memverifikasi apakah data sudah terstruktur dengan benar dan apakah tipe data sesuai dengan analisis yang akan dilakukan.
 
+Berikut adalah tabel yang menyajikan informasi dasar mengenai dataset *Movies* dan *Ratings*:
+
+**Tabel Info Dataset Movies:**
+
+| Column  | Non-Null Count | Dtype  |
+|---------|----------------|--------|
+| movieId | 9742           | int64  |
+| title   | 9742           | object |
+| genres  | 9742           | object |
+
+*Tabel 3: Informasi Dataset Movies*
+
+Dataset ini memiliki 9742 baris dan 3 kolom, dengan semua nilai pada kolom `movieId`, `title`, dan `genres` tidak memiliki nilai yang hilang (non-null). Kolom `movieId` berisi tipe data integer, sementara `title` dan `genres` berisi tipe data string (object).
+
+**Tabel Info Dataset Ratings:**
+
+| Column   | Non-Null Count | Dtype  |
+|----------|----------------|--------|
+| userId   | 100836         | int64  |
+| movieId  | 100836         | int64  |
+| rating   | 100836         | float64|
+| timestamp| 100836         | int64  |
+
+*Tabel 4: Informasi Dataset Ratings*
+
+Dataset *Ratings* memiliki 100836 baris dan 4 kolom, dengan semua nilai pada kolom `userId`, `movieId`, `rating`, dan `timestamp` juga tidak memiliki nilai hilang. Kolom `userId`, `movieId`, dan `timestamp` berisi tipe data integer, sedangkan kolom `rating` berisi tipe data float64.
+
+1. **Dataset Movies**:
+   - Kolom `movieId` berisi ID unik untuk setiap film.
+   - Kolom `title` menyimpan nama film.
+   - Kolom `genres` berisi informasi genre film yang terdiri dari satu atau lebih genre yang dipisahkan dengan tanda "|" (misalnya, "Comedy|Drama").
+
+2. **Dataset Ratings**:
+   - Kolom `userId` menyimpan ID pengguna yang memberikan rating.
+   - Kolom `movieId` mengacu pada ID film yang dinilai oleh pengguna.
+   - Kolom `rating` menunjukkan skor rating yang diberikan pengguna untuk film tertentu, dengan skala antara 0 hingga 5.
+   - Kolom `timestamp` berisi waktu ketika rating diberikan, dalam format UNIX timestamp.
+
+Dataset ini akan digunakan untuk menganalisis dan membangun sistem rekomendasi berbasis perilaku pengguna dan konten film yang ada.
+
 4. **Cek Missing Values dan Duplikat**:
    Saya juga memeriksa adanya *missing values* dan duplikasi pada kedua dataset. Mengidentifikasi dan menangani data yang hilang atau duplikat sangat penting untuk menjaga kualitas analisis. Berdasarkan hasil pemeriksaan, tidak ditemukan adanya missing values atau duplikasi dalam dataset, sehingga tidak diperlukan penanganan lebih lanjut.
-
-### Variabel pada Dataset:
-1. **movies.csv**:
-   - `movieId`: ID unik untuk setiap film.
-   - `title`: Judul film.
-   - `genres`: Genre film, seperti Action, Comedy, Drama, dll.
-   
-2. **ratings.csv**:
-   - `userId`: ID unik untuk setiap pengguna.
-   - `movieId`: ID film yang dinilai.
-   - `rating`: Rating yang diberikan pengguna (nilai antara 1 hingga 5).
-   
-3. **tags.csv**:
-   - `userId`: ID unik untuk setiap pengguna.
-   - `movieId`: ID film yang diberikan tag.
-   - `tag`: Tag yang diberikan pengguna, misalnya "funny", "thriller", dll.
 
 ---
 
