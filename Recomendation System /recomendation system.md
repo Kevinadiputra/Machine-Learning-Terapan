@@ -240,6 +240,23 @@ Dari hasil ini, kedua dataset telah memenuhi syarat untuk digunakan langsung dal
 
 ### Distribusi Rating
 
+![image](https://github.com/user-attachments/assets/aaf86776-fa53-4367-aa7a-461a236153cf)
+
+### Top 10 film dengan rating tertinggi
+
+![image](https://github.com/user-attachments/assets/942002ce-e078-453f-b7d4-c8a071b1d71c)
+
+### Jumlah Rating perfilm
+
+![image](https://github.com/user-attachments/assets/69705ccc-f425-4684-9c40-951b29d3ff47)
+
+### Distribusi Rating user
+
+![image](https://github.com/user-attachments/assets/27e37b56-e9a8-48a6-8040-8d1530a9dc7d)
+
+### Koeralasi jumlah rating dan rating rata-rata
+
+![image](https://github.com/user-attachments/assets/faa9fa08-9baf-42d8-b0a6-2fb0a8a51d45)
 
 
 ## Data Preparation
