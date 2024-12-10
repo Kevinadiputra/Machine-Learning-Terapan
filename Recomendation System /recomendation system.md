@@ -410,17 +410,78 @@ Hasil visualisasi korelasi menunjukkan hubungan antara **jumlah rating yang dite
      - **Bias Rating:** Pengguna yang sangat menyukai atau tidak menyukai film tersebut mungkin memberikan rating ekstrem.
      - **Pengaruh Waktu:** Jumlah rating bisa meningkat seiring waktu, tetapi rata-rata rating bisa dipengaruhi oleh ulasan awal yang dominan.
 
+### **Kesimpulan EDA**
+
+Berdasarkan eksplorasi data yang dilakukan, berikut adalah kesimpulan utama yang dapat diambil:
+
+1. **Distribusi Rating Film**
+   - Sebagian besar pengguna memberikan rating di sekitar nilai **4**, menunjukkan bahwa mayoritas film dinilai cukup memuaskan.
+   - Rating tinggi (5) dan rendah (1) jarang terjadi, menunjukkan film-film dalam dataset memiliki kualitas yang baik secara keseluruhan.
+
+2. **Popularitas Film**
+   - Sebagian besar film hanya memiliki sedikit jumlah rating, dengan distribusi jumlah rating menunjukkan pola **ekor panjang ke kanan**.
+   - Film-film yang sangat populer, seperti *Forrest Gump* dan *Shawshank Redemption*, memiliki jumlah rating yang jauh lebih tinggi dibandingkan film lainnya, menunjukkan perbedaan yang signifikan dalam popularitas.
+
+3. **Distribusi Rating per Pengguna**
+   - Sebagian besar pengguna hanya memberikan sedikit rating, dengan sebagian kecil pengguna yang sangat aktif (*super users*). Pengguna super aktif ini memiliki kontribusi besar terhadap total rating.
+
+4. **Korelasi Jumlah Rating dan Rating Rata-rata**
+   - Terdapat korelasi positif yang lemah antara jumlah rating dan rata-rata rating. Hal ini mengindikasikan bahwa film yang lebih populer cenderung mendapatkan rating rata-rata yang lebih tinggi, meskipun terdapat pengecualian pada beberapa film.
+
+5. **Film dengan Rating Tinggi**
+   - Film dengan rata-rata rating tertinggi sering kali adalah film-film niche atau independen yang memiliki daya tarik spesifik terhadap kelompok kecil pengguna, seperti *Paper Birds* atau *Act of Killing*.
+
 ## Data Preparation
 
-Sebelum memulai pemodelan, langkah-langkah berikut dilakukan untuk mempersiapkan data:
+### **Tahap Persiapan Data untuk Model Collaborative Filtering**
 
-1. **Penggabungan Dataset**: Saya menggabungkan data `movies.csv` dan `ratings.csv` berdasarkan `movieId` untuk mendapatkan informasi lengkap tentang film dan ratingnya.
-   
-2. **Penanganan Nilai yang Hilang**: Beberapa data mungkin memiliki nilai yang hilang atau tidak lengkap, oleh karena itu saya memeriksa dan menghapus baris yang tidak memiliki nilai yang lengkap.
+Pada tahap ini, data dipersiapkan untuk melatih dan mengevaluasi model **Collaborative Filtering** menggunakan **Surprise Library**. Langkah-langkah yang dilakukan adalah sebagai berikut:
 
-3. **Encoding Genre**: Mengubah kolom genre menjadi fitur numerik menggunakan teknik one-hot encoding. Ini memungkinkan model memahami genre sebagai variabel terpisah.
+#### **1. Format Data**
+Untuk memastikan data dapat diproses dengan baik oleh Surprise, dilakukan penyesuaian format sebagai berikut:
+- **Mengatur Skala Rating**  
+  Menggunakan objek `Reader` untuk menentukan skala rating dalam dataset, yaitu dari **0.5 hingga 5.0**. Langkah ini penting agar model memahami struktur data dan rentang nilai rating yang valid.
+- **Konversi DataFrame ke Format Surprise**  
+  Data rating yang tersimpan dalam DataFrame dikonversi ke format internal Surprise menggunakan fungsi `Dataset.load_from_df`. Format ini diperlukan agar model dapat membaca hubungan antara **pengguna**, **film**, dan **rating** secara optimal.
 
-4. **Pembagian Data**: Data dibagi menjadi set pelatihan dan pengujian untuk mengevaluasi model secara efektif.
+#### **2. Pembagian Data**
+Data dibagi menjadi dua bagian utama untuk memastikan proses pelatihan dan evaluasi model berjalan sesuai:
+- **Training Set (80%)**  
+  Digunakan untuk melatih model, yaitu mempelajari pola preferensi pengguna berdasarkan data rating historis.
+- **Testing Set (20%)**  
+  Digunakan untuk menguji kemampuan model memprediksi rating pada data yang belum pernah dilihat selama pelatihan. Evaluasi ini dilakukan untuk mengukur kemampuan generalisasi model.
+
+Proses pembagian data dilakukan menggunakan fungsi `train_test_split`.  
+- **Tujuan:**  
+  - Menghindari **overfitting**, yaitu ketika model terlalu spesifik pada data pelatihan dan gagal bekerja dengan baik pada data baru.  
+  - Menilai performa model pada data yang tidak digunakan dalam proses pelatihan.
+
+### **Transformasi Data untuk Content-Based Filtering**
+
+Pada tahap ini, dilakukan persiapan data untuk model **Content-Based Filtering**, khususnya dengan fokus pada kolom `genres` dalam dataset **movies**. Berikut tabel hasil transformasi:
+
+| **movieId** | **title**                                | **genres**                                   |
+|-------------|------------------------------------------|----------------------------------------------|
+| 1           | Toy Story (1995)                        | Adventure Animation Children Comedy Fantasy |
+| 2           | Jumanji (1995)                          | Adventure Children Fantasy                   |
+| 3           | Grumpier Old Men (1995)                 | Comedy Romance                               |
+| 4           | Waiting to Exhale (1995)                | Comedy Drama Romance                         |
+| 5           | Father of the Bride Part II (1995)      | Comedy                                       |
+
+*Tabel 14: Hasil transformasi data untuk kolom genres*
+
+1. **Transformasi Karakter Pemisah**  
+   - Kolom `genres` sebelumnya menggunakan karakter pemisah `|` (contoh: `Adventure|Animation|Children|Comedy|Fantasy`).
+   - Karakter tersebut diganti menjadi spasi menggunakan metode `str.replace('|', ' ')`, menghasilkan format seperti `Adventure Animation Children Comedy Fantasy`.
+
+2. **Tujuan Transformasi**
+   - **Peningkatan Kualitas Data**: Menghilangkan karakter pemisah yang tidak diperlukan sehingga mempermudah pemrosesan teks.
+   - **Kemudahan Analisis Teks**: Format data ini lebih cocok untuk metode berbasis teks, seperti **TF-IDF** (Term Frequency-Inverse Document Frequency), yang digunakan untuk merepresentasikan teks sebagai vektor fitur.
+   - **Konsistensi Format**: Memastikan format teks seragam agar model dapat memproses data secara efisien dan akurat.
+
+#### **Keuntungan Transformasi**
+- **Kemudahan Pemrosesan**: Format teks yang bersih mendukung pipeline analisis data lebih efektif.
+- **Interpretasi Lebih Baik**: Model dapat mengenali hubungan antar genre dengan lebih baik, mendukung pembuatan rekomendasi yang relevan.
 
 ---
 
