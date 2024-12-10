@@ -192,6 +192,56 @@ Berikut adalah tabel yang menunjukkan jumlah duplikat pada dataset *Movies* dan 
 
 Dari hasil ini, kedua dataset telah memenuhi syarat untuk digunakan langsung dalam proses analisis atau pembuatan model, tanpa perlu modifikasi lebih lanjut terkait duplikasi data.
 
+### Exploration Data Analysis
+
+#### Deskripsi Statistik Dataset
+
+##### **Deskripsi Statistik Dataset Movies**
+| Statistik | MovieId        |
+|-----------|----------------|
+| Count     | 9,742          |
+| Mean      | 42,200.35      |
+| Std       | 52,160.49      |
+| Min       | 1.00           |
+| 25%       | 3,248.25       |
+| 50%       | 7,300.00       |
+| 75%       | 76,232.00      |
+| Max       | 193,609.00     |
+
+*Tabel 9: Deskripsi Statistik Dataset Movies*
+
+---
+
+##### **Deskripsi Statistik Dataset Ratings**
+| Statistik | UserId        | MovieId        | Rating         | Timestamp         |
+|-----------|---------------|----------------|----------------|-------------------|
+| Count     | 100,836       | 100,836        | 100,836        | 100,836           |
+| Mean      | 326.13        | 19,435.30      | 3.50           | 1.21e+09          |
+| Std       | 182.62        | 35,530.99      | 1.04           | 2.16e+08          |
+| Min       | 1.00          | 1.00           | 0.50           | 8.28e+08          |
+| 25%       | 177.00        | 1,199.00       | 3.00           | 1.02e+09          |
+| 50%       | 325.00        | 2,991.00       | 3.50           | 1.19e+09          |
+| 75%       | 477.00        | 8,122.00       | 4.00           | 1.44e+09          |
+| Max       | 610.00        | 193,609.00     | 5.00           | 1.54e+09          |
+
+*Tabel 10: Deskripsi Statistik Dataset Ratings*
+
+---
+
+##### Dataset Movies:
+- **Count (Jumlah Data):** Dataset *Movies* berisi total 9,742 data.
+- **Rentang MovieId:** ID film berkisar antara 1 hingga 193,609, dengan rata-rata ID film 42,200. Hal ini menunjukkan kemungkinan besar terdapat celah pada distribusi ID film.
+- **Distribusi Data:** Standar deviasi yang besar (52,160.49) menunjukkan variasi ID film yang cukup luas.
+
+##### Dataset Ratings:
+- **Jumlah Data:** Dataset *Ratings* terdiri dari 100,836 data ulasan film.
+- **Distribusi Rating:** Rentang nilai rating adalah dari 0.5 hingga 5.0, dengan rata-rata 3.5. Hal ini menunjukkan preferensi pengguna cenderung ke arah rating menengah-atas.
+- **UserId dan MovieId:** Data *UserId* dan *MovieId* menunjukkan bahwa ada 610 pengguna unik yang memberikan ulasan terhadap berbagai film.
+
+### Distribusi Rating
+
+
+
 ## Data Preparation
 
 Sebelum memulai pemodelan, langkah-langkah berikut dilakukan untuk mempersiapkan data:
