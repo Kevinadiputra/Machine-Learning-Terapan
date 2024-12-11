@@ -725,7 +725,7 @@ Pada metode *content-based filtering*, evaluasi dilakukan untuk mengukur seberap
 
 2. **Recall** mengukur seberapa banyak rekomendasi relevan yang ditemukan dari semua kemungkinan rekomendasi relevan yang ada. Recall tinggi menunjukkan bahwa sistem berhasil menemukan sebagian besar film yang relevan.
    - **Rumus Recall**: Recall = (Jumlah rekomendasi relevan) / (Jumlah total film relevan yang seharusnya direkomendasikan)
-   ![image](https://drive.google.com/file/d/1hQXCdUx5hrptKTNTPDwESCpm0gbmNL8p/view?usp=sharing)
+   ![image](https://drive.google.com/uc?id=1hQXCdUx5hrptKTNTPDwESCpm0gbmNL8p)
 
    *Gambar 9: rumus recall*
 
