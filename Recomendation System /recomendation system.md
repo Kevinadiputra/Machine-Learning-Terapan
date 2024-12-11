@@ -656,14 +656,9 @@ Untuk evaluasi Collaborative Filtering, saya menggunakan metrik **Root Mean Squa
 
 ### **Rumus Evaluasi**
 1. **Root Mean Square Error (RMSE)**:
-   $\[
-   RMSE = \sqrt{\frac{1}{N} \sum_{i=1}^{N} (\hat{y}_i - y_i)^2}
-   \]$
-   - **N**: Jumlah data (prediksi).
-   - $\(\hat{y}_i\)$: Prediksi model untuk data ke- $\(i\)$.
-   - $\(y_i\)$: Nilai sebenarnya untuk data ke- $\(i\)$.
 
-2. **Mean Absolute Error (MAE)**:
+
+3. **Mean Absolute Error (MAE)**:
    $\[
    MAE = \frac{1}{N} \sum_{i=1}^{N} |\hat{y}_i - y_i|
    \]$
