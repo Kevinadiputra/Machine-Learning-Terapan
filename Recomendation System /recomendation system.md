@@ -308,7 +308,7 @@ Berdasarkan visualisasi dan tabel, dapat disimpulkan sebagai berikut:
 
 *Gambar 3: Distribusi rating perfilm*
 
-Berikut adalah tabel hasil distribusi jumlah rating untuk 10 film dengan jumlah rating terbanyak dan penjelasannya:
+Berikut adalah tabel hasil distribusi jumlah rating untuk 10 film dengan jumlah rating terbanyak:
 
 | **No.** | **Judul Film**                                  | **Jumlah Rating** |
 |---------|------------------------------------------------|--------------------|
