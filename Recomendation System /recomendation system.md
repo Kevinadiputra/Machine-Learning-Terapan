@@ -103,8 +103,6 @@ Berikut adalah tabel yang menyajikan informasi dasar mengenai dataset *Movies* d
 
 Dataset ini memiliki 9742 baris dan 3 kolom, dengan semua nilai pada kolom `movieId`, `title`, dan `genres` tidak memiliki nilai yang hilang (non-null). Kolom `movieId` berisi tipe data integer, sementara `title` dan `genres` berisi tipe data string (object).
 
-**Tabel Info Dataset Ratings:**
-
 | Column   | Non-Null Count | Dtype  |
 |----------|----------------|--------|
 | userId   | 100836         | int64  |
@@ -166,6 +164,7 @@ Berikut adalah tabel yang menunjukkan jumlah *missing value* pada dataset *Movie
 Karena tidak ada missing value pada kedua dataset, kita dapat melanjutkan analisis tanpa perlu melakukan proses imputasi atau pembersihan data terkait nilai yang hilang.
 
 **Duplicate**
+
 Berikut adalah tabel yang menunjukkan jumlah duplikat pada dataset *Movies* dan *Ratings*:
 
 **Tabel Jumlah Duplikat Dataset Movies:**
