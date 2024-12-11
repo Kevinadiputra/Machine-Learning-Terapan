@@ -657,11 +657,16 @@ Untuk evaluasi Collaborative Filtering, saya menggunakan metrik **Root Mean Squa
 ### **Rumus Evaluasi**
 1. **Root Mean Square Error (RMSE)**:
 
+ ![image](https://drive.google.com/uc?id=1AgOnJodKa9Bk-8GITYw1QHchClWm3Fta)
+
+ *Gambar 6: Rumus RMSE*
 
 3. **Mean Absolute Error (MAE)**:
-   $\[
-   MAE = \frac{1}{N} \sum_{i=1}^{N} |\hat{y}_i - y_i|
-   \]$
+
+ ![image](https://drive.google.com/uc?id=1OLYNTlZ2L_eFahnSNzfAX2a0qn-aps3F)
+
+*Gambar 7: rumus Mean absolute error*
+ 
    - Sama dengan RMSE, tetapi menggunakan nilai absolut perbedaan.
 
 ### **Alasan Penggunaan RMSE dan MAE**
@@ -709,52 +714,51 @@ Berikut adalah penjelasan untuk laporan evaluasi *content-based filtering* yang 
 
 ### Evaluasi *Content-Based Filtering*
 
-#### 1. **Tujuan Evaluasi**
-Evaluasi bertujuan untuk mengukur tingkat kesesuaian genre antara film asli dengan film yang direkomendasikan oleh model *content-based filtering*. Pendekatan ini dilakukan dengan menghitung persentase kesamaan genre (genre similarity) dari film rekomendasi terhadap film yang dijadikan acuan.
+Pada metode *content-based filtering*, evaluasi dilakukan untuk mengukur seberapa relevan film yang direkomendasikan berdasarkan kesamaan genre dengan film asli yang dipilih. Dalam evaluasi ini, kita menggunakan **Precision** dan **Recall** sebagai metrik untuk menilai kualitas rekomendasi.
 
-#### 2. **Metode Evaluasi**
-- **Dataset yang Digunakan:** 
-  - Film asli yang dianalisis: *Toy Story (1995)*.
-  - Film yang direkomendasikan: Lima film dengan skor kemiripan tertinggi terhadap film asli.
-- **Langkah Evaluasi:**
-  1. **Ekstraksi Genre:**
-     - Genre dari film asli diambil dan dipisahkan menjadi sebuah himpunan (*set*) untuk mempermudah perbandingan.
-     - Genre dari setiap film yang direkomendasikan juga diambil dalam bentuk himpunan.
-  2. **Perhitungan Kesamaan:**
-     - Menghitung jumlah genre yang sama antara film asli dan film yang direkomendasikan (irisan atau *intersection* dari dua himpunan).
-     - Menghitung persentase kesamaan dengan rumus:
-       $\[
-       \text{Kesamaan} = \frac{\text{Jumlah Genre yang Sama}}{\text{Jumlah Genre Film Asli}} \times 100
-       \]$
-  3. **Rata-rata Kesamaan:**
-     - Setelah menghitung kesamaan untuk semua film rekomendasi, diambil rata-rata dari semua skor kesamaan tersebut.
+1. **Precision** mengukur seberapa banyak rekomendasi yang relevan dibandingkan dengan jumlah total rekomendasi yang diberikan. Semakin tinggi nilai Precision, semakin baik sistem rekomendasi dalam memberikan rekomendasi yang relevan.
+   - **Rumus Precision**: Precision = (Jumlah rekomendasi relevan) / (Jumlah total rekomendasi)
+   
+  ![image](https://drive.google.com/uc?id=1N_2hQm-fhUi_ZlSlxfs1PJMOR2GcRrwk)
 
-#### 3. **Hasil Evaluasi**
-Berikut adalah hasil perhitungan:
+  *Gambar 8: rumus Precission*
 
-| **Film Rekomendasi**                    | **Genre**                                      | **Kesamaan Genre (%)** |
-|------------------------------------------|-----------------------------------------------|-------------------------|
-| *Antz (1998)*                            | *Adventure, Animation, Children, Comedy, Fantasy* | 100.00%                |
-| *Toy Story 2 (1999)*                     | *Adventure, Animation, Children, Comedy, Fantasy* | 100.00%                |
-| *Adventures of Rocky and Bullwinkle (2000)* | *Adventure, Animation, Children, Comedy, Fantasy* | 100.00%                |
-| *Emperor's New Groove (2000)*            | *Adventure, Animation, Children, Comedy, Fantasy* | 100.00%                |
-| *Monsters, Inc. (2001)*                  | *Adventure, Animation, Children, Comedy, Fantasy* | 100.00%                |
+2. **Recall** mengukur seberapa banyak rekomendasi relevan yang ditemukan dari semua kemungkinan rekomendasi relevan yang ada. Recall tinggi menunjukkan bahwa sistem berhasil menemukan sebagian besar film yang relevan.
+   - **Rumus Recall**: Recall = (Jumlah rekomendasi relevan) / (Jumlah total film relevan yang seharusnya direkomendasikan)
+   ![image](https://drive.google.com/file/d/1hQXCdUx5hrptKTNTPDwESCpm0gbmNL8p/view?usp=sharing)
 
-*Tabel 20: Hasil Evaluasi content base Filtering*
+   *Gambar 9: rumus recall*
 
-**Rata-rata Kesamaan Genre:** 100.00%
+Precision dan Recall adalah dua metrik yang sering digunakan untuk mengevaluasi sistem rekomendasi, terutama dalam konteks *content-based filtering*. Kedua metrik ini memiliki peran penting dalam mengukur kualitas rekomendasi yang diberikan kepada pengguna, dengan fokus pada relevansi dan cakupan rekomendasi yang disarankan.
 
-#### 4. **Analisis Hasil**
-- **Kesesuaian Genre:**
-  Semua film rekomendasi memiliki tingkat kesamaan genre sebesar 100% dengan film asli (*Toy Story (1995)*). Hal ini menunjukkan bahwa model bekerja dengan sangat baik dalam merekomendasikan film-film dengan genre yang sama.
-- **Kekuatan Model:**
-  - Model berhasil menjaga konsistensi rekomendasi berdasarkan informasi genre yang tersedia.
-  - Genre seperti *Adventure, Animation, Children, Comedy, Fantasy* yang dimiliki film asli juga ditemukan di semua film rekomendasi.
-- **Keterbatasan Model:**
-  - Model hanya mempertimbangkan informasi genre sebagai dasar rekomendasi. Ini dapat menyebabkan model mengabaikan faktor lain seperti popularitas, rating, atau preferensi pengguna yang lebih kompleks.
+### Mengapa Menggunakan Precision dan Recall?
 
-#### 5. **Kesimpulan**
-Hasil evaluasi menunjukkan bahwa model *content-based filtering* sangat efektif dalam merekomendasikan film dengan genre yang sama. Namun, untuk meningkatkan relevansi rekomendasi, perlu mempertimbangkan faktor tambahan di luar genre seperti preferensi pengguna atau ulasan film.
+1. **Precision**:
+   Precision mengukur akurasi dari rekomendasi yang diberikan. Dalam sistem rekomendasi, kita ingin tahu seberapa banyak rekomendasi yang relevan dari total rekomendasi yang diberikan oleh sistem. Precision yang tinggi menunjukkan bahwa mayoritas rekomendasi yang diberikan benar-benar relevan, yang berarti sistem tidak membuang waktu pengguna dengan saran yang tidak sesuai. Hal ini penting dalam menjaga kepuasan pengguna, terutama jika jumlah rekomendasi terbatas dan pengguna ingin mendapatkan pilihan yang berkualitas (Yeh, 2017). Precision sangat berguna untuk menghindari memberikan rekomendasi yang kurang relevan, yang dapat menyebabkan pengalaman pengguna yang buruk.
+
+2. **Recall**:
+   Recall, di sisi lain, mengukur kemampuan sistem dalam menemukan rekomendasi yang relevan dari seluruh kemungkinan yang ada. Dalam konteks *content-based filtering*, sistem diharapkan dapat menemukan semua item relevan yang ada dalam database. Recall yang tinggi berarti sistem berhasil menyarankan hampir semua film yang relevan yang sesuai dengan preferensi pengguna. Ini penting untuk memastikan bahwa pengguna tidak melewatkan film yang mungkin mereka sukai, meskipun sistem memberikan banyak rekomendasi (Chen et al., 2017). Recall sering digunakan ketika prioritasnya adalah memastikan bahwa sistem tidak kehilangan rekomendasi relevan yang berharga.
+
+### Alasan Penggunaan Kedua Metrik
+Precision dan Recall digunakan bersama-sama karena keduanya memberikan gambaran lengkap mengenai kinerja sistem rekomendasi. Precision memastikan bahwa rekomendasi yang diberikan relevan, sementara Recall memastikan bahwa semua kemungkinan film relevan tidak terlewat. Dengan keduanya, kita dapat menilai seberapa baik sistem menyarankan film yang tidak hanya tepat, tetapi juga lengkap sesuai dengan preferensi pengguna.
+
+Pada contoh ini, semua film yang direkomendasikan memiliki genre yang sama dengan film asli, sehingga Precision dan Recall mencapai nilai 1.00 (100%).
+
+| **Original Movie**               | **Recommended Movie**                         | **Genres**                                         | **Is Relevant?** | **Precision** | **Recall** |
+|-----------------------------------|----------------------------------------------|---------------------------------------------------|------------------|---------------|------------|
+| Toy Story (1995)                  | Antz (1998)                                  | {'Adventure', 'Animation', 'Children', 'Comedy', 'Fantasy'} | Yes              | 1.00          | 1.00       |
+|                                   | Toy Story 2 (1999)                           | {'Adventure', 'Animation', 'Children', 'Comedy', 'Fantasy'} | Yes              |               |            |
+|                                   | Adventures of Rocky and Bullwinkle (2000)    | {'Adventure', 'Animation', 'Children', 'Comedy', 'Fantasy'} | Yes              |               |            |
+|                                   | Emperor's New Groove (2000)                  | {'Adventure', 'Animation', 'Children', 'Comedy', 'Fantasy'} | Yes              |               |            |
+|                                   | Monsters, Inc. (2001)                       | {'Adventure', 'Animation', 'Children', 'Comedy', 'Fantasy'} | Yes              |               |            |
+
+*Tabel 19: Hasil evaluasi content base filtering menggunakan precision dan recal*
+
+**Average Precision**: 1.00  
+**Average Recall**: 1.00
+
+- **Precision** dan **Recall** yang diperoleh mencapai nilai maksimum (1.00), yang berarti bahwa semua rekomendasi yang diberikan relevan dan sistem berhasil menemukan seluruh rekomendasi relevan yang ada. Hal ini menunjukkan bahwa sistem *content-based filtering* bekerja dengan sangat baik pada dataset ini, karena semua film yang disarankan memiliki kesamaan genre dengan film yang dijadikan acuan.
+
 
 ## Kesimpulan
 
