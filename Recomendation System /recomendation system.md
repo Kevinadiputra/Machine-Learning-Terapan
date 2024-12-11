@@ -343,7 +343,7 @@ Berikut adalah tabel hasil distribusi jumlah rating untuk 10 film dengan jumlah 
 
 *Gambar 4: Distribusi Rating per user*
 
-Berikut adalah tabel hasil distribusi rating per pengguna berdasarkan data yang Anda berikan:
+Berikut adalah tabel hasil distribusi rating per user:
 
 | **No.** | **ID Pengguna** | **Jumlah Rating** |
 |---------|----------------|--------------------|
@@ -730,10 +730,6 @@ Untuk evaluasi Collaborative Filtering, saya menggunakan metrik **Root Mean Squa
 - Konsistensi performa ditunjukkan oleh rendahnya standar deviasi dari hasil cross-validation.
 
 Hasil ini menunjukkan bahwa model cukup andal untuk merekomendasikan item berdasarkan preferensi pengguna.
-
-Berikut adalah penjelasan untuk laporan evaluasi *content-based filtering* yang Anda lakukan:
-
----
 
 ### Evaluasi *Content-Based Filtering*
 
