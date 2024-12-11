@@ -782,10 +782,6 @@ Pada contoh ini, semua film yang direkomendasikan memiliki genre yang sama denga
 
 - **Precision** dan **Recall** yang diperoleh mencapai nilai maksimum (1.00), yang berarti bahwa semua rekomendasi yang diberikan relevan dan sistem berhasil menemukan seluruh rekomendasi relevan yang ada. Hal ini menunjukkan bahwa sistem *content-based filtering* bekerja dengan sangat baik pada dataset ini, karena semua film yang disarankan memiliki kesamaan genre dengan film yang dijadikan acuan.
 
-
-## Kesimpulan
-Berikut adalah revisi kesimpulan Anda sesuai dengan penggunaan evaluasi **precision** dan **recall**:
-
 ---
 
 ### **Kesimpulan**
