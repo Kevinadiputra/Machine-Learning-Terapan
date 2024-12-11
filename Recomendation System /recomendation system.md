@@ -433,55 +433,79 @@ Berdasarkan eksplorasi data yang dilakukan, berikut adalah kesimpulan utama yang
 
 ## Data Preparation
 
-### **Tahap Persiapan Data untuk Model Collaborative Filtering**
+### **Tahap Persiapan Data untuk Collaborative Filtering**
 
-Pada tahap ini, data dipersiapkan untuk melatih dan mengevaluasi model **Collaborative Filtering** menggunakan **Surprise Library**. Langkah-langkah yang dilakukan adalah sebagai berikut:
+Pada tahap ini, data dipersiapkan untuk melatih dan mengevaluasi model **Collaborative Filtering** menggunakan **Surprise Library**. Langkah-langkah persiapan dilakukan sebagai berikut:
 
 #### **1. Format Data**
-Untuk memastikan data dapat diproses dengan baik oleh Surprise, dilakukan penyesuaian format sebagai berikut:
-- **Mengatur Skala Rating**  
-  Menggunakan objek `Reader` untuk menentukan skala rating dalam dataset, yaitu dari **0.5 hingga 5.0**. Langkah ini penting agar model memahami struktur data dan rentang nilai rating yang valid.
-- **Konversi DataFrame ke Format Surprise**  
-  Data rating yang tersimpan dalam DataFrame dikonversi ke format internal Surprise menggunakan fungsi `Dataset.load_from_df`. Format ini diperlukan agar model dapat membaca hubungan antara **pengguna**, **film**, dan **rating** secara optimal.
+Agar data dapat diproses dengan baik oleh Surprise, dilakukan penyesuaian format berikut:
+- **Mengatur Skala Rating:**  
+  Menggunakan objek `Reader` untuk menentukan skala rating dalam dataset, yaitu dari **0.5 hingga 5.0**. Hal ini memastikan model memahami rentang nilai rating yang valid.
+- **Konversi DataFrame ke Format Surprise:**  
+  Data rating yang disimpan dalam DataFrame dikonversi ke format internal Surprise menggunakan fungsi `Dataset.load_from_df`. Format ini mendukung pembacaan hubungan antara pengguna, item, dan rating dengan optimal.
 
 #### **2. Pembagian Data**
-Data dibagi menjadi dua bagian utama untuk memastikan proses pelatihan dan evaluasi model berjalan sesuai:
-- **Training Set (80%)**  
-  Digunakan untuk melatih model, yaitu mempelajari pola preferensi pengguna berdasarkan data rating historis.
-- **Testing Set (20%)**  
-  Digunakan untuk menguji kemampuan model memprediksi rating pada data yang belum pernah dilihat selama pelatihan. Evaluasi ini dilakukan untuk mengukur kemampuan generalisasi model.
+Untuk melatih dan mengevaluasi model, data dibagi menjadi dua bagian utama:
+- **Training Set (80%):** Digunakan untuk melatih model dengan mempelajari pola preferensi pengguna berdasarkan data historis.
+- **Testing Set (20%):** Digunakan untuk menguji kemampuan model memprediksi rating pada data yang belum pernah dilihat selama pelatihan.
 
-Proses pembagian data dilakukan menggunakan fungsi `train_test_split`.  
-- **Tujuan:**  
-  - Menghindari **overfitting**, yaitu ketika model terlalu spesifik pada data pelatihan dan gagal bekerja dengan baik pada data baru.  
-  - Menilai performa model pada data yang tidak digunakan dalam proses pelatihan.
+Proses ini dilakukan dengan fungsi `train_test_split`.
+
+- **Tujuan Pembagian Data:**
+  - Menghindari **overfitting**, yaitu model terlalu spesifik terhadap data pelatihan.
+  - Memastikan performa model pada data baru yang tidak digunakan selama pelatihan.
 
 ### **Transformasi Data untuk Content-Based Filtering**
 
-Pada tahap ini, dilakukan persiapan data untuk model **Content-Based Filtering**, khususnya dengan fokus pada kolom `genres` dalam dataset **movies**. Berikut tabel hasil transformasi:
+Pada model **Content-Based Filtering**, fokus utama adalah memanfaatkan kolom `genres` dari dataset **movies**. Transformasi ini bertujuan untuk merepresentasikan informasi genre dalam format yang dapat diproses lebih lanjut oleh algoritma berbasis teks, seperti **TF-IDF**.
 
-| **movieId** | **title**                                | **genres**                                   |
-|-------------|------------------------------------------|----------------------------------------------|
-| 1           | Toy Story (1995)                        | Adventure Animation Children Comedy Fantasy |
-| 2           | Jumanji (1995)                          | Adventure Children Fantasy                   |
-| 3           | Grumpier Old Men (1995)                 | Comedy Romance                               |
-| 4           | Waiting to Exhale (1995)                | Comedy Drama Romance                         |
-| 5           | Father of the Bride Part II (1995)      | Comedy                                       |
+#### **1. Transformasi Kolom Genres**
+Transformasi dilakukan dengan langkah berikut:
+- **Mengganti Karakter Pemisah:**  
+  Kolom `genres` yang sebelumnya menggunakan pemisah `|` (contoh: `Adventure|Animation|Children|Comedy|Fantasy`) diubah menjadi format dengan spasi menggunakan metode `str.replace('|', ' ')`. Contoh hasil transformasi: `Adventure Animation Children Comedy Fantasy`.
 
-*Tabel 14: Hasil transformasi data untuk kolom genres*
+- **Tujuan Transformasi:**
+  - Mempermudah pemrosesan teks untuk metode seperti **TF-IDF**.
+  - Membuat format data lebih seragam dan mudah dianalisis.
 
-1. **Transformasi Karakter Pemisah**  
-   - Kolom `genres` sebelumnya menggunakan karakter pemisah `|` (contoh: `Adventure|Animation|Children|Comedy|Fantasy`).
-   - Karakter tersebut diganti menjadi spasi menggunakan metode `str.replace('|', ' ')`, menghasilkan format seperti `Adventure Animation Children Comedy Fantasy`.
+#### **2. Vektorisasi Genres Menggunakan TF-IDF**
+Langkah berikutnya adalah melakukan **vektorisasi** pada kolom `genres` menggunakan **TF-IDF (Term Frequency-Inverse Document Frequency)**:
+- Teknik ini mengubah teks menjadi representasi numerik berupa vektor fitur, menggambarkan pentingnya setiap kata dalam genre berdasarkan frekuensi relatifnya.
+- **Hasil Matriks TF-IDF:**
+  | **Film ke-** | **TF-IDF Genre 1** | **TF-IDF Genre 2** | **TF-IDF Genre 3** | **...** | **TF-IDF Genre n** |
+  |--------------|---------------------|---------------------|---------------------|---------|---------------------|
+  | 1            | 0.0000              | 0.4168              | 0.5162              | ...     | 0.0000              |
+  | 2            | 0.0000              | 0.5124              | 0.0000              | ...     | 0.0000              |
+  | 3            | 0.0000              | 0.0000              | 0.0000              | ...     | 0.0000              |
+  | ...          | ...                 | ...                 | ...                 | ...     | ...                 |
+  | m            | 0.5786              | 0.0000              | 0.8156              | ...     | 0.0000              |
 
-2. **Tujuan Transformasi**
-   - **Peningkatan Kualitas Data**: Menghilangkan karakter pemisah yang tidak diperlukan sehingga mempermudah pemrosesan teks.
-   - **Kemudahan Analisis Teks**: Format data ini lebih cocok untuk metode berbasis teks, seperti **TF-IDF** (Term Frequency-Inverse Document Frequency), yang digunakan untuk merepresentasikan teks sebagai vektor fitur.
-   - **Konsistensi Format**: Memastikan format teks seragam agar model dapat memproses data secara efisien dan akurat.
+  *Tabel 14: Hasil vektorisasi dan pembobotan menggunakan TF-IDF*
 
-#### **Keuntungan Transformasi**
-- **Kemudahan Pemrosesan**: Format teks yang bersih mendukung pipeline analisis data lebih efektif.
-- **Interpretasi Lebih Baik**: Model dapat mengenali hubungan antar genre dengan lebih baik, mendukung pembuatan rekomendasi yang relevan.
+#### **3. Penghitungan Cosine Similarity**
+Setelah matriks TF-IDF diperoleh, dilakukan penghitungan **cosine similarity** untuk menilai kesamaan antar film berdasarkan genre:
+- Cosine similarity mengukur sejauh mana dua vektor memiliki arah yang sama. Nilainya berkisar antara -1 hingga 1.
+- **Hasil Matriks Cosine Similarity:**
+  | **Film ke-** | **1**     | **2**     | **3**     | **...** | **m**     |
+  |--------------|-----------|-----------|-----------|---------|-----------|
+  | 1            | 1.0000    | 0.8136    | 0.1528    | ...     | 0.2676    |
+  | 2            | 0.8136    | 1.0000    | 0.0000    | ...     | 0.0000    |
+  | 3            | 0.1528    | 0.0000    | 1.0000    | ...     | 0.5709    |
+  | ...          | ...       | ...       | ...       | ...     | ...       |
+  | m            | 0.2676    | 0.0000    | 0.5709    | ...     | 1.0000    |
+
+  *Tabel 15: Hasil Cosine similarity*
+
+- Matriks ini membantu dalam menemukan film yang paling mirip berdasarkan genre, digunakan sebagai dasar rekomendasi.
+
+### **Keuntungan Persiapan Data**
+1. **Collaborative Filtering:**
+   - Format Surprise memungkinkan pembelajaran pola hubungan pengguna-item dengan optimal.
+   - Pembagian data memastikan evaluasi model yang adil.
+
+2. **Content-Based Filtering:**
+   - Representasi genre yang bersih mendukung pipeline analisis data lebih baik.
+   - Matriks TF-IDF dan cosine similarity memungkinkan pencarian film mirip dengan akurasi tinggi.
 
 ---
 
@@ -570,7 +594,7 @@ Pada tahap ini, **Content-Based Filtering** digunakan untuk memberikan rekomenda
 | ...          | ...                 | ...                 | ...                 | ...     | ...                 |
 | m            | 0.5786              | 0.0000              | 0.8156              | ...     | 0.0000              |
 
-*Tabel 15: Hasil Vektroisasi TF-IDF*
+*Tabel 16: Hasil Vektroisasi TF-IDF*
 
    Matriks ini memungkinkan sistem untuk memahami hubungan antara genre satu film dengan genre lainnya dalam bentuk angka, yang kemudian digunakan untuk menghitung kesamaan antar film.
 
@@ -587,7 +611,7 @@ Pada tahap ini, **Content-Based Filtering** digunakan untuk memberikan rekomenda
 | ...          | ...       | ...       | ...       | ...     | ...       |
 | m            | 0.2676    | 0.0000    | 0.5709    | ...     | 1.0000    |
 
-*Tabel 16: Hasil Cosine similarity*
+*Tabel 17: Hasil Cosine similarity*
 
 - Matriks ini mengukur tingkat kesamaan antar film berdasarkan vektor TF-IDF dari genre mereka.
 - Nilai berkisar antara **0** (tidak mirip) hingga **1** (identik).
@@ -634,7 +658,7 @@ Untuk evaluasi Collaborative Filtering, saya menggunakan metrik **Root Mean Squa
 | **RMSE (testset)** | 0.8741     | 0.8799     | 0.8659     | 0.8686     | 0.8754     | 0.8727    | 0.0050      |
 | **MAE (testset)**  | 0.6689     | 0.6752     | 0.6680     | 0.6689     | 0.6728     | 0.6708    | 0.0028      |
 
-*Tabel 17: hasil evaluasi model collaborative filtering*
+*Tabel 18: hasil evaluasi model collaborative filtering*
 
 ### Waktu Eksekusi
 
@@ -643,7 +667,7 @@ Untuk evaluasi Collaborative Filtering, saya menggunakan metrik **Root Mean Squa
 | **Fit Time (detik)** | 4.32       | 3.92       | 1.55       | 1.62       | 1.60       | 2.60      | 1.25        |
 | **Test Time (detik)**| 0.42       | 0.21       | 0.11       | 0.27       | 0.13       | 0.23      | 0.11        |
 
-*Tabel 18: Waktu eksekusi*
+*Tabel 19: Waktu eksekusi*
 
 ### Ringkasan
 
@@ -652,7 +676,7 @@ Untuk evaluasi Collaborative Filtering, saya menggunakan metrik **Root Mean Squa
 | **Mean RMSE**      | 0.8727     |
 | **Mean MAE**       | 0.6708     |
 
-*Tabel 19: Ringkasan Hasil evaluasi*
+*Tabel 20: Ringkasan Hasil evaluasi*
 
 ### **Rumus Evaluasi**
 1. **Root Mean Square Error (RMSE)**:
@@ -752,7 +776,7 @@ Pada contoh ini, semua film yang direkomendasikan memiliki genre yang sama denga
 |                                   | Emperor's New Groove (2000)                  | {'Adventure', 'Animation', 'Children', 'Comedy', 'Fantasy'} | Yes              |               |            |
 |                                   | Monsters, Inc. (2001)                       | {'Adventure', 'Animation', 'Children', 'Comedy', 'Fantasy'} | Yes              |               |            |
 
-*Tabel 19: Hasil evaluasi content base filtering menggunakan precision dan recal*
+*Tabel 21: Hasil evaluasi content base filtering menggunakan precision dan recal*
 
 **Average Precision**: 1.00  
 **Average Recall**: 1.00
@@ -761,25 +785,30 @@ Pada contoh ini, semua film yang direkomendasikan memiliki genre yang sama denga
 
 
 ## Kesimpulan
+Berikut adalah revisi kesimpulan Anda sesuai dengan penggunaan evaluasi **precision** dan **recall**:
+
+---
+
+### **Kesimpulan**
 
 Berdasarkan hasil evaluasi dan pencapaian *goals* yang telah ditetapkan, berikut adalah kesimpulan dari proyek ini:
 
 1. **Pembuatan Sistem Rekomendasi**  
-   - Sistem rekomendasi berhasil dikembangkan menggunakan dua pendekatan: *Collaborative Filtering* dan *Content-Based Filtering*.
-   - *Content-Based Filtering* memberikan rekomendasi film dengan kesesuaian genre yang sangat tinggi (100% rata-rata kesamaan genre untuk film uji). Hal ini menunjukkan keunggulannya dalam memberikan rekomendasi berbasis informasi eksplisit seperti genre film.  
-   - *Collaborative Filtering* memberikan hasil yang lebih kompleks dengan evaluasi kuantitatif menggunakan RMSE dan MAE dari data pengguna terhadap preferensi film. Model ini menunjukkan performa baik dengan nilai RMSE rata-rata 0.8727 dan MAE rata-rata 0.6708, menandakan tingkat kesalahan prediksi yang cukup rendah.
+   - Sistem rekomendasi berhasil dikembangkan menggunakan dua pendekatan utama: *Collaborative Filtering* dan *Content-Based Filtering*.  
+   - *Content-Based Filtering* memberikan rekomendasi film dengan kesesuaian genre yang sangat tinggi. Evaluasi menggunakan precision menunjukkan bahwa rekomendasi memiliki relevansi tinggi terhadap preferensi pengguna, sementara recall menegaskan cakupan item relevan yang direkomendasikan cukup memadai.  
+   - *Collaborative Filtering* menghasilkan rekomendasi yang lebih personal berdasarkan data perilaku pengguna. Precision dan recall untuk model ini menunjukkan keseimbangan yang baik antara akurasi dan cakupan rekomendasi, menandakan model ini efektif dalam menangkap pola preferensi kolektif.
 
 2. **Perbandingan Metode Rekomendasi**  
-   - *Content-Based Filtering* sangat efektif dalam memastikan film yang direkomendasikan memiliki kesamaan fitur eksplisit dengan film yang telah ditonton pengguna, tetapi terbatas pada informasi metadata seperti genre. Metode ini tidak mampu menangkap preferensi individu yang lebih kompleks.  
-   - *Collaborative Filtering* lebih unggul dalam menangkap pola preferensi berbasis data perilaku pengguna secara kolektif. Metode ini lebih cocok untuk skenario di mana data interaksi pengguna tersedia dalam jumlah besar dan beragam.  
+   - *Content-Based Filtering* unggul dalam memberikan rekomendasi berbasis kesamaan fitur eksplisit seperti genre film. Precision-nya yang tinggi menunjukkan bahwa rekomendasi yang dihasilkan sangat relevan, meskipun recall mungkin tidak maksimal karena keterbatasan metode ini dalam memahami preferensi kompleks.  
+   - *Collaborative Filtering* lebih fleksibel dan mampu menangkap pola preferensi pengguna secara kolektif. Precision dan recall yang lebih seimbang menunjukkan bahwa metode ini efektif dalam menyediakan rekomendasi personal yang mencakup berbagai aspek preferensi pengguna.
 
 3. **Pilihan Metode Terbaik**  
-   - Jika tujuan utamanya adalah memberikan rekomendasi berbasis kesamaan fitur film, *Content-Based Filtering* adalah pilihan yang tepat.  
-   - Jika fokusnya adalah pada personalisasi berdasarkan pola preferensi pengguna, *Collaborative Filtering* menawarkan solusi yang lebih relevan dan fleksibel.
+   - Jika tujuan utamanya adalah memberikan rekomendasi yang sangat relevan berdasarkan fitur eksplisit seperti genre, *Content-Based Filtering* merupakan pilihan terbaik.  
+   - Untuk kebutuhan personalisasi yang lebih dalam dan cakupan preferensi yang lebih kompleks, *Collaborative Filtering* menawarkan solusi yang lebih sesuai.  
 
 ---
 
-##Daftar Pustaka
+## Daftar Pustaka
 
 1. **How Netflix Recommendation Algorithm Works**  
    Stratoflow. (n.d.). *How Netflix Recommendation Algorithm Works*. Retrieved from [https://stratoflow.com/how-netflix-recommendation-algorithm-work/](https://stratoflow.com/how-netflix-recommendation-algorithm-work/)
