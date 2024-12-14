@@ -582,7 +582,7 @@ Pada tahap ini, **Content-Based Filtering** digunakan untuk memberikan rekomenda
 
 Penghitungan cosine similarity dilakukan menggunakan formula berikut:
 
-![image](https://drive.google.com/uc?id=1BoORKRLseHRk8rDd3MHIxZYld0zxD9VF)
+![image](https://drive.google.com/uc?id=1dUn5EJlCFc97F4KMe8altv1toFjHHta_)
 
 *Gambar 6: Rumus Cosine similarity*
 
