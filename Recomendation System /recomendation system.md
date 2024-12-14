@@ -473,9 +473,9 @@ Setelah data genre disiapkan, langkah selanjutnya adalah mengubah teks menjadi r
   - **IDF (Inverse Document Frequency):** Mengukur seberapa penting sebuah kata, dengan memberikan bobot lebih kecil pada kata yang sering muncul di banyak dokumen.
 
 - **Proses TF-IDF:**
-  1. Setiap kata dalam `genres` menjadi sebuah fitur.
-  2. Frekuensi kata dihitung dan diberi bobot sesuai pentingnya kata tersebut di seluruh dataset.
-  3. Hasil akhir adalah matriks vektor numerik untuk setiap film.
+  - Setiap kata dalam `genres` menjadi sebuah fitur.
+  - Frekuensi kata dihitung dan diberi bobot sesuai pentingnya kata tersebut di seluruh dataset.
+  - Hasil akhir adalah matriks vektor numerik untuk setiap film.
 
   | **Film ke-** | **Adventure** | **Animation** | **Children** | **Comedy** | **Fantasy** |
   |--------------|---------------|----------------|--------------|------------|-------------|
