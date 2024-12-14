@@ -456,46 +456,38 @@ Proses ini dilakukan dengan fungsi `train_test_split`.
 
 ### **Transformasi Data untuk Content-Based Filtering**
 
-Pada model **Content-Based Filtering**, fokus utama adalah memanfaatkan kolom `genres` dari dataset **movies**. Transformasi ini bertujuan untuk merepresentasikan informasi genre dalam format yang dapat diproses lebih lanjut oleh algoritma berbasis teks, seperti **TF-IDF**.
+Pada model **Content-Based Filtering**, fokus utama adalah memanfaatkan kolom `genres` dari dataset **movies**. Transformasi ini dilakukan agar informasi genre dapat direpresentasikan dalam format numerik yang sesuai untuk proses analisis.
 
 #### **1. Transformasi Kolom Genres**
-Transformasi dilakukan dengan langkah berikut:
+Langkah awal adalah membersihkan dan menyiapkan data genre:
 - **Mengganti Karakter Pemisah:**  
-  Kolom `genres` yang sebelumnya menggunakan pemisah `|` (contoh: `Adventure|Animation|Children|Comedy|Fantasy`) diubah menjadi format dengan spasi menggunakan metode `str.replace('|', ' ')`. Contoh hasil transformasi: `Adventure Animation Children Comedy Fantasy`.
-
-- **Tujuan Transformasi:**
-  - Mempermudah pemrosesan teks untuk metode seperti **TF-IDF**.
-  - Membuat format data lebih seragam dan mudah dianalisis.
+  Kolom `genres`, yang menggunakan pemisah `|` (contoh: `Adventure|Animation|Children|Comedy|Fantasy`), diubah menjadi format berbasis spasi dengan metode `str.replace('|', ' ')`. Contoh hasil transformasi:  
+  - Sebelum: `Adventure|Animation|Children|Comedy|Fantasy`  
+  - Sesudah: `Adventure Animation Children Comedy Fantasy`
 
 #### **2. Vektorisasi Genres Menggunakan TF-IDF**
-Langkah berikutnya adalah melakukan **vektorisasi** pada kolom `genres` menggunakan **TF-IDF (Term Frequency-Inverse Document Frequency)**:
-- Teknik ini mengubah teks menjadi representasi numerik berupa vektor fitur, menggambarkan pentingnya setiap kata dalam genre berdasarkan frekuensi relatifnya.
-- **Hasil Matriks TF-IDF:**
-  | **Film ke-** | **TF-IDF Genre 1** | **TF-IDF Genre 2** | **TF-IDF Genre 3** | **...** | **TF-IDF Genre n** |
-  |--------------|---------------------|---------------------|---------------------|---------|---------------------|
-  | 1            | 0.0000              | 0.4168              | 0.5162              | ...     | 0.0000              |
-  | 2            | 0.0000              | 0.5124              | 0.0000              | ...     | 0.0000              |
-  | 3            | 0.0000              | 0.0000              | 0.0000              | ...     | 0.0000              |
-  | ...          | ...                 | ...                 | ...                 | ...     | ...                 |
-  | m            | 0.5786              | 0.0000              | 0.8156              | ...     | 0.0000              |
+Setelah data genre disiapkan, langkah selanjutnya adalah mengubah teks menjadi representasi numerik menggunakan **TF-IDF (Term Frequency-Inverse Document Frequency)**:
+- **Apa itu TF-IDF?**  
+  TF-IDF adalah metode pembobotan teks berdasarkan:
+  - **TF (Term Frequency):** Frekuensi kemunculan kata dalam dokumen.
+  - **IDF (Inverse Document Frequency):** Mengukur seberapa penting sebuah kata, dengan memberikan bobot lebih kecil pada kata yang sering muncul di banyak dokumen.
 
-  *Tabel 14: Hasil vektorisasi dan pembobotan menggunakan TF-IDF*
+- **Proses TF-IDF:**
+  1. Setiap kata dalam `genres` menjadi sebuah fitur.
+  2. Frekuensi kata dihitung dan diberi bobot sesuai pentingnya kata tersebut di seluruh dataset.
+  3. Hasil akhir adalah matriks vektor numerik untuk setiap film.
 
-#### **3. Penghitungan Cosine Similarity**
-Setelah matriks TF-IDF diperoleh, dilakukan penghitungan **cosine similarity** untuk menilai kesamaan antar film berdasarkan genre:
-- Cosine similarity mengukur sejauh mana dua vektor memiliki arah yang sama. Nilainya berkisar antara -1 hingga 1.
-- **Hasil Matriks Cosine Similarity:**
-  | **Film ke-** | **1**     | **2**     | **3**     | **...** | **m**     |
-  |--------------|-----------|-----------|-----------|---------|-----------|
-  | 1            | 1.0000    | 0.8136    | 0.1528    | ...     | 0.2676    |
-  | 2            | 0.8136    | 1.0000    | 0.0000    | ...     | 0.0000    |
-  | 3            | 0.1528    | 0.0000    | 1.0000    | ...     | 0.5709    |
-  | ...          | ...       | ...       | ...       | ...     | ...       |
-  | m            | 0.2676    | 0.0000    | 0.5709    | ...     | 1.0000    |
+  | **Film ke-** | **Adventure** | **Animation** | **Children** | **Comedy** | **Fantasy** |
+  |--------------|---------------|----------------|--------------|------------|-------------|
+  | 1            | 0.267         | 0.378          | 0.423        | 0.512      | 0.616       |
+  | 2            | 0.000         | 0.612          | 0.000        | 0.453      | 0.000       |
+  | 3            | 0.423         | 0.000          | 0.516        | 0.000      | 0.267       |
 
-  *Tabel 15: Hasil Cosine similarity*
+  *Tabel 14: Representasi numerik film berdasarkan fitur genre*
 
-- Matriks ini membantu dalam menemukan film yang paling mirip berdasarkan genre, digunakan sebagai dasar rekomendasi.
+#### **Manfaat Vektorisasi dengan TF-IDF**
+- Mewakili genre film dalam bentuk numerik, memungkinkan algoritma untuk memahami kesamaan antar film.
+- Menekankan kata-kata unik pada genre tertentu, meningkatkan kualitas rekomendasi.
 
 ### **Keuntungan Persiapan Data**
 1. **Collaborative Filtering:**
@@ -580,27 +572,21 @@ Model **Collaborative Filtering** yang menggunakan **SVD** memprediksi rating un
 
 ### **Content-Based Filtering**
 
-Pada tahap ini, **Content-Based Filtering** digunakan untuk memberikan rekomendasi berdasarkan kesamaan fitur konten, seperti genre film. Berikut adalah tahapan yang dilakukan dalam model ini:
+Pada tahap ini, **Content-Based Filtering** digunakan untuk memberikan rekomendasi berdasarkan kesamaan fitur konten, seperti genre film. Fokus utama adalah menghitung **cosine similarity** untuk menentukan tingkat kemiripan antar film.
 
-1. **Vektorisasi Genre Menggunakan TF-IDF**  
-   Proses pertama adalah melakukan **vektorisasi** pada kolom `genres` menggunakan **TF-IDF (Term Frequency-Inverse Document Frequency)**. TF-IDF adalah teknik yang digunakan untuk mengubah teks menjadi representasi numerik yang lebih mudah dipahami oleh model. Dalam hal ini, genre setiap film diubah menjadi vektor yang menggambarkan frekuensi relatif dari kata-kata dalam genre tersebut. Berikut adalah hasil matriks **TF-IDF** setelah proses vektorisasi:
+#### **Penghitungan Cosine Similarity**
 
-| **Film ke-** | **TF-IDF Genre 1** | **TF-IDF Genre 2** | **TF-IDF Genre 3** | **...** | **TF-IDF Genre n** |
-|--------------|---------------------|---------------------|---------------------|---------|---------------------|
-| 1            | 0.0000              | 0.4168              | 0.5162              | ...     | 0.0000              |
-| 2            | 0.0000              | 0.5124              | 0.0000              | ...     | 0.0000              |
-| 3            | 0.0000              | 0.0000              | 0.0000              | ...     | 0.0000              |
-| ...          | ...                 | ...                 | ...                 | ...     | ...                 |
-| m            | 0.5786              | 0.0000              | 0.8156              | ...     | 0.0000              |
+**Cosine similarity** adalah metrik yang mengukur sejauh mana dua vektor memiliki arah yang sama. Dalam konteks ini, setiap film direpresentasikan sebagai vektor berdasarkan fitur genre-nya. Nilai cosine similarity berkisar antara **0** hingga **1**:
+- **0** menunjukkan tidak ada kesamaan,
+- **1** menunjukkan kesamaan yang sempurna.
 
-*Tabel 16: Hasil Vektroisasi TF-IDF*
+Penghitungan cosine similarity dilakukan menggunakan formula berikut:
 
-   Matriks ini memungkinkan sistem untuk memahami hubungan antara genre satu film dengan genre lainnya dalam bentuk angka, yang kemudian digunakan untuk menghitung kesamaan antar film.
+![image](https://drive.google.com/uc?id=1BoORKRLseHRk8rDd3MHIxZYld0zxD9VF)
 
-2. **Penghitungan Cosine Similarity**  
-   Setelah matriks TF-IDF diperoleh, tahap selanjutnya adalah menghitung **cosine similarity**, yaitu ukuran yang digunakan untuk menilai sejauh mana dua vektor memiliki arah yang sama, dengan nilai antara -1 hingga 1. Nilai lebih dekat ke 1 menunjukkan kesamaan yang lebih tinggi. Hasil **cosine similarity** ini akan membentuk matriks kemiripan antara film satu dengan film lainnya berdasarkan genre.
+*Gambar 6: Rumus Cosine similarity*
 
-   Berikut adalah hasil **cosine similarity** untuk beberapa film:
+Setelah nilai cosine similarity dihitung untuk semua pasangan film, hasilnya membentuk **matriks kemiripan**. Matriks ini digunakan untuk menemukan film yang paling mirip dengan film input berdasarkan nilai tertinggi di baris atau kolom yang sesuai.
 
 | **Film ke-** | **1**     | **2**     | **3**     | **...** | **m**     |
 |--------------|-----------|-----------|-----------|---------|-----------|
@@ -610,11 +596,13 @@ Pada tahap ini, **Content-Based Filtering** digunakan untuk memberikan rekomenda
 | ...          | ...       | ...       | ...       | ...     | ...       |
 | m            | 0.2676    | 0.0000    | 0.5709    | ...     | 1.0000    |
 
-*Tabel 17: Hasil Cosine similarity*
+*Tabel 15: Matriks cosine similarity*
 
-- Matriks ini mengukur tingkat kesamaan antar film berdasarkan vektor TF-IDF dari genre mereka.
-- Nilai berkisar antara **0** (tidak mirip) hingga **1** (identik).
-- Matriks ini digunakan untuk menemukan film yang paling mirip dengan film input.
+1. **Diagonal utama (nilai 1.0000)** menunjukkan bahwa setiap film identik dengan dirinya sendiri.
+2. **Nilai non-diagonal** merepresentasikan tingkat kesamaan antara dua film berbeda.
+3. Nilai tertinggi di luar diagonal utama menunjukkan film yang paling mirip dengan film input.
+
+Dengan matriks ini, sistem dapat merekomendasikan film dengan tingkat kesamaan tertinggi berdasarkan genre, memberikan rekomendasi yang relevan dan personal.
 
 3. **Rekomendasi Berbasis Konten**  
    Fungsi **content_based_recommendation** digunakan untuk memberikan rekomendasi film berdasarkan kesamaan genre. Fungsi ini akan menerima **judul film** sebagai input dan memberikan **n rekomendasi teratas** berdasarkan kemiripan genre. Prosesnya adalah sebagai berikut:
@@ -646,7 +634,7 @@ Pada tahap ini, **Content-Based Filtering** digunakan untuk memberikan rekomenda
 
 ## Evaluation
 
-### Evaluasi *Content-Based Filtering*
+### Evaluasi *Collaborative Filtering*
 
 Untuk evaluasi Collaborative Filtering, saya menggunakan metrik **Root Mean Squared Error (RMSE) dan Mean Absolute Error(MAE)**. Nilai RMSE yang lebih rendah menunjukkan model yang lebih akurat dalam memprediksi rating pengguna.
 
@@ -657,7 +645,7 @@ Untuk evaluasi Collaborative Filtering, saya menggunakan metrik **Root Mean Squa
 | **RMSE (testset)** | 0.8741     | 0.8799     | 0.8659     | 0.8686     | 0.8754     | 0.8727    | 0.0050      |
 | **MAE (testset)**  | 0.6689     | 0.6752     | 0.6680     | 0.6689     | 0.6728     | 0.6708    | 0.0028      |
 
-*Tabel 18: hasil evaluasi model collaborative filtering*
+*Tabel 16: hasil evaluasi model collaborative filtering*
 
 ### Waktu Eksekusi
 
@@ -666,7 +654,7 @@ Untuk evaluasi Collaborative Filtering, saya menggunakan metrik **Root Mean Squa
 | **Fit Time (detik)** | 4.32       | 3.92       | 1.55       | 1.62       | 1.60       | 2.60      | 1.25        |
 | **Test Time (detik)**| 0.42       | 0.21       | 0.11       | 0.27       | 0.13       | 0.23      | 0.11        |
 
-*Tabel 19: Waktu eksekusi*
+*Tabel 17: Waktu eksekusi*
 
 ### Ringkasan
 
@@ -675,20 +663,20 @@ Untuk evaluasi Collaborative Filtering, saya menggunakan metrik **Root Mean Squa
 | **Mean RMSE**      | 0.8727     |
 | **Mean MAE**       | 0.6708     |
 
-*Tabel 20: Ringkasan Hasil evaluasi*
+*Tabel 19: Ringkasan Hasil evaluasi*
 
 ### **Rumus Evaluasi**
 1. **Root Mean Square Error (RMSE)**:
 
  ![image](https://drive.google.com/uc?id=1AgOnJodKa9Bk-8GITYw1QHchClWm3Fta)
 
- *Gambar 6: Rumus RMSE*
+ *Gambar 7: Rumus RMSE*
 
 3. **Mean Absolute Error (MAE)**:
 
  ![image](https://drive.google.com/uc?id=1OLYNTlZ2L_eFahnSNzfAX2a0qn-aps3F)
 
-*Gambar 7: rumus Mean absolute error*
+*Gambar 8: rumus Mean absolute error*
  
    - Sama dengan RMSE, tetapi menggunakan nilai absolut perbedaan.
 
@@ -740,13 +728,13 @@ Pada metode *content-based filtering*, evaluasi dilakukan untuk mengukur seberap
    
   ![image](https://drive.google.com/uc?id=1N_2hQm-fhUi_ZlSlxfs1PJMOR2GcRrwk)
 
-  *Gambar 8: rumus Precission*
+  *Gambar 9: rumus Precission*
 
 2. **Recall** mengukur seberapa banyak rekomendasi relevan yang ditemukan dari semua kemungkinan rekomendasi relevan yang ada. Recall tinggi menunjukkan bahwa sistem berhasil menemukan sebagian besar film yang relevan.
    - **Rumus Recall**: Recall = (Jumlah rekomendasi relevan) / (Jumlah total film relevan yang seharusnya direkomendasikan)
    ![image](https://drive.google.com/uc?id=1hQXCdUx5hrptKTNTPDwESCpm0gbmNL8p)
 
-   *Gambar 9: rumus recall*
+   *Gambar 10: rumus recall*
 
 Precision dan Recall adalah dua metrik yang sering digunakan untuk mengevaluasi sistem rekomendasi, terutama dalam konteks *content-based filtering*. Kedua metrik ini memiliki peran penting dalam mengukur kualitas rekomendasi yang diberikan kepada pengguna, dengan fokus pada relevansi dan cakupan rekomendasi yang disarankan.
 
@@ -771,7 +759,7 @@ Pada contoh ini, semua film yang direkomendasikan memiliki genre yang sama denga
 |                                   | Emperor's New Groove (2000)                  | {'Adventure', 'Animation', 'Children', 'Comedy', 'Fantasy'} | Yes              |               |            |
 |                                   | Monsters, Inc. (2001)                       | {'Adventure', 'Animation', 'Children', 'Comedy', 'Fantasy'} | Yes              |               |            |
 
-*Tabel 21: Hasil evaluasi content base filtering menggunakan precision dan recal*
+*Tabel 20: Hasil evaluasi content base filtering menggunakan precision dan recal*
 
 **Average Precision**: 1.00  
 **Average Recall**: 1.00
