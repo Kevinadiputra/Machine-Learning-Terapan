@@ -582,7 +582,7 @@ Pada tahap ini, **Content-Based Filtering** digunakan untuk memberikan rekomenda
 
 Penghitungan cosine similarity dilakukan menggunakan formula berikut:
 
-![image](https://drive.google.com/uc?id=1dUn5EJlCFc97F4KMe8altv1toFjHHta_)
+![Screenshot 2024-12-14 142359](https://github.com/user-attachments/assets/78350916-762b-420f-b02a-5ca80e59bd53)
 
 *Gambar 6: Rumus Cosine similarity*
 
@@ -668,13 +668,13 @@ Untuk evaluasi Collaborative Filtering, saya menggunakan metrik **Root Mean Squa
 ### **Rumus Evaluasi**
 1. **Root Mean Square Error (RMSE)**:
 
- ![image](https://drive.google.com/uc?id=1AgOnJodKa9Bk-8GITYw1QHchClWm3Fta)
+ ![Screenshot 2024-12-11 233123](https://github.com/user-attachments/assets/508cb418-65d0-4138-a240-ba9462b2e843)
 
  *Gambar 7: Rumus RMSE*
 
 3. **Mean Absolute Error (MAE)**:
 
- ![image](https://drive.google.com/uc?id=1OLYNTlZ2L_eFahnSNzfAX2a0qn-aps3F)
+ ![mae](https://github.com/user-attachments/assets/dff521ba-cb0d-4a78-b0ab-9013de55047e)
 
 *Gambar 8: rumus Mean absolute error*
  
@@ -727,12 +727,15 @@ Pada metode *content-based filtering*, evaluasi dilakukan untuk mengukur seberap
    - **Rumus Precision**: Precision = (Jumlah rekomendasi relevan) / (Jumlah total rekomendasi)
    
   ![image](https://drive.google.com/uc?id=1N_2hQm-fhUi_ZlSlxfs1PJMOR2GcRrwk)
+  ![precision](https://github.com/user-attachments/assets/eeb2ff14-b600-4e8c-855f-64d2cc90dbe1)
+
 
   *Gambar 9: rumus Precission*
 
 2. **Recall** mengukur seberapa banyak rekomendasi relevan yang ditemukan dari semua kemungkinan rekomendasi relevan yang ada. Recall tinggi menunjukkan bahwa sistem berhasil menemukan sebagian besar film yang relevan.
    - **Rumus Recall**: Recall = (Jumlah rekomendasi relevan) / (Jumlah total film relevan yang seharusnya direkomendasikan)
-   ![image](https://drive.google.com/uc?id=1hQXCdUx5hrptKTNTPDwESCpm0gbmNL8p)
+
+![recall and tp fn](https://github.com/user-attachments/assets/3541c65f-d641-4ec3-855a-1f03e84a5f69)
 
    *Gambar 10: rumus recall*
 
