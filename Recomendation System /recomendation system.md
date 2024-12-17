@@ -725,11 +725,8 @@ Pada metode *content-based filtering*, evaluasi dilakukan untuk mengukur seberap
 
 1. **Precision** mengukur seberapa banyak rekomendasi yang relevan dibandingkan dengan jumlah total rekomendasi yang diberikan. Semakin tinggi nilai Precision, semakin baik sistem rekomendasi dalam memberikan rekomendasi yang relevan.
    - **Rumus Precision**: Precision = (Jumlah rekomendasi relevan) / (Jumlah total rekomendasi)
-   
-   ![recall and tp fn](https://github.com/user-attachments/assets/b369a059-6845-4076-980b-7e45cb1e419c)
 
   ![precision](https://github.com/user-attachments/assets/eeb2ff14-b600-4e8c-855f-64d2cc90dbe1)
-
 
   *Gambar 9: rumus Precission*
 
